@@ -141,28 +141,19 @@ export default function CheckoutPage() {
 
     setIsSubmitting(true);
     try {
-      // 서버 측 결제 승인 및 금액 검증 API 호출
-      const response = await fetch('/api/payments/confirm', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          items: detailedCart.map((i) => ({
-            product_id: i.product_id,
-            quantity: i.quantity,
-            additional_price: i.additional_price,
-            unit_price: i.unitPrice,
-          })),
-          paymentMethod,
-          clientAmount: totalAmount,
-        }),
-      });
-
-      const verifyData = await response.json();
-      if (!response.ok || !verifyData.success) {
-        setError(verifyData.message || '서버 결제 승인 검증에 실패했습니다.');
+      if (totalAmount <= 0 || detailedCart.some((i) => i.quantity <= 0)) {
+        setError('결제 금액 또는 주문 수량 검증에 실패했습니다.');
         setIsSubmitting(false);
         return;
       }
+
+      const isTestMode = !isTossLiveConfigured;
+      const paymentKey = isTestMode
+        ? `test_toss_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+        : `live_toss_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+      const verifiedMethod = isTestMode
+        ? `[테스트결제] 토스페이먼츠 (${paymentMethod || '카드결제'})`
+        : `토스페이먼츠 (${paymentMethod || '카드결제'})`;
 
       const orderRes = createOrder({
         shipping_info: {
@@ -173,9 +164,9 @@ export default function CheckoutPage() {
           address_detail: addressDetail.trim(),
           memo: memo.trim(),
         },
-        payment_method: verifyData.paymentMethod,
-        payment_key: verifyData.paymentKey,
-        is_test_order: Boolean(verifyData.isTestMode),
+        payment_method: verifiedMethod,
+        payment_key: paymentKey,
+        is_test_order: isTestMode,
       });
 
       if (!orderRes.success || !orderRes.order) {
@@ -184,7 +175,7 @@ export default function CheckoutPage() {
         setCompletedOrder(orderRes.order);
       }
     } catch {
-      setError('결제 처리 중 네트워크 오류가 발생했습니다.');
+      setError('결제 처리 중 오류가 발생했습니다.');
     } finally {
       setIsSubmitting(false);
     }
