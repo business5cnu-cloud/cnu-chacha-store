@@ -18,7 +18,7 @@ import { ProductArtwork } from '@/components/common/ProductArtwork';
 import { DashboardSalesCharts } from '@/components/admin/DashboardSalesCharts';
 import { Order } from '@/types';
 
-export function isValidSalesOrder(order: Order): boolean {
+function isValidSalesOrder(order: Order): boolean {
   return (
     order.order_status !== '주문 취소' &&
     order.order_status !== '환불 완료' &&

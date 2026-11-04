@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export function verifyAdminRequest(req: NextRequest): {
+function verifyAdminRequest(req: NextRequest): {
   authorized: boolean;
   role: string | null;
   message?: string;
