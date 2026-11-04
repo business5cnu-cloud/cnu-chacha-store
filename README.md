@@ -1,6 +1,12 @@
 # CNU CHA CHA STORE (충남대학교 차차 공식 굿즈 쇼핑몰)
 
-충남대학교 마스코트 **'차차(CHA CHA)'**를 활용한 공식 굿즈 쇼핑몰(`http://localhost:3000`)과 관리자 전용 백오피스(`http://localhost:3000/admin`)가 통합된 풀스택 웹 애플리케이션입니다.
+충남대학교 마스코트 **'차차(CHA CHA)'**를 활용한 공식 굿즈 쇼핑몰(`https://cnu-chacha-store.web.app`), VR 가상 피팅룸(`https://cnu-chacha-store.web.app/fitting`), 그리고 관리자 전용 백오피스(`https://cnu-chacha-store.web.app/admin/dashboard`)가 통합된 웹 애플리케이션입니다.
+
+### 🌐 24시간 운영 라이브 사이트 주소 (Firebase Hosting)
+- **메인 쇼핑몰**: https://cnu-chacha-store.web.app
+- **NEW 차차 VR 가상 피팅룸**: https://cnu-chacha-store.web.app/fitting
+- **관리자 백오피스 (대시보드)**: https://cnu-chacha-store.web.app/admin/dashboard
+- **관리자 주문제작·과잠 리폼 의뢰 관리**: https://cnu-chacha-store.web.app/admin/commissions
 
 ---
 
@@ -55,8 +61,9 @@ npm install
 npm run dev
 ```
 
-- **고객용 쇼핑몰 접속 주소**: http://localhost:3000
-- **관리자 백오피스 접속 주소**: http://localhost:3000/admin
+- **고객용 쇼핑몰 접속 주소 (Firebase Live)**: https://cnu-chacha-store.web.app
+- **VR 가상 피팅룸 접속 주소 (Firebase Live)**: https://cnu-chacha-store.web.app/fitting
+- **관리자 백오피스 접속 주소 (Firebase Live)**: https://cnu-chacha-store.web.app/admin/dashboard
 
 ### 빌드 및 테스트 명령어
 ```bash
@@ -88,7 +95,7 @@ SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
 NEXT_PUBLIC_TOSS_CLIENT_KEY=
 TOSS_SECRET_KEY=
 
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_SITE_URL=https://cnu-chacha-store.web.app
 ```
 
 ---
@@ -106,12 +113,18 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
      SET role = 'admin'
      WHERE email = 'admin@cnu.ac.kr';
      ```
-   - 로컬 하이브리드 데모 모드에서는 기본 관리자 계정(`admin@cnu.ac.kr` / `admin1234!`)과 일반 학생 계정(`chacha.fan@o.cnu.ac.kr` / `cnu1234!`)이 즉시 테스트 가능하도록 사전 구성되어 있습니다.
+   - 하이브리드 데모 모드에서는 기본 관리자 계정(`admin@cnu.ac.kr` / `admin1234!`)과 일반 학생 계정(`chacha.fan@o.cnu.ac.kr` / `cnu1234!`)이 즉시 테스트 가능하도록 사전 구성되어 있습니다.
 
 ---
 
-## 5. 배포 방법 (Vercel)
+## 5. 배포 방법 (Firebase Hosting)
 
-1. GitHub 저장소에 프로젝트를 푸시합니다 (사용자 승인 후 진행).
-2. [Vercel](https://vercel.com)에서 New Project로 저장소를 연결합니다.
-3. Environment Variables 섹션에 `.env.example`의 환경변수를 등록하고 **Deploy**를 클릭하면 즉시 배포됩니다.
+본 프로젝트는 `next.config.mjs`의 `output: 'export'` 정적 빌드와 `firebase.json`을 통해 **Firebase Hosting(`https://cnu-chacha-store.web.app`)** 에 24시간 구동되도록 배포되어 있습니다.
+
+```bash
+# 1. 정적 웹 파일(out/) 빌드
+npm run build
+
+# 2. Firebase Hosting 배포
+npx -y firebase-tools@latest deploy --only hosting --project cnu-chacha-store
+```
