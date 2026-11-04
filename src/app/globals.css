@@ -18,4 +18,10 @@
   .card-base {
     @apply rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all;
   }
+  .input-base {
+    @apply w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-cnu-navy focus:outline-none focus:ring-2 focus:ring-cnu-navy/15;
+  }
+  .badge-navy {
+    @apply inline-flex items-center rounded-full bg-cnu-navy/10 px-2.5 py-0.5 text-xs font-bold text-cnu-navy;
+  }
 }
