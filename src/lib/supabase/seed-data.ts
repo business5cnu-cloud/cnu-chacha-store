@@ -45,8 +45,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 59000,
     sale_price: 49000,
     stock: 45,
-    image_url: '/images/products/default-product.svg',
-    detail_images: ['/images/products/default-product.svg'],
+    image_url: '/images/products/prod_hoodie.png',
+    detail_images: ['/images/products/prod_hoodie.png'],
     is_limited: false,
     status: 'on_sale',
     options: [
@@ -72,8 +72,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 7000,
     sale_price: 5900,
     stock: 120,
-    image_url: '/images/products/default-product.svg',
-    detail_images: ['/images/products/default-product.svg'],
+    image_url: '/images/products/prod_socks.png',
+    detail_images: ['/images/products/prod_socks.png'],
     is_limited: false,
     status: 'on_sale',
     options: [
@@ -100,8 +100,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 4500,
     sale_price: 4000,
     stock: 85,
-    image_url: '/images/products/default-product.svg',
-    detail_images: ['/images/products/default-product.svg'],
+    image_url: '/images/products/prod_notebook.png',
+    detail_images: ['/images/products/prod_notebook.png'],
     is_limited: false,
     status: 'on_sale',
     options: [
@@ -126,8 +126,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 6500,
     sale_price: 5500,
     stock: 25,
-    image_url: '/images/products/default-product.svg',
-    detail_images: ['/images/products/default-product.svg'],
+    image_url: '/images/products/prod_sticker.png',
+    detail_images: ['/images/products/prod_sticker.png'],
     is_limited: true,
     status: 'on_sale',
     options: [
@@ -177,8 +177,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 9500,
     sale_price: 8500,
     stock: 95,
-    image_url: '/images/products/default-product.svg',
-    detail_images: ['/images/products/default-product.svg'],
+    image_url: '/images/products/prod_keyring.png',
+    detail_images: ['/images/products/prod_keyring.png'],
     is_limited: false,
     status: 'on_sale',
     options: [
@@ -202,8 +202,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 28000,
     sale_price: 24000,
     stock: 40,
-    image_url: '/images/products/default-product.svg',
-    detail_images: ['/images/products/default-product.svg'],
+    image_url: '/images/products/prod_tumbler.png',
+    detail_images: ['/images/products/prod_tumbler.png'],
     is_limited: false,
     status: 'on_sale',
     options: [
@@ -375,8 +375,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 22000,
     sale_price: 18500,
     stock: 65,
-    image_url: '/images/products/default-product.svg',
-    detail_images: ['/images/products/default-product.svg'],
+    image_url: '/images/products/prod_ecobag.png',
+    detail_images: ['/images/products/prod_ecobag.png'],
     is_limited: false,
     status: 'on_sale',
     options: [
@@ -403,8 +403,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 42000,
     sale_price: 38000,
     stock: 15,
-    image_url: '/images/products/default-product.svg',
-    detail_images: ['/images/products/default-product.svg'],
+    image_url: '/images/products/prod_doll_s.png',
+    detail_images: ['/images/products/prod_doll_s.png'],
     is_limited: true,
     status: 'on_sale',
     options: [
@@ -429,8 +429,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 38000,
     sale_price: 34000,
     stock: 3, // 재고 부족 알림 + 한정판 임박 테스트용
-    image_url: '/images/products/default-product.svg',
-    detail_images: ['/images/products/default-product.svg'],
+    image_url: '/images/products/prod_doll_s.png',
+    detail_images: ['/images/products/prod_doll_s.png'],
     is_limited: true,
     status: 'on_sale',
     options: [

@@ -12,6 +12,18 @@ interface ProductArtworkProps {
   className?: string;
 }
 
+const SKU_DEFAULT_IMAGES: Record<string, string> = {
+  'CNU-APP-001': '/images/products/prod_hoodie.png',
+  'CNU-APP-002': '/images/products/prod_socks.png',
+  'CNU-STA-001': '/images/products/prod_notebook.png',
+  'CNU-LIM-003': '/images/products/prod_sticker.png',
+  'CNU-ACC-002': '/images/products/prod_keyring.png',
+  'CNU-ACC-003': '/images/products/prod_tumbler.png',
+  'CNU-ACC-010': '/images/products/prod_ecobag.png',
+  'CNU-LIM-001': '/images/products/prod_doll_s.png',
+  'CNU-LIM-002': '/images/products/prod_doll_s.png',
+};
+
 const PALETTES: Record<string, { bg: string; accent: string; badge: string; icon: string }> = {
   'CNU-APP-001': { bg: 'from-slate-900 via-blue-950 to-slate-800', accent: 'text-sky-300', badge: 'PREMIUM HOODIE', icon: '🧥' },
   'CNU-APP-002': { bg: 'from-blue-50 via-indigo-50 to-sky-100', accent: 'text-cnu-navy', badge: 'DAILY SOCKS', icon: '🧦' },
@@ -39,19 +51,28 @@ export function ProductArtwork({
   isLimited,
   className = '',
 }: ProductArtworkProps) {
-  const isCustomUploaded =
-    imageUrl &&
-    imageUrl !== '/images/products/default-product.svg' &&
-    imageUrl !== '/images/chacha/chacha-placeholder.svg';
+  const isDefaultPlaceholder =
+    !imageUrl ||
+    imageUrl === '/images/products/default-product.svg' ||
+    imageUrl === '/images/chacha/chacha-placeholder.svg';
 
-  if (isCustomUploaded) {
+  const resolvedImageUrl = !isDefaultPlaceholder
+    ? imageUrl
+    : sku && SKU_DEFAULT_IMAGES[sku]
+    ? SKU_DEFAULT_IMAGES[sku]
+    : undefined;
+
+  if (resolvedImageUrl) {
+    const isContainAsset = resolvedImageUrl.includes('/images/products/prod_') || resolvedImageUrl.includes('/images/chacha/');
     return (
-      <div className={`relative overflow-hidden bg-slate-100 ${className}`}>
+      <div className={`relative overflow-hidden bg-[#F8F9FA] flex items-center justify-center ${className}`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={imageUrl}
+          src={resolvedImageUrl}
           alt={name}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className={`h-full w-full transition-transform duration-300 group-hover:scale-105 ${
+            isContainAsset ? 'object-contain p-3' : 'object-cover'
+          }`}
         />
       </div>
     );
@@ -97,7 +118,7 @@ export function ProductArtwork({
             isDark ? 'text-slate-300/80' : 'text-slate-500'
           }`}
         >
-          차차 이미지 플레이스홀더
+          차차 공식 굿즈 에디션
         </p>
       </div>
     </div>
