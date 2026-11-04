@@ -9,6 +9,7 @@ import {
   PackageOpen,
   RotateCcw,
   ArrowUpDown,
+  Heart,
 } from 'lucide-react';
 import { useStore } from '@/hooks/useStore';
 import { ProductCard } from '@/components/store/ProductCard';
@@ -21,12 +22,14 @@ function ProductCatalogContent() {
   const searchParams = useSearchParams();
   const initialCategory = (searchParams.get('category') as CategorySlug | 'all') || 'all';
   const initialSort = (searchParams.get('sort') as SortOption) || 'popular';
+  const initialWishlist = searchParams.get('wishlist') === 'true';
 
-  const { products, categories } = useStore();
+  const { products, categories, wishlist } = useStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<CategorySlug | 'all'>(initialCategory);
   const [statusFilter, setStatusFilter] = useState<'all' | 'on_sale' | 'sold_out'>('all');
   const [onlyLimited, setOnlyLimited] = useState(false);
+  const [onlyWishlist, setOnlyWishlist] = useState(initialWishlist);
   const [sortBy, setSortBy] = useState<SortOption>(initialSort);
 
   useEffect(() => {
@@ -34,6 +37,7 @@ function ProductCatalogContent() {
     if (sortParam && ['popular', 'newest', 'price_asc', 'price_desc'].includes(sortParam)) {
       setSortBy(sortParam);
     }
+    setOnlyWishlist(searchParams.get('wishlist') === 'true');
   }, [searchParams]);
 
   const activeProducts = products.filter((p) => p.status !== 'hidden');
@@ -66,6 +70,10 @@ function ProductCatalogContent() {
         return false;
       }
 
+      if (onlyWishlist && !wishlist.includes(product.id)) {
+        return false;
+      }
+
       return true;
     })
     .sort((a, b) => {
@@ -91,6 +99,7 @@ function ProductCatalogContent() {
     setSelectedCategory('all');
     setStatusFilter('all');
     setOnlyLimited(false);
+    setOnlyWishlist(false);
     setSortBy('popular');
   };
 
@@ -148,25 +157,37 @@ function ProductCatalogContent() {
             </select>
           </div>
 
-          {/* Limited Filter Toggle */}
-          <div className="md:col-span-3 flex items-center gap-2">
+          {/* Limited & Wishlist Filter Toggles */}
+          <div className="md:col-span-3 flex items-center gap-1.5">
             <button
               type="button"
               onClick={() => setOnlyLimited(!onlyLimited)}
-              className={`flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl px-4 py-2.5 text-xs font-extrabold border transition-colors ${
+              className={`flex-1 inline-flex items-center justify-center gap-1 rounded-xl px-3 py-2.5 text-xs font-extrabold border transition-colors ${
                 onlyLimited
                   ? 'border-rose-600 bg-rose-600 text-white'
                   : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
               }`}
             >
               <Sparkles className="h-3.5 w-3.5" />
-              <span>한정판만 보기</span>
+              <span>한정판</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setOnlyWishlist(!onlyWishlist)}
+              className={`flex-1 inline-flex items-center justify-center gap-1 rounded-xl px-3 py-2.5 text-xs font-extrabold border transition-colors ${
+                onlyWishlist
+                  ? 'border-rose-500 bg-rose-50 text-rose-600'
+                  : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+              }`}
+            >
+              <Heart className={`h-3.5 w-3.5 ${onlyWishlist ? 'fill-rose-500 text-rose-500' : ''}`} />
+              <span>찜({wishlist.length})</span>
             </button>
             <button
               type="button"
               onClick={handleResetFilters}
               title="필터 초기화"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-100"
+              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-100"
             >
               <RotateCcw className="h-4 w-4" />
             </button>

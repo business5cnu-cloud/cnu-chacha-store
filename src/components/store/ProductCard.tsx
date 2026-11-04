@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Sparkles, ShoppingCart, AlertCircle } from 'lucide-react';
+import { Sparkles, ShoppingCart, AlertCircle, Heart } from 'lucide-react';
 import { Product } from '@/types';
 import { formatKRW, calculateDiscountRate } from '@/lib/utils';
 import { ProductArtwork } from '@/components/common/ProductArtwork';
@@ -14,10 +14,18 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, rank }: ProductCardProps) {
-  const { addToCart } = useStore();
+  const {
+    addToCart,
+    wishlist,
+    likeCounts,
+    toggleWishlist,
+    setCartDrawerOpen,
+  } = useStore();
   const discountRate = calculateDiscountRate(product.price, product.sale_price);
   const isSoldOut = product.stock <= 0 || product.status === 'sold_out';
   const isEnded = product.status === 'ended';
+  const isLiked = wishlist.includes(product.id);
+  const likeCount = likeCounts[product.id] ?? 120;
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -32,9 +40,17 @@ export function ProductCard({ product, rank }: ProductCardProps) {
       additional_price: firstOpt?.additional_price || 0,
       quantity: 1,
     });
-    if (!res.success) {
+    if (res.success) {
+      setCartDrawerOpen(true);
+    } else {
       alert(res.message);
     }
+  };
+
+  const handleToggleLike = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWishlist(product.id);
   };
 
   return (
@@ -140,15 +156,31 @@ export function ProductCard({ product, rank }: ProductCardProps) {
             )}
           </div>
 
-          <button
-            type="button"
-            onClick={handleQuickAdd}
-            disabled={isSoldOut || isEnded}
-            title={isSoldOut ? '품절된 상품입니다' : '장바구니 담기'}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 text-cnu-navy transition-colors hover:bg-cnu-navy hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            <ShoppingCart className="h-4 w-4" />
-          </button>
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={handleToggleLike}
+              title="위시리스트 찜하기"
+              className={`inline-flex h-9 items-center gap-1 rounded-xl border px-2.5 text-xs font-bold transition-colors ${
+                isLiked
+                  ? 'border-rose-200 bg-rose-50 text-rose-600'
+                  : 'border-slate-200 bg-white text-slate-500 hover:border-rose-200 hover:text-rose-500'
+              }`}
+            >
+              <Heart className={`h-3.5 w-3.5 ${isLiked ? 'fill-rose-500 text-rose-500' : ''}`} />
+              <span>{likeCount}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleQuickAdd}
+              disabled={isSoldOut || isEnded}
+              title={isSoldOut ? '품절된 상품입니다' : '장바구니 담기'}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 text-cnu-navy transition-colors hover:bg-cnu-navy hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <ShoppingCart className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       </div>
     </Link>

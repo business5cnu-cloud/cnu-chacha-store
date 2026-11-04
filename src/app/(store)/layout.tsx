@@ -1,6 +1,8 @@
 import React from 'react';
 import { Header } from '@/components/store/Header';
 import { Footer } from '@/components/store/Footer';
+import { CartDrawer } from '@/components/store/CartDrawer';
+import { CommissionModal } from '@/components/store/CommissionModal';
 
 export default function StoreLayout({
   children,
@@ -12,6 +14,8 @@ export default function StoreLayout({
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
+      <CartDrawer />
+      <CommissionModal />
     </div>
   );
 }

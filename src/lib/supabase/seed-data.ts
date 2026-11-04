@@ -1,4 +1,4 @@
-import { Category, Product, Order, Profile, InventoryMovement } from '@/types';
+import { Category, Product, Order, Profile, InventoryMovement, Review, CommissionRequest } from '@/types';
 
 export const INITIAL_CATEGORIES: Category[] = [
   {
@@ -993,3 +993,143 @@ export const INITIAL_INVENTORY_MOVEMENTS: InventoryMovement[] = [
     created_at: '2026-10-26T10:00:00+09:00',
   },
 ];
+
+export const INITIAL_LIKE_COUNTS: Record<string, number> = {
+  'prod-custom-doll': 324,
+  'prod-keyring': 412,
+  'prod-hoodie': 598,
+  'prod-ecobag': 367,
+  'prod-limited-sticker': 231,
+  'prod-tumbler': 489,
+  'prod-memo': 276,
+  'prod-socks': 198,
+  'prod-season-doll': 385,
+  'prod-griptok': 214,
+  'prod-figure': 176,
+  'prod-laptop-pouch': 162,
+  'prod-powerbank': 143,
+  'prod-toothbrush': 118,
+  'prod-travel-pouch': 94,
+  'prod-car-freshener': 88,
+};
+
+export const INITIAL_REVIEWS: Review[] = [
+  {
+    id: 'rev-1',
+    product_id: 'prod-custom-doll',
+    product_name: '커스텀 의상 차차 인형',
+    author: '김지은 (컴퓨터융합학부)',
+    rating: 5,
+    comment: '실물이 더 귀여워요 ㅠㅠ 차차 너무 사랑스럽습니다.. 졸업하는 선배 선물로 샀는데 선배가 너무 좋아했어요!',
+    photo_url: '/images/chacha/review_thumb_1.png',
+    created_at: '2026-11-04T09:30:00+09:00',
+  },
+  {
+    id: 'rev-2',
+    product_id: 'prod-hoodie',
+    product_name: '차차 후드티',
+    author: '이준호 (경상대학)',
+    rating: 5,
+    comment: '후드집업 재질도 탄탄하고 핏도 예뻐요! 학교 갈 때마다 교복처럼 맨날 입고 다니고 있습니다.',
+    photo_url: '/images/chacha/review_thumb_2.png',
+    created_at: '2026-11-02T14:20:00+09:00',
+  },
+  {
+    id: 'rev-3',
+    product_id: 'prod-keyring',
+    product_name: '말랑 PVC 키링',
+    author: '박서연 (자연과학대학)',
+    rating: 5,
+    comment: '말랑 키링 진짜 귀여워요... 에코백에 달고 다니니까 다들 어디서 샀냐고 물어보네요! 선물용으로도 딱이에요.',
+    photo_url: '/images/chacha/review_thumb_3.png',
+    created_at: '2026-10-28T16:10:00+09:00',
+  },
+  {
+    id: 'rev-4',
+    product_id: 'prod-ecobag',
+    product_name: '에코백',
+    author: '최현우 (공과대학)',
+    rating: 5,
+    comment: '폐과잠 리폼 에코백이랑 같이 샀는데 원단이 두꺼워서 전공서적 3권에 노트북 넣어도 끄떡없네요. 강추합니다!',
+    photo_url: '/images/chacha/photo_review_1.png',
+    created_at: '2026-10-25T11:45:00+09:00',
+  },
+  {
+    id: 'rev-5',
+    product_id: 'prod-season-doll',
+    product_name: '시즌 한정 차차 인형',
+    author: '윤아름 (인문대학)',
+    rating: 5,
+    comment: 'VR 가상 피팅룸에서 차차한테 과잠이랑 학사모 입혀보고 주문했는데 인형 퀄리티가 싱크로율 100%입니다!',
+    photo_url: '/images/chacha/photo_review_2.png',
+    created_at: '2026-10-21T18:05:00+09:00',
+  },
+];
+
+export const INITIAL_PHOTO_REVIEWS = [
+  {
+    id: 'pr-1',
+    imageUrl: '/images/chacha/photo_review_1.png',
+    title: '커스텀 차차 인형 언박싱',
+    author: '김지은',
+    productId: 'prod-custom-doll',
+  },
+  {
+    id: 'pr-2',
+    imageUrl: '/images/chacha/photo_review_2.png',
+    title: '백팩에 단 말랑 차차 키링',
+    author: '박서연',
+    productId: 'prod-keyring',
+  },
+  {
+    id: 'pr-3',
+    imageUrl: '/images/chacha/photo_review_3.png',
+    title: '도서관 짝꿍 차차 텀블러',
+    author: '이준호',
+    productId: 'prod-tumbler',
+  },
+  {
+    id: 'pr-4',
+    imageUrl: '/images/chacha/photo_review_4.png',
+    title: '전공 필기 필수템 차차 노트',
+    author: '최현우',
+    productId: 'prod-memo',
+  },
+];
+
+export const INITIAL_COMMISSIONS: CommissionRequest[] = [
+  {
+    id: 'comm-20261104-01',
+    customer_name: '김충남 (컴퓨터융합학부 21)',
+    phone: '010-2345-6789',
+    email: 'chacha.fan@o.cnu.ac.kr',
+    item_type: '폐과잠 리폼 에코백 제작',
+    details: '졸업 기념으로 학과 과잠 2벌을 기부하여 차차 자수 와펜이 들어간 업사이클링 에코백과 파우치로 리폼 제작하고 싶습니다.',
+    status: '상담 진행 중',
+    admin_note: '학생회관 1층 굿즈센터에서 과잠 실물 수령 완료, 자수 시안 전달됨',
+    created_at: '2026-11-04T11:20:00+09:00',
+  },
+  {
+    id: 'comm-20261103-02',
+    customer_name: '박백마 (공과대학 학생회)',
+    phone: '010-5555-8282',
+    email: 'baekma.park@cnu.ac.kr',
+    item_type: '동아리/소모임 커스텀 굿즈 제작',
+    details: '공과대학 학술제 기념품으로 공대 안전모를 쓴 차차 아크릴 키링 150개 단체 맞춤 제작 견적을 요청드립니다.',
+    status: '접수 대기',
+    admin_note: '',
+    created_at: '2026-11-03T15:40:00+09:00',
+  },
+  {
+    id: 'comm-20261029-03',
+    customer_name: '이유성 (자연과학대학 23)',
+    phone: '010-9876-5432',
+    email: 'yuseong.lee@o.cnu.ac.kr',
+    item_type: '차차 인형용 과잠/의상 맞춤 제작',
+    details: '25cm 차차 인형에 입힐 수 있는 자연과학대학 그린/화이트 배색 미니 과잠 1벌 맞춤 제작 희망합니다.',
+    status: '제작 완료',
+    admin_note: '수작업 재단 및 등판 이니셜 자수 완료 후 출고 완료',
+    created_at: '2026-10-29T10:15:00+09:00',
+  },
+];
+

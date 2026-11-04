@@ -12,6 +12,9 @@ import {
   PaymentStatus,
   MovementType,
   ShippingInfo,
+  Review,
+  CommissionRequest,
+  CommissionStatus,
 } from '@/types';
 import {
   INITIAL_CATEGORIES,
@@ -19,6 +22,9 @@ import {
   INITIAL_ORDERS,
   INITIAL_PROFILES,
   INITIAL_INVENTORY_MOVEMENTS,
+  INITIAL_REVIEWS,
+  INITIAL_COMMISSIONS,
+  INITIAL_LIKE_COUNTS,
 } from '@/lib/supabase/seed-data';
 import { getEffectivePrice } from '@/lib/utils';
 
@@ -39,6 +45,20 @@ interface StoreContextType {
   cart: CartItem[];
   currentUser: Profile | null;
   isInitialized: boolean;
+
+  // Community, Wishlist, Commission & UI Drawer States
+  reviews: Review[];
+  commissions: CommissionRequest[];
+  wishlist: string[];
+  likeCounts: Record<string, number>;
+  isCartDrawerOpen: boolean;
+  isCommissionModalOpen: boolean;
+  setCartDrawerOpen: (open: boolean) => void;
+  setCommissionModalOpen: (open: boolean) => void;
+  toggleWishlist: (productId: string) => { liked: boolean; count: number };
+  addReview: (payload: Omit<Review, 'id' | 'created_at'>) => { success: boolean; message: string };
+  createCommission: (payload: Omit<CommissionRequest, 'id' | 'status' | 'created_at'>) => { success: boolean; message: string };
+  updateCommissionStatus: (id: string, status: CommissionStatus, adminNote?: string) => { success: boolean; message: string };
 
   // Auth actions
   login: (email: string, password?: string, requireAdmin?: boolean) => { success: boolean; message: string; user?: Profile };
@@ -70,12 +90,16 @@ interface StoreContextType {
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
 const STORAGE_KEYS = {
-  PRODUCTS: 'cnu_chacha_products_v1',
-  ORDERS: 'cnu_chacha_orders_v1',
-  PROFILES: 'cnu_chacha_profiles_v1',
-  MOVEMENTS: 'cnu_chacha_movements_v1',
-  CART: 'cnu_chacha_cart_v1',
-  CURRENT_USER: 'cnu_chacha_current_user_v1',
+  PRODUCTS: 'cnu_chacha_products_v2',
+  ORDERS: 'cnu_chacha_orders_v2',
+  PROFILES: 'cnu_chacha_profiles_v2',
+  MOVEMENTS: 'cnu_chacha_movements_v2',
+  CART: 'cnu_chacha_cart_v2',
+  CURRENT_USER: 'cnu_chacha_current_user_v2',
+  REVIEWS: 'cnu_chacha_reviews_v2',
+  COMMISSIONS: 'cnu_chacha_commissions_v2',
+  WISHLIST: 'cnu_chacha_wishlist_v2',
+  LIKE_COUNTS: 'cnu_chacha_likes_v2',
 };
 
 export function synchronizeProductState(product: Product): Product {
@@ -112,6 +136,12 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [inventoryMovements, setInventoryMovements] = useState<InventoryMovement[]>(INITIAL_INVENTORY_MOVEMENTS);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [currentUser, setCurrentUser] = useState<Profile | null>(null);
+  const [reviews, setReviews] = useState<Review[]>(INITIAL_REVIEWS);
+  const [commissions, setCommissions] = useState<CommissionRequest[]>(INITIAL_COMMISSIONS);
+  const [wishlist, setWishlist] = useState<string[]>([]);
+  const [likeCounts, setLikeCounts] = useState<Record<string, number>>(INITIAL_LIKE_COUNTS);
+  const [isCartDrawerOpen, setCartDrawerOpen] = useState(false);
+  const [isCommissionModalOpen, setCommissionModalOpen] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
 
   // Load persisted state from localStorage
@@ -137,6 +167,18 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
       const savedUser = localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
       if (savedUser) setCurrentUser(JSON.parse(savedUser));
+
+      const savedReviews = localStorage.getItem(STORAGE_KEYS.REVIEWS);
+      if (savedReviews) setReviews(JSON.parse(savedReviews));
+
+      const savedCommissions = localStorage.getItem(STORAGE_KEYS.COMMISSIONS);
+      if (savedCommissions) setCommissions(JSON.parse(savedCommissions));
+
+      const savedWishlist = localStorage.getItem(STORAGE_KEYS.WISHLIST);
+      if (savedWishlist) setWishlist(JSON.parse(savedWishlist));
+
+      const savedLikes = localStorage.getItem(STORAGE_KEYS.LIKE_COUNTS);
+      if (savedLikes) setLikeCounts(JSON.parse(savedLikes));
     } catch (e) {
       console.error('Failed to load state from localStorage:', e);
     } finally {
@@ -153,6 +195,10 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(profiles));
       localStorage.setItem(STORAGE_KEYS.MOVEMENTS, JSON.stringify(inventoryMovements));
       localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+      localStorage.setItem(STORAGE_KEYS.REVIEWS, JSON.stringify(reviews));
+      localStorage.setItem(STORAGE_KEYS.COMMISSIONS, JSON.stringify(commissions));
+      localStorage.setItem(STORAGE_KEYS.WISHLIST, JSON.stringify(wishlist));
+      localStorage.setItem(STORAGE_KEYS.LIKE_COUNTS, JSON.stringify(likeCounts));
       if (currentUser) {
         localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(currentUser));
       } else {
@@ -161,7 +207,19 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     } catch (e) {
       console.error('Failed to persist state:', e);
     }
-  }, [products, orders, profiles, inventoryMovements, cart, currentUser, isInitialized]);
+  }, [
+    products,
+    orders,
+    profiles,
+    inventoryMovements,
+    cart,
+    reviews,
+    commissions,
+    wishlist,
+    likeCounts,
+    currentUser,
+    isInitialized,
+  ]);
 
   const login = useCallback(
     (email: string, _password?: string, requireAdmin = false) => {
@@ -763,6 +821,80 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     [products]
   );
 
+  const toggleWishlist = useCallback(
+    (productId: string) => {
+      const isLiked = wishlist.includes(productId);
+      const currentCount = likeCounts[productId] || 120;
+      const nextCount = isLiked ? Math.max(0, currentCount - 1) : currentCount + 1;
+
+      setWishlist((prev) =>
+        isLiked ? prev.filter((id) => id !== productId) : [...prev, productId]
+      );
+      setLikeCounts((prev) => ({
+        ...prev,
+        [productId]: nextCount,
+      }));
+
+      return { liked: !isLiked, count: nextCount };
+    },
+    [wishlist, likeCounts]
+  );
+
+  const addReview = useCallback(
+    (payload: Omit<Review, 'id' | 'created_at'>) => {
+      if (!payload.author.trim() || !payload.comment.trim()) {
+        return { success: false, message: '작성자명과 후기 내용을 모두 입력해주세요.' };
+      }
+      const newReview: Review = {
+        ...payload,
+        id: `rev-${Date.now()}`,
+        created_at: new Date().toISOString(),
+      };
+      setReviews((prev) => [newReview, ...prev]);
+      return { success: true, message: '소중한 구매 후기가 등록되었습니다!' };
+    },
+    []
+  );
+
+  const createCommission = useCallback(
+    (payload: Omit<CommissionRequest, 'id' | 'status' | 'created_at'>) => {
+      if (!payload.customer_name.trim() || !payload.phone.trim() || !payload.details.trim()) {
+        return { success: false, message: '필수 항목을 모두 입력해주세요.' };
+      }
+      const newComm: CommissionRequest = {
+        ...payload,
+        id: `comm-${Date.now()}`,
+        status: '접수 대기',
+        admin_note: '',
+        created_at: new Date().toISOString(),
+      };
+      setCommissions((prev) => [newComm, ...prev]);
+      return {
+        success: true,
+        message: '차차 굿즈 맞춤 제작 의뢰가 접수되었습니다! 담당 학생 디자이너가 검토 후 연락드립니다.',
+      };
+    },
+    []
+  );
+
+  const updateCommissionStatus = useCallback(
+    (id: string, status: CommissionStatus, adminNote?: string) => {
+      setCommissions((prev) =>
+        prev.map((c) =>
+          c.id === id
+            ? {
+                ...c,
+                status,
+                admin_note: adminNote !== undefined ? adminNote : c.admin_note,
+              }
+            : c
+        )
+      );
+      return { success: true, message: `의뢰 상태가 [${status}](으)로 변경되었습니다.` };
+    },
+    []
+  );
+
   return (
     <StoreContext.Provider
       value={{
@@ -774,6 +906,18 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         cart,
         currentUser,
         isInitialized,
+        reviews,
+        commissions,
+        wishlist,
+        likeCounts,
+        isCartDrawerOpen,
+        isCommissionModalOpen,
+        setCartDrawerOpen,
+        setCommissionModalOpen,
+        toggleWishlist,
+        addReview,
+        createCommission,
+        updateCommissionStatus,
         login,
         signup,
         logout,

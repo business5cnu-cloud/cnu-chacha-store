@@ -165,3 +165,34 @@ export interface CartItem {
   additional_price: number;
   quantity: number;
 }
+
+export interface Review {
+  id: string;
+  product_id: string;
+  product_name: string;
+  author: string;
+  rating: number;
+  comment: string;
+  photo_url?: string;
+  created_at: string;
+}
+
+export type CommissionStatus =
+  | '접수 대기'
+  | '상담 진행 중'
+  | '제작 진행 중'
+  | '제작 완료'
+  | '취소';
+
+export interface CommissionRequest {
+  id: string;
+  customer_name: string;
+  phone: string;
+  email: string;
+  item_type: string;
+  details: string;
+  status: CommissionStatus;
+  admin_note?: string;
+  created_at: string;
+}
+
