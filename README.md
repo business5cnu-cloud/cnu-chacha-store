@@ -2,6 +2,12 @@
 
 충남대학교 마스코트 **'차차(CHA CHA)'**를 활용한 공식 굿즈 쇼핑몰(`https://cnu-chacha-store.web.app`), VR 가상 피팅룸(`https://cnu-chacha-store.web.app/fitting`), 그리고 관리자 전용 백오피스(`https://cnu-chacha-store.web.app/admin/dashboard`)가 통합된 웹 애플리케이션입니다.
 
+### 🦄 차차 이미지를 클릭하면 사이트로 바로 이동합니다! (Quick Shortcuts)
+
+| [![CNU 차차 메인 스토어 바로가기](./public/images/chacha/fitting_varsity.jpg)](https://cnu-chacha-store.web.app) | [![NEW 차차 VR 가상 피팅룸 바로가기](./public/images/chacha/fitting_graduation.jpg)](https://cnu-chacha-store.web.app/fitting) | [![관리자 백오피스 바로가기](./public/images/chacha/fitting_basic.jpg)](https://cnu-chacha-store.web.app/admin/dashboard) |
+| :---: | :---: | :---: |
+| **[👉 메인 스토어 바로가기](https://cnu-chacha-store.web.app)**<br/>충남대 차차 공식 굿즈 쇼핑몰 | **[👉 VR 가상 피팅룸 바로가기](https://cnu-chacha-store.web.app/fitting)**<br/>NEW 차차 옷 입히기 체험관 | **[👉 관리자 백오피스 바로가기](https://cnu-chacha-store.web.app/admin/dashboard)**<br/>통합 운영 & 제작 의뢰 관리 |
+
 ### 🌐 24시간 운영 라이브 사이트 주소 (Firebase Hosting)
 - **메인 쇼핑몰**: https://cnu-chacha-store.web.app
 - **NEW 차차 VR 가상 피팅룸**: https://cnu-chacha-store.web.app/fitting
