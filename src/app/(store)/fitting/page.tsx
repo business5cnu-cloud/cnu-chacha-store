@@ -11,6 +11,7 @@ import {
   ArrowLeft,
   Leaf,
   CheckCircle2,
+  Wand2,
 } from 'lucide-react';
 import { useStore } from '@/hooks/useStore';
 import { formatKRW, getEffectivePrice } from '@/lib/utils';
@@ -25,29 +26,101 @@ const BASE_DOLL_PRICE = 18000;
 const OUTFIT_ITEMS: {
   key: OutfitKey;
   emoji: string;
+  thumb?: string;
   name: string;
   desc: string;
   price: number;
+  badge?: string;
 }[] = [
-  { key: 'none', emoji: '❌', name: '미착용', desc: '기본 차차 몸체', price: 0 },
-  { key: 'varsity', emoji: '⚾', name: '충남대 과잠', desc: '네이비 & 레더 패치', price: 14000 },
-  { key: 'graduation', emoji: '🎓', name: '학사복 & 리본', desc: '졸업 시즌 에디션', price: 16000 },
-  { key: 'hoodie', emoji: '👕', name: 'CNU 후드티', desc: '캐주얼 데일리 후드', price: 12000 },
-  { key: 'vest', emoji: '🦺', name: '프레피 니트 조끼', desc: 'V넥 셔츠 & 타이', price: 13000 },
-  { key: 'dungarees', emoji: '👖', name: '레트로 멜빵바지', desc: '워싱 데님 오버롤', price: 12500 },
+  {
+    key: 'none',
+    emoji: '🤍',
+    thumb: '/images/chacha/fitting_basic.jpg',
+    name: '기본 화이트 셋업',
+    desc: '화이트 티셔츠 & 팬츠 기본룩',
+    price: 0,
+    badge: 'OFFICIAL',
+  },
+  {
+    key: 'varsity',
+    emoji: '⚾',
+    thumb: '/images/chacha/fitting_varsity.jpg',
+    name: '충남대 과잠',
+    desc: '네이비 & C 엠블럼 스타디움 재킷',
+    price: 14000,
+    badge: 'BEST',
+  },
+  {
+    key: 'graduation',
+    emoji: '🎓',
+    thumb: '/images/chacha/fitting_graduation.jpg',
+    name: '학사복 & 스톨',
+    desc: 'CNU 블루 스톨 졸업 가운',
+    price: 16000,
+    badge: 'OFFICIAL',
+  },
+  {
+    key: 'hoodie',
+    emoji: '👕',
+    name: 'CNU 스카이 후드티',
+    desc: '시그니처 민트블루 데일리 후드',
+    price: 12000,
+  },
+  {
+    key: 'vest',
+    emoji: '🦺',
+    name: '프레피 니트 조끼',
+    desc: '아이보리 V넥 조끼 & 타이',
+    price: 13000,
+  },
+  {
+    key: 'dungarees',
+    emoji: '👖',
+    name: '레트로 데님 멜빵',
+    desc: '워싱 데님 오버롤 팬츠',
+    price: 12500,
+  },
 ];
 
 const HAT_ITEMS: {
   key: HatKey;
   emoji: string;
+  thumb?: string;
   name: string;
   desc: string;
   price: number;
+  badge?: string;
 }[] = [
-  { key: 'none', emoji: '❌', name: '모자 미착용', desc: '기본 귀 노출', price: 0 },
-  { key: 'grad_cap', emoji: '🎓', name: '골드 태슬 학사모', desc: '졸업 기념 사각모', price: 7000 },
-  { key: 'ballcap', emoji: '🧢', name: 'CNU 시그니처 볼캡', desc: '네이비 자수 캡', price: 6000 },
-  { key: 'cherry', emoji: '🌸', name: '캠퍼스 벚꽃 화관', desc: '봄 축제 에디션', price: 5000 },
+  {
+    key: 'none',
+    emoji: '❌',
+    name: '모자 미착용',
+    desc: '기본 민트 갈기 & 귀 노출',
+    price: 0,
+  },
+  {
+    key: 'grad_cap',
+    emoji: '🎓',
+    thumb: '/images/chacha/fitting_graduation.jpg',
+    name: '골드 태슬 학사모',
+    desc: '졸업 기념 골드 수술 사각모',
+    price: 7000,
+    badge: 'OFFICIAL',
+  },
+  {
+    key: 'ballcap',
+    emoji: '🧢',
+    name: 'CNU 시그니처 볼캡',
+    desc: '네이비 & 민트 C 로고 캡',
+    price: 6000,
+  },
+  {
+    key: 'cherry',
+    emoji: '🌸',
+    name: '캠퍼스 벚꽃 화관',
+    desc: '봄 축제 벚꽃 크라운',
+    price: 5000,
+  },
 ];
 
 const ACC_ITEMS: {
@@ -57,9 +130,59 @@ const ACC_ITEMS: {
   desc: string;
   price: number;
 }[] = [
-  { key: 'none', emoji: '❌', name: '소품 없음', desc: '기본 포즈', price: 0 },
-  { key: 'crossbag', emoji: '👜', name: '차차 미니 크로스백', desc: '네이비 메신저백', price: 5500 },
-  { key: 'diploma', emoji: '📜', name: '충남대학교 졸업장', desc: '학위기 롤 소품', price: 4000 },
+  { key: 'none', emoji: '❌', name: '소품 없음', desc: '기본 차차 포즈', price: 0 },
+  {
+    key: 'crossbag',
+    emoji: '👜',
+    name: '차차 미니 크로스백',
+    desc: '네이비 & 민트 C 로고 메신저백',
+    price: 5500,
+  },
+  {
+    key: 'diploma',
+    emoji: '📜',
+    name: '충남대학교 학위기',
+    desc: '레드 리본 졸업장 롤 소품',
+    price: 4000,
+  },
+];
+
+const OFFICIAL_PRESETS: {
+  id: string;
+  label: string;
+  sub: string;
+  thumb: string;
+  outfit: OutfitKey;
+  hat: HatKey;
+  acc: AccKey;
+}[] = [
+  {
+    id: 'preset-basic',
+    label: '화이트 데일리 셋업',
+    sub: '기본 티셔츠 & 팬츠',
+    thumb: '/images/chacha/fitting_basic.jpg',
+    outfit: 'none',
+    hat: 'none',
+    acc: 'none',
+  },
+  {
+    id: 'preset-varsity',
+    label: '충남대 새내기 과잠룩',
+    sub: '네이비 C 로고 과잠',
+    thumb: '/images/chacha/fitting_varsity.jpg',
+    outfit: 'varsity',
+    hat: 'none',
+    acc: 'none',
+  },
+  {
+    id: 'preset-graduation',
+    label: '학위수여식 졸업 에디션',
+    sub: '학사복 가운 + 골드 태슬 학사모',
+    thumb: '/images/chacha/fitting_graduation.jpg',
+    outfit: 'graduation',
+    hat: 'grad_cap',
+    acc: 'none',
+  },
 ];
 
 export default function VirtualFittingRoomPage() {
@@ -79,11 +202,36 @@ export default function VirtualFittingRoomPage() {
   const totalCoordinatePrice =
     BASE_DOLL_PRICE + outfitObj.price + hatObj.price + accObj.price;
 
-  const coordinateParts = ['차차 기본 인형'];
+  const coordinateParts = ['NEW 차차 인형'];
   if (selectedOutfit !== 'none') coordinateParts.push(outfitObj.name);
+  else coordinateParts.push('기본 화이트 셋업');
   if (selectedHat !== 'none') coordinateParts.push(hatObj.name);
   if (selectedAcc !== 'none') coordinateParts.push(accObj.name);
   const coordinateSummaryName = coordinateParts.join(' + ');
+
+  // Select which official New ChaCha base illustration to render
+  const baseImageSrc =
+    selectedOutfit === 'varsity'
+      ? '/images/chacha/fitting_varsity.jpg'
+      : selectedOutfit === 'graduation' && selectedHat === 'grad_cap'
+        ? '/images/chacha/fitting_graduation.jpg'
+        : '/images/chacha/fitting_basic.jpg';
+
+  const handleSelectOutfit = (key: OutfitKey) => {
+    setSelectedOutfit(key);
+    // When clicking Graduation Gown, automatically equip the matching Graduation Cap for the official look
+    if (key === 'graduation' && selectedHat === 'none') {
+      setSelectedHat('grad_cap');
+    } else if (key !== 'graduation' && selectedOutfit === 'graduation' && selectedHat === 'grad_cap') {
+      setSelectedHat('none');
+    }
+  };
+
+  const handleApplyPreset = (preset: (typeof OFFICIAL_PRESETS)[number]) => {
+    setSelectedOutfit(preset.outfit);
+    setSelectedHat(preset.hat);
+    setSelectedAcc(preset.acc);
+  };
 
   const handleReset = () => {
     setSelectedOutfit('none');
@@ -134,17 +282,17 @@ export default function VirtualFittingRoomPage() {
             <ArrowLeft className="h-3.5 w-3.5" />
             <span>메인 쇼핑몰로 돌아가기</span>
           </Link>
-          <div className="flex items-center gap-2.5">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-extrabold text-cnu-blue border border-blue-200">
-              <span className="h-2 w-2 rounded-full bg-cnu-blue animate-ping" />
-              VR 가상 옷입히기 피팅룸
+          <div className="flex flex-wrap items-center gap-2.5">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1 text-xs font-extrabold text-sky-700 border border-sky-200">
+              <span className="h-2 w-2 rounded-full bg-sky-500 animate-ping" />
+              NEW CHACHA VR FITTING ROOM
             </span>
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
-              차차 가상 전시관 & 커스텀 옷장
+              NEW 차차 가상 피팅룸 & 커스텀 옷장
             </h1>
           </div>
           <p className="mt-1 text-xs sm:text-sm text-slate-500">
-            차차에게 충남대학교 과잠, 학사복, 후드티와 모자·소품을 자유롭게 입혀보고 나만의 코디 세트를 바로 주문해보세요.
+            새로워진 공식 차차(ChaCha) 캐릭터에게 화이트 데일리 셋업, 충남대 과잠, 학사복·학사모와 다양한 커스텀 아이템을 입혀보세요.
           </p>
         </div>
       </div>
@@ -163,389 +311,608 @@ export default function VirtualFittingRoomPage() {
 
       {/* Main Fitting Room Grid */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-start">
-        {/* Left: Interactive ChaCha Mascot Stage */}
+        {/* Left: Interactive New ChaCha Mascot Stage */}
         <div className="lg:col-span-6 rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm flex flex-col items-center relative overflow-hidden">
           <div className="w-full flex items-center justify-between mb-4">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-cnu-navy/10 px-3 py-1 text-xs font-extrabold text-cnu-navy">
-              🐴 VIRTUAL DRESSING STAGE
+              🦄 NEW CHACHA STAGE
             </span>
             <span className="text-xs font-semibold text-slate-400">
-              실시간 레이어 프리뷰
+              실시간 캐릭터 피팅 프리뷰
             </span>
           </div>
 
-          {/* Stage Backdrop */}
-          <div className="relative flex h-96 sm:h-[420px] w-full items-center justify-center rounded-2xl border border-sky-100 bg-gradient-to-b from-sky-50/70 via-white to-slate-50">
-            {/* Floor shadow */}
-            <div className="absolute bottom-8 h-8 w-60 rounded-full bg-blue-950/10 blur-md" />
+          {/* Stage Canvas (1:1 aspect ratio matching 1024x1024 official artwork) */}
+          <div className="relative flex aspect-square w-full max-w-[440px] items-center justify-center rounded-3xl border border-sky-100 bg-white shadow-inner overflow-hidden">
+            {/* 1. Official New ChaCha Artwork Base */}
+            <img
+              src={baseImageSrc}
+              alt={coordinateSummaryName}
+              className="h-full w-full object-contain select-none transition-all duration-300"
+              draggable={false}
+            />
 
-            {/* Interactive SVG Character */}
-            <div className="relative z-10 flex h-80 w-72 items-center justify-center transition-transform duration-300">
-              {/* 1. Base ChaCha Character SVG */}
-              <svg viewBox="0 0 200 220" className="h-full w-full drop-shadow-md">
-                {/* Ears */}
-                <polygon
-                  points="55,45 40,15 75,35"
-                  fill="#FFFFFF"
-                  stroke="#003876"
-                  strokeWidth="3"
-                  strokeLinejoin="round"
-                />
-                <polygon points="50,40 43,22 68,34" fill="#DCEBFF" />
-                <polygon
-                  points="145,45 160,15 125,35"
-                  fill="#FFFFFF"
-                  stroke="#003876"
-                  strokeWidth="3"
-                  strokeLinejoin="round"
-                />
-                <polygon points="150,40 157,22 132,34" fill="#DCEBFF" />
+            {/* 2. Custom Outfit SVG Layer (Aligned to 1024x1024 New ChaCha proportions & #001A66 18px line-art) */}
+            <svg
+              viewBox="0 0 1024 1024"
+              className="pointer-events-none absolute inset-0 h-full w-full"
+            >
+              {/* Graduation gown when worn WITHOUT the graduation cap */}
+              {selectedOutfit === 'graduation' && selectedHat !== 'grad_cap' && (
+                <g>
+                  {/* Gown Flared Body */}
+                  <path
+                    d="M355,578 L296,832 Q468,864 654,832 L582,576 Z"
+                    fill="#1F242B"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                    strokeLinejoin="round"
+                  />
+                  {/* Gown Sleeve Left */}
+                  <path
+                    d="M358,584 Q305,625 298,690 L355,705 L368,610 Z"
+                    fill="#1F242B"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                    strokeLinejoin="round"
+                  />
+                  {/* Gown Sleeve Right */}
+                  <path
+                    d="M555,580 Q618,615 632,688 L525,688 L525,605 Z"
+                    fill="#1F242B"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                    strokeLinejoin="round"
+                  />
+                  {/* Center Pleat Line */}
+                  <line
+                    x1="505"
+                    y1="665"
+                    x2="518"
+                    y2="842"
+                    stroke="#11151C"
+                    strokeWidth="12"
+                    strokeLinecap="round"
+                  />
+                  {/* Blue V-Stole with Gold Trim */}
+                  <polygon
+                    points="356,576 404,705 516,580"
+                    fill="#0056B3"
+                    stroke="#F7D046"
+                    strokeWidth="14"
+                    strokeLinejoin="round"
+                  />
+                  <polygon
+                    points="350,572 404,715 524,576"
+                    fill="none"
+                    stroke="#001A66"
+                    strokeWidth="16"
+                    strokeLinejoin="round"
+                  />
+                  {/* 'C' Emblem on Stole */}
+                  <text
+                    x="408"
+                    y="646"
+                    textAnchor="middle"
+                    fontFamily="Arial, sans-serif"
+                    fontWeight="900"
+                    fontSize="58"
+                    fill="#00BCEB"
+                    stroke="#FFFFFF"
+                    strokeWidth="8"
+                    paintOrder="stroke"
+                  >
+                    C
+                  </text>
+                  {/* White Paws */}
+                  <ellipse
+                    cx="315"
+                    cy="708"
+                    rx="24"
+                    ry="34"
+                    fill="#FFFFFF"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                  />
+                  <ellipse
+                    cx="562"
+                    cy="724"
+                    rx="56"
+                    ry="46"
+                    fill="#FFFFFF"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                  />
+                </g>
+              )}
 
-                {/* Mane (Blue hair puff) */}
-                <path
-                  d="M70,30 Q90,5 110,25 Q130,10 135,35 Q110,38 70,30 Z"
-                  fill="#1E5BBB"
-                  stroke="#003876"
-                  strokeWidth="2.5"
-                />
+              {/* CNU Sky Hoodie */}
+              {selectedOutfit === 'hoodie' && (
+                <g>
+                  {/* Left Sleeve */}
+                  <path
+                    d="M368,582 Q305,620 296,685 L356,705 L375,620 Z"
+                    fill="#0095D9"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                    strokeLinejoin="round"
+                  />
+                  {/* Hoodie Torso */}
+                  <path
+                    d="M365,578 Q455,612 555,574 L588,756 Q460,782 340,756 Z"
+                    fill="#00BCEB"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                    strokeLinejoin="round"
+                  />
+                  {/* Right Sleeve */}
+                  <path
+                    d="M542,578 Q610,615 632,684 L535,702 L518,622 Z"
+                    fill="#0095D9"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                    strokeLinejoin="round"
+                  />
+                  {/* Kangaroo Pocket */}
+                  <path
+                    d="M375,695 L515,695 L528,752 Q445,765 362,752 Z"
+                    fill="#0086C3"
+                    stroke="#001A66"
+                    strokeWidth="14"
+                    strokeLinejoin="round"
+                  />
+                  {/* Hoodie Strings */}
+                  <line
+                    x1="422"
+                    y1="598"
+                    x2="416"
+                    y2="652"
+                    stroke="#FFFFFF"
+                    strokeWidth="12"
+                    strokeLinecap="round"
+                  />
+                  <line
+                    x1="468"
+                    y1="598"
+                    x2="472"
+                    y2="652"
+                    stroke="#FFFFFF"
+                    strokeWidth="12"
+                    strokeLinecap="round"
+                  />
+                  {/* CNU Arch Logo */}
+                  <text
+                    x="446"
+                    y="675"
+                    textAnchor="middle"
+                    fontFamily="Arial, sans-serif"
+                    fontWeight="900"
+                    fontSize="44"
+                    fill="#001A66"
+                    stroke="#FFFFFF"
+                    strokeWidth="10"
+                    paintOrder="stroke"
+                  >
+                    CNU
+                  </text>
+                  {/* White Paws */}
+                  <ellipse
+                    cx="325"
+                    cy="710"
+                    rx="28"
+                    ry="34"
+                    fill="#FFFFFF"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                  />
+                  <ellipse
+                    cx="575"
+                    cy="714"
+                    rx="48"
+                    ry="38"
+                    fill="#FFFFFF"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                  />
+                </g>
+              )}
 
-                {/* Head */}
-                <ellipse
-                  cx="100"
-                  cy="85"
-                  rx="55"
-                  ry="48"
-                  fill="#FFFFFF"
-                  stroke="#003876"
-                  strokeWidth="3.5"
-                />
+              {/* Preppy Knit Vest & Tie */}
+              {selectedOutfit === 'vest' && (
+                <g>
+                  {/* Ivory Knit Vest Torso */}
+                  <path
+                    d="M372,580 L446,668 L538,576 L576,756 Q458,782 344,756 Z"
+                    fill="#FDF6E2"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                    strokeLinejoin="round"
+                  />
+                  {/* Navy Tie */}
+                  <polygon
+                    points="436,595 458,595 466,652 446,672 428,652"
+                    fill="#0A2972"
+                    stroke="#001A66"
+                    strokeWidth="12"
+                    strokeLinejoin="round"
+                  />
+                  {/* V-Neck Navy & Gold Stripe Trim */}
+                  <path
+                    d="M372,580 L446,668 L538,576"
+                    fill="none"
+                    stroke="#0A2972"
+                    strokeWidth="16"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  {/* Bottom Ribbing Stripe */}
+                  <path
+                    d="M348,738 Q458,762 572,738"
+                    fill="none"
+                    stroke="#0A2972"
+                    strokeWidth="12"
+                    strokeLinecap="round"
+                  />
+                  {/* C Crest Patch */}
+                  <circle
+                    cx="505"
+                    cy="678"
+                    r="26"
+                    fill="#0A2972"
+                    stroke="#001A66"
+                    strokeWidth="10"
+                  />
+                  <text
+                    x="505"
+                    y="690"
+                    textAnchor="middle"
+                    fontFamily="Arial, sans-serif"
+                    fontWeight="900"
+                    fontSize="34"
+                    fill="#00BCEB"
+                  >
+                    C
+                  </text>
+                </g>
+              )}
 
-                {/* Blush Cheeks */}
-                <circle cx="68" cy="95" r="7" fill="#FFB6C1" opacity="0.6" />
-                <circle cx="132" cy="95" r="7" fill="#FFB6C1" opacity="0.6" />
+              {/* Retro Denim Dungarees (Overalls) */}
+              {selectedOutfit === 'dungarees' && (
+                <g>
+                  {/* Shoulder Straps */}
+                  <rect
+                    x="378"
+                    y="582"
+                    width="34"
+                    height="95"
+                    rx="10"
+                    fill="#3B74C4"
+                    stroke="#001A66"
+                    strokeWidth="16"
+                  />
+                  <rect
+                    x="492"
+                    y="580"
+                    width="34"
+                    height="95"
+                    rx="10"
+                    fill="#3B74C4"
+                    stroke="#001A66"
+                    strokeWidth="16"
+                  />
+                  {/* Overall Bib & Pants */}
+                  <path
+                    d="M366,650 L542,650 L556,745 L612,865 Q540,885 480,872 L455,795 L435,872 Q382,882 338,865 L350,745 Z"
+                    fill="#3B74C4"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                    strokeLinejoin="round"
+                  />
+                  {/* Front Bib Pocket */}
+                  <rect
+                    x="408"
+                    y="682"
+                    width="88"
+                    height="64"
+                    rx="12"
+                    fill="#2B5EA8"
+                    stroke="#001A66"
+                    strokeWidth="14"
+                  />
+                  {/* Brass Buttons */}
+                  <circle
+                    cx="395"
+                    cy="668"
+                    r="12"
+                    fill="#FFE055"
+                    stroke="#001A66"
+                    strokeWidth="8"
+                  />
+                  <circle
+                    cx="509"
+                    cy="668"
+                    r="12"
+                    fill="#FFE055"
+                    stroke="#001A66"
+                    strokeWidth="8"
+                  />
+                </g>
+              )}
 
-                {/* Eyes */}
-                <ellipse cx="80" cy="80" rx="5" ry="7" fill="#003876" />
-                <circle cx="82" cy="78" r="2" fill="#FFFFFF" />
-                <ellipse cx="120" cy="80" rx="5" ry="7" fill="#003876" />
-                <circle cx="122" cy="78" r="2" fill="#FFFFFF" />
+              {/* 3. Custom Hat SVG Layer */}
+              {/* Graduation Cap when worn on non-graduation outfits */}
+              {selectedHat === 'grad_cap' && selectedOutfit !== 'graduation' && (
+                <g>
+                  {/* Skullcap Base */}
+                  <path
+                    d="M456,148 L448,205 Q535,215 620,232 L632,182 Z"
+                    fill="#1F242B"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                    strokeLinejoin="round"
+                  />
+                  {/* Mortarboard Diamond Top */}
+                  <polygon
+                    points="555,65 730,152 575,212 400,112"
+                    fill="#1F242B"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                    strokeLinejoin="round"
+                  />
+                  {/* Gold Center Button */}
+                  <circle
+                    cx="562"
+                    cy="142"
+                    r="16"
+                    fill="#FFE055"
+                    stroke="#001A66"
+                    strokeWidth="12"
+                  />
+                  {/* Gold Tassel */}
+                  <path
+                    d="M574,148 Q638,175 662,218"
+                    fill="none"
+                    stroke="#FFE055"
+                    strokeWidth="18"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M574,148 Q638,175 662,218"
+                    fill="none"
+                    stroke="#001A66"
+                    strokeWidth="6"
+                    strokeLinecap="round"
+                  />
+                  <circle
+                    cx="664"
+                    cy="222"
+                    r="16"
+                    fill="#FFE055"
+                    stroke="#001A66"
+                    strokeWidth="12"
+                  />
+                  <polygon
+                    points="652,235 682,232 698,288 648,292"
+                    fill="#FFE055"
+                    stroke="#001A66"
+                    strokeWidth="14"
+                    strokeLinejoin="round"
+                  />
+                </g>
+              )}
 
-                {/* Cute Muzzle & Smile */}
-                <ellipse cx="100" cy="98" rx="14" ry="9" fill="#EBF3FF" />
-                <circle cx="96" cy="96" r="1.5" fill="#003876" />
-                <circle cx="104" cy="96" r="1.5" fill="#003876" />
-                <path
-                  d="M96,101 Q100,105 104,101"
-                  fill="none"
-                  stroke="#003876"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
+              {/* CNU Signature Ballcap */}
+              {selectedHat === 'ballcap' && (
+                <g>
+                  {/* Curved Visor (pointing left) */}
+                  <path
+                    d="M395,168 Q285,172 268,212 Q345,228 455,198 Z"
+                    fill="#00BCEB"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                    strokeLinejoin="round"
+                  />
+                  {/* Navy Cap Crown */}
+                  <path
+                    d="M385,175 Q415,72 545,82 Q655,92 658,195 Q525,212 385,175 Z"
+                    fill="#0A2972"
+                    stroke="#001A66"
+                    strokeWidth="18"
+                    strokeLinejoin="round"
+                  />
+                  {/* Top Button */}
+                  <circle
+                    cx="532"
+                    cy="78"
+                    r="12"
+                    fill="#00BCEB"
+                    stroke="#001A66"
+                    strokeWidth="10"
+                  />
+                  {/* 'C' Emblem on Cap */}
+                  <text
+                    x="505"
+                    y="165"
+                    textAnchor="middle"
+                    fontFamily="Arial, sans-serif"
+                    fontWeight="900"
+                    fontSize="56"
+                    fill="#00BCEB"
+                    stroke="#FFFFFF"
+                    strokeWidth="8"
+                    paintOrder="stroke"
+                  >
+                    C
+                  </text>
+                </g>
+              )}
 
-                {/* Body */}
-                <path
-                  d="M65,120 Q100,115 135,120 Q150,180 130,195 Q100,200 70,195 Q50,180 65,120 Z"
-                  fill="#FFFFFF"
-                  stroke="#003876"
-                  strokeWidth="3.5"
-                />
+              {/* Cherry Blossom Flower Crown */}
+              {selectedHat === 'cherry' && (
+                <g>
+                  {/* Vine */}
+                  <path
+                    d="M355,215 Q495,145 648,205"
+                    fill="none"
+                    stroke="#2E7D32"
+                    strokeWidth="16"
+                    strokeLinecap="round"
+                  />
+                  {[
+                    { cx: 380, cy: 198, r: 32, fill: '#FFB7CE' },
+                    { cx: 455, cy: 175, r: 36, fill: '#FF8FB1' },
+                    { cx: 535, cy: 168, r: 40, fill: '#FFB7CE' },
+                    { cx: 615, cy: 188, r: 34, fill: '#FF8FB1' },
+                  ].map((f, idx) => (
+                    <g key={idx}>
+                      <circle
+                        cx={f.cx}
+                        cy={f.cy}
+                        r={f.r}
+                        fill={f.fill}
+                        stroke="#001A66"
+                        strokeWidth="14"
+                      />
+                      <circle
+                        cx={f.cx}
+                        cy={f.cy}
+                        r={11}
+                        fill="#FFE055"
+                        stroke="#001A66"
+                        strokeWidth="8"
+                      />
+                    </g>
+                  ))}
+                </g>
+              )}
 
-                {/* Arms */}
-                <ellipse
-                  cx="58"
-                  cy="150"
-                  rx="12"
-                  ry="18"
-                  fill="#FFFFFF"
-                  stroke="#003876"
-                  strokeWidth="3"
-                  transform="rotate(20 58 150)"
-                />
-                <ellipse
-                  cx="142"
-                  cy="150"
-                  rx="12"
-                  ry="18"
-                  fill="#FFFFFF"
-                  stroke="#003876"
-                  strokeWidth="3"
-                  transform="rotate(-20 142 150)"
-                />
+              {/* 4. Custom Accessory SVG Layer */}
+              {/* Mini Crossbag */}
+              {selectedAcc === 'crossbag' && (
+                <g>
+                  {/* Crossbody Strap */}
+                  <path
+                    d="M372,585 Q445,675 538,742"
+                    fill="none"
+                    stroke="#001A66"
+                    strokeWidth="26"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M372,585 Q445,675 538,742"
+                    fill="none"
+                    stroke="#FFE055"
+                    strokeWidth="10"
+                    strokeLinecap="round"
+                  />
+                  {/* Messenger Bag Pouch */}
+                  <rect
+                    x="478"
+                    y="705"
+                    width="110"
+                    height="82"
+                    rx="24"
+                    fill="#00BCEB"
+                    stroke="#001A66"
+                    strokeWidth="16"
+                  />
+                  <path
+                    d="M478,730 Q533,758 588,730"
+                    fill="none"
+                    stroke="#001A66"
+                    strokeWidth="14"
+                  />
+                  <circle
+                    cx="533"
+                    cy="744"
+                    r="11"
+                    fill="#FFE055"
+                    stroke="#001A66"
+                    strokeWidth="8"
+                  />
+                </g>
+              )}
 
-                {/* Feet */}
-                <ellipse
-                  cx="80"
-                  cy="195"
-                  rx="14"
-                  ry="10"
-                  fill="#FFFFFF"
-                  stroke="#003876"
-                  strokeWidth="3"
-                />
-                <ellipse
-                  cx="120"
-                  cy="195"
-                  rx="14"
-                  ry="10"
-                  fill="#FFFFFF"
-                  stroke="#003876"
-                  strokeWidth="3"
-                />
+              {/* CNU Diploma Scroll */}
+              {selectedAcc === 'diploma' && (
+                <g transform="rotate(-24 565 712)">
+                  <rect
+                    x="495"
+                    y="690"
+                    width="145"
+                    height="44"
+                    rx="18"
+                    fill="#FFFDF2"
+                    stroke="#001A66"
+                    strokeWidth="16"
+                  />
+                  <rect
+                    x="555"
+                    y="686"
+                    width="24"
+                    height="52"
+                    rx="6"
+                    fill="#E53935"
+                    stroke="#001A66"
+                    strokeWidth="12"
+                  />
+                  <circle
+                    cx="567"
+                    cy="712"
+                    r="10"
+                    fill="#FFE055"
+                    stroke="#001A66"
+                    strokeWidth="8"
+                  />
+                </g>
+              )}
+            </svg>
+          </div>
 
-                {/* Belly Patch */}
-                <ellipse cx="100" cy="160" rx="22" ry="25" fill="#F0F7FF" />
-              </svg>
-
-              {/* 2. Outfit Overlay Layer */}
-              <div className="pointer-events-none absolute inset-0">
-                {selectedOutfit === 'varsity' && (
-                  <svg viewBox="0 0 200 220" className="h-full w-full">
-                    <path
-                      d="M62,125 Q100,120 138,125 L145,185 Q100,190 55,185 Z"
-                      fill="#003876"
-                      stroke="#002244"
-                      strokeWidth="2.5"
+          {/* Official 3-Look Quick Presets */}
+          <div className="mt-5 w-full">
+            <div className="flex items-center gap-1.5 text-xs font-extrabold text-slate-600 mb-2.5">
+              <Wand2 className="h-3.5 w-3.5 text-sky-600" />
+              <span>공식 NEW 차차 룩북 원클릭 프리셋</span>
+            </div>
+            <div className="grid grid-cols-3 gap-2.5">
+              {OFFICIAL_PRESETS.map((preset) => {
+                const isCurrent =
+                  selectedOutfit === preset.outfit &&
+                  selectedHat === preset.hat &&
+                  selectedAcc === preset.acc;
+                return (
+                  <button
+                    key={preset.id}
+                    type="button"
+                    onClick={() => handleApplyPreset(preset)}
+                    className={`flex items-center gap-2.5 rounded-2xl border p-2 text-left transition-all ${
+                      isCurrent
+                        ? 'border-2 border-sky-500 bg-sky-50/70 shadow-xs'
+                        : 'border-slate-200 bg-slate-50/60 hover:border-sky-300 hover:bg-white'
+                    }`}
+                  >
+                    <img
+                      src={preset.thumb}
+                      alt={preset.label}
+                      className="h-11 w-11 shrink-0 rounded-xl border border-slate-200 bg-white object-contain"
                     />
-                    <path
-                      d="M48,135 Q55,160 52,175 L62,165 Z"
-                      fill="#FFFFFF"
-                      stroke="#002244"
-                      strokeWidth="2"
-                    />
-                    <path
-                      d="M152,135 Q145,160 148,175 L138,165 Z"
-                      fill="#FFFFFF"
-                      stroke="#002244"
-                      strokeWidth="2"
-                    />
-                    <circle cx="100" cy="140" r="2.5" fill="#FFFFFF" />
-                    <circle cx="100" cy="155" r="2.5" fill="#FFFFFF" />
-                    <circle cx="100" cy="170" r="2.5" fill="#FFFFFF" />
-                    <text
-                      x="78"
-                      y="152"
-                      fontFamily="Arial, sans-serif"
-                      fontWeight="900"
-                      fontSize="14"
-                      fill="#FFFFFF"
-                    >
-                      C
-                    </text>
-                    <path
-                      d="M58,185 Q100,190 142,185"
-                      stroke="#FFFFFF"
-                      strokeWidth="3"
-                      strokeDasharray="4 2"
-                    />
-                  </svg>
-                )}
-
-                {selectedOutfit === 'graduation' && (
-                  <svg viewBox="0 0 200 220" className="h-full w-full">
-                    <path
-                      d="M58,123 Q100,118 142,123 L148,195 Q100,200 52,195 Z"
-                      fill="#1A1A1A"
-                      stroke="#000000"
-                      strokeWidth="2.5"
-                    />
-                    <path
-                      d="M78,122 L100,155 L122,122"
-                      fill="#003876"
-                      stroke="#F1C40F"
-                      strokeWidth="2"
-                    />
-                    <circle cx="100" cy="132" r="4" fill="#E74C3C" />
-                  </svg>
-                )}
-
-                {selectedOutfit === 'hoodie' && (
-                  <svg viewBox="0 0 200 220" className="h-full w-full">
-                    <path
-                      d="M60,123 Q100,118 140,123 L145,188 Q100,192 55,188 Z"
-                      fill="#1E5BBB"
-                      stroke="#003876"
-                      strokeWidth="2.5"
-                    />
-                    <ellipse cx="100" cy="122" rx="35" ry="10" fill="#003876" />
-                    <rect x="80" y="158" width="40" height="22" rx="4" fill="#164996" />
-                    <text
-                      x="100"
-                      y="146"
-                      textAnchor="middle"
-                      fontFamily="Arial, sans-serif"
-                      fontWeight="bold"
-                      fontSize="9"
-                      fill="#FFFFFF"
-                    >
-                      CNU
-                    </text>
-                  </svg>
-                )}
-
-                {selectedOutfit === 'vest' && (
-                  <svg viewBox="0 0 200 220" className="h-full w-full">
-                    <path
-                      d="M68,122 Q100,118 132,122 L135,185 Q100,190 65,185 Z"
-                      fill="#FFFFFF"
-                      stroke="#CCCCCC"
-                      strokeWidth="2"
-                    />
-                    <path
-                      d="M70,124 L85,150 L115,150 L130,124 L138,180 Q100,185 62,180 Z"
-                      fill="#FBF8E6"
-                      stroke="#003876"
-                      strokeWidth="2"
-                    />
-                    <polygon points="98,126 102,126 104,148 100,152 96,148" fill="#003876" />
-                  </svg>
-                )}
-
-                {selectedOutfit === 'dungarees' && (
-                  <svg viewBox="0 0 200 220" className="h-full w-full">
-                    <rect
-                      x="74"
-                      y="125"
-                      width="8"
-                      height="40"
-                      rx="2"
-                      fill="#3B71CA"
-                      stroke="#1D4ED8"
-                      strokeWidth="1.5"
-                    />
-                    <rect
-                      x="118"
-                      y="125"
-                      width="8"
-                      height="40"
-                      rx="2"
-                      fill="#3B71CA"
-                      stroke="#1D4ED8"
-                      strokeWidth="1.5"
-                    />
-                    <circle cx="78" cy="155" r="2.5" fill="#F59E0B" />
-                    <circle cx="122" cy="155" r="2.5" fill="#F59E0B" />
-                    <path
-                      d="M72,150 L128,150 L138,192 Q100,198 62,192 Z"
-                      fill="#3B71CA"
-                      stroke="#1D4ED8"
-                      strokeWidth="2"
-                    />
-                    <rect x="88" y="160" width="24" height="16" rx="2" fill="#2563EB" />
-                  </svg>
-                )}
-              </div>
-
-              {/* 3. Hat Overlay Layer */}
-              <div className="pointer-events-none absolute inset-0">
-                {selectedHat === 'grad_cap' && (
-                  <svg viewBox="0 0 200 220" className="h-full w-full">
-                    <polygon
-                      points="100,15 155,30 100,45 45,30"
-                      fill="#111111"
-                      stroke="#000000"
-                      strokeWidth="2"
-                    />
-                    <rect x="82" y="38" width="36" height="12" rx="3" fill="#1A1A1A" />
-                    <circle cx="100" cy="30" r="3" fill="#F1C40F" />
-                    <path
-                      d="M100,30 Q125,32 135,48 L138,62"
-                      fill="none"
-                      stroke="#F1C40F"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                    <circle cx="138" cy="62" r="3" fill="#F1C40F" />
-                  </svg>
-                )}
-
-                {selectedHat === 'ballcap' && (
-                  <svg viewBox="0 0 200 220" className="h-full w-full">
-                    <path
-                      d="M68,48 Q100,20 132,48 Q145,55 140,58 L60,58 Q55,55 68,48 Z"
-                      fill="#003876"
-                      stroke="#002244"
-                      strokeWidth="2"
-                    />
-                    <ellipse cx="100" cy="58" rx="42" ry="7" fill="#002244" />
-                    <text
-                      x="100"
-                      y="44"
-                      textAnchor="middle"
-                      fontFamily="Arial, sans-serif"
-                      fontWeight="900"
-                      fontSize="8"
-                      fill="#FFFFFF"
-                    >
-                      CNU
-                    </text>
-                  </svg>
-                )}
-
-                {selectedHat === 'cherry' && (
-                  <svg viewBox="0 0 200 220" className="h-full w-full">
-                    <circle cx="70" cy="40" r="7" fill="#FFB6C1" stroke="#FF69B4" strokeWidth="1.5" />
-                    <circle cx="85" cy="34" r="7" fill="#FFC0CB" stroke="#FF69B4" strokeWidth="1.5" />
-                    <circle cx="100" cy="30" r="8" fill="#FF69B4" stroke="#C71585" strokeWidth="1.5" />
-                    <circle cx="115" cy="34" r="7" fill="#FFC0CB" stroke="#FF69B4" strokeWidth="1.5" />
-                    <circle cx="130" cy="40" r="7" fill="#FFB6C1" stroke="#FF69B4" strokeWidth="1.5" />
-                  </svg>
-                )}
-              </div>
-
-              {/* 4. Accessory Overlay Layer */}
-              <div className="pointer-events-none absolute inset-0">
-                {selectedAcc === 'crossbag' && (
-                  <svg viewBox="0 0 200 220" className="h-full w-full">
-                    <path
-                      d="M60,135 Q100,165 145,185"
-                      fill="none"
-                      stroke="#795548"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                    />
-                    <rect
-                      x="122"
-                      y="170"
-                      width="26"
-                      height="20"
-                      rx="4"
-                      fill="#003876"
-                      stroke="#002244"
-                      strokeWidth="1.5"
-                    />
-                    <circle cx="135" cy="180" r="2" fill="#F1C40F" />
-                  </svg>
-                )}
-
-                {selectedAcc === 'diploma' && (
-                  <svg viewBox="0 0 200 220" className="h-full w-full">
-                    <rect
-                      x="135"
-                      y="145"
-                      width="22"
-                      height="7"
-                      rx="3"
-                      fill="#FFFDE7"
-                      stroke="#003876"
-                      strokeWidth="1.5"
-                      transform="rotate(-30 135 145)"
-                    />
-                    <rect
-                      x="144"
-                      y="142"
-                      width="4"
-                      height="9"
-                      fill="#E74C3C"
-                      transform="rotate(-30 144 142)"
-                    />
-                  </svg>
-                )}
-              </div>
+                    <div className="min-w-0">
+                      <p className="truncate text-[11px] font-black text-slate-900">
+                        {preset.label}
+                      </p>
+                      <p className="truncate text-[10px] text-slate-500">
+                        {preset.sub}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* Coordinate Summary & Price */}
-          <div className="mt-6 flex w-full items-center justify-between border-t border-slate-100 pt-4">
+          <div className="mt-5 flex w-full items-center justify-between border-t border-slate-100 pt-4">
             <div>
               <span className="block text-xs font-semibold text-slate-400">
                 현재 피팅 코디 세트
@@ -570,7 +937,7 @@ export default function VirtualFittingRoomPage() {
               className="btn-secondary py-3 text-xs font-bold gap-1.5"
             >
               <RotateCcw className="h-4 w-4" />
-              <span>처음부터 다시</span>
+              <span>기본 화이트룩 초기화</span>
             </button>
             <button
               type="button"
@@ -596,10 +963,10 @@ export default function VirtualFittingRoomPage() {
           <div className="border-b border-slate-100 pb-4">
             <h2 className="flex items-center gap-2 text-lg font-black text-slate-900">
               <Sparkles className="h-5 w-5 text-amber-500" />
-              <span>차차 옷장 (ChaCha Wardrobe)</span>
+              <span>NEW 차차 옷장 (ChaCha Wardrobe)</span>
             </h2>
             <p className="mt-1 text-xs text-slate-500">
-              원하는 의상, 모자, 액세서리를 클릭해 차차 인형에게 직접 입혀보세요!
+              공식 일러스트 코디(화이트 셋업, 충남대 과잠, 학사복·학사모)와 커스텀 의상·소품을 자유롭게 조합해보세요!
             </p>
           </div>
 
@@ -649,14 +1016,27 @@ export default function VirtualFittingRoomPage() {
                   <button
                     key={item.key}
                     type="button"
-                    onClick={() => setSelectedOutfit(item.key)}
-                    className={`rounded-2xl border p-4 text-left transition-all ${
+                    onClick={() => handleSelectOutfit(item.key)}
+                    className={`relative rounded-2xl border p-4 text-left transition-all ${
                       isSelected
                         ? 'border-2 border-cnu-blue bg-sky-50/60 shadow-sm'
                         : 'border-slate-200 hover:border-cnu-blue/60 hover:bg-slate-50'
                     }`}
                   >
-                    <span className="block text-2xl mb-1.5">{item.emoji}</span>
+                    {item.badge && (
+                      <span className="absolute right-3 top-3 rounded-full bg-sky-100 px-2 py-0.5 text-[10px] font-black text-sky-800">
+                        {item.badge}
+                      </span>
+                    )}
+                    {item.thumb ? (
+                      <img
+                        src={item.thumb}
+                        alt={item.name}
+                        className="mb-2 h-14 w-14 rounded-xl border border-slate-200 bg-white object-contain"
+                      />
+                    ) : (
+                      <span className="block text-2xl mb-2">{item.emoji}</span>
+                    )}
                     <h4 className="text-xs font-black text-slate-900">{item.name}</h4>
                     <p className="mt-0.5 text-[11px] text-slate-400">{item.desc}</p>
                     <span className="mt-2 block text-xs font-extrabold text-cnu-blue">
@@ -678,13 +1058,26 @@ export default function VirtualFittingRoomPage() {
                     key={item.key}
                     type="button"
                     onClick={() => setSelectedHat(item.key)}
-                    className={`rounded-2xl border p-4 text-left transition-all ${
+                    className={`relative rounded-2xl border p-4 text-left transition-all ${
                       isSelected
                         ? 'border-2 border-cnu-blue bg-sky-50/60 shadow-sm'
                         : 'border-slate-200 hover:border-cnu-blue/60 hover:bg-slate-50'
                     }`}
                   >
-                    <span className="block text-2xl mb-1.5">{item.emoji}</span>
+                    {item.badge && (
+                      <span className="absolute right-3 top-3 rounded-full bg-sky-100 px-2 py-0.5 text-[10px] font-black text-sky-800">
+                        {item.badge}
+                      </span>
+                    )}
+                    {item.thumb ? (
+                      <img
+                        src={item.thumb}
+                        alt={item.name}
+                        className="mb-2 h-14 w-14 rounded-xl border border-slate-200 bg-white object-contain"
+                      />
+                    ) : (
+                      <span className="block text-2xl mb-2">{item.emoji}</span>
+                    )}
                     <h4 className="text-xs font-black text-slate-900">{item.name}</h4>
                     <p className="mt-0.5 text-[11px] text-slate-400">{item.desc}</p>
                     <span className="mt-2 block text-xs font-extrabold text-cnu-blue">
