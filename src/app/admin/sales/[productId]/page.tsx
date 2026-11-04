@@ -31,6 +31,7 @@ import { formatKRW, formatKSTDate, getKSTDateString } from '@/lib/utils';
 import {
   calculateProductSalesSummaries,
   isValidOrderForAnalytics,
+  triggerExcelCSVDownload,
 } from '@/lib/utils/sales-analytics';
 import { ProductArtwork } from '@/components/common/ProductArtwork';
 
@@ -182,18 +183,10 @@ export default function AdminProductSalesDetailPage() {
 
     const content =
       '\uFEFF' + [headers.join(','), ...csvRows.map((row) => row.join(','))].join('\n');
-    const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute(
-      'download',
-      `${product.sku}_sales_detail_${new Date().toISOString().slice(0, 10)}.csv`
+    triggerExcelCSVDownload(
+      `${product.sku}_sales_detail_${new Date().toISOString().slice(0, 10)}.csv`,
+      content
     );
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
   };
 
   return (

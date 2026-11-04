@@ -15,6 +15,7 @@ import { formatKRW } from '@/lib/utils';
 import {
   calculateProductSalesSummaries,
   exportSalesSummariesToCSV,
+  triggerExcelCSVDownload,
 } from '@/lib/utils/sales-analytics';
 import { ProductArtwork } from '@/components/common/ProductArtwork';
 
@@ -76,18 +77,10 @@ export default function AdminSalesAnalyticsPage() {
 
   const handleDownloadCSV = () => {
     const csvContent = exportSalesSummariesToCSV(filteredAndSorted);
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute(
-      'download',
-      `cnu_chacha_product_sales_${new Date().toISOString().slice(0, 10)}.csv`
+    triggerExcelCSVDownload(
+      `cnu_chacha_product_sales_${new Date().toISOString().slice(0, 10)}.csv`,
+      csvContent
     );
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
   };
 
   return (

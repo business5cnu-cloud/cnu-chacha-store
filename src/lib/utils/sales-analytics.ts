@@ -138,3 +138,20 @@ export function exportSalesSummariesToCSV(summaries: ProductSalesSummary[]): str
 
   return '\uFEFF' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
 }
+
+export function triggerExcelCSVDownload(filename: string, csvContent: string): void {
+  if (typeof window === 'undefined') return;
+  const normalizedContent = csvContent.startsWith('\uFEFF')
+    ? csvContent
+    : '\uFEFF' + csvContent;
+  const blob = new Blob([normalizedContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', filename.endsWith('.csv') ? filename : `${filename}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
