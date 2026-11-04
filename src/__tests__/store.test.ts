@@ -8,6 +8,10 @@ import {
   INITIAL_CATEGORIES,
   INITIAL_PRODUCTS,
   INITIAL_ORDERS,
+  INITIAL_REVIEWS,
+  INITIAL_PHOTO_REVIEWS,
+  INITIAL_COMMISSIONS,
+  INITIAL_LIKE_COUNTS,
 } from '@/lib/supabase/seed-data';
 import {
   calculateProductSalesSummaries,
@@ -93,5 +97,12 @@ describe('CNU CHA CHA STORE Core Business Logic Tests', () => {
     const csv = exportSalesSummariesToCSV(summaries);
     expect(csv).toContain('차차 후드티');
     expect(csv).toContain('CNU-APP-001');
+  });
+
+  it('includes integrated community reviews, wishlist counts, and custom commission requests', () => {
+    expect(INITIAL_REVIEWS.length).toBeGreaterThanOrEqual(5);
+    expect(INITIAL_PHOTO_REVIEWS.length).toBe(4);
+    expect(INITIAL_COMMISSIONS.length).toBeGreaterThanOrEqual(3);
+    expect(INITIAL_LIKE_COUNTS['prod-hoodie']).toBeGreaterThan(0);
   });
 });

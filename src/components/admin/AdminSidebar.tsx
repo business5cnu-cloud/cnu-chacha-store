@@ -11,6 +11,7 @@ import {
   Boxes,
   Users,
   Sparkles,
+  Scissors,
   Settings,
   LogOut,
   ExternalLink,
@@ -47,7 +48,10 @@ const ADMIN_NAV_GROUPS: NavGroup[] = [
   },
   {
     groupTitle: 'SPECIAL',
-    items: [{ label: '한정판 관리', href: '/admin/limited', icon: Sparkles }],
+    items: [
+      { label: '한정판 관리', href: '/admin/limited', icon: Sparkles },
+      { label: '제작·리폼 의뢰 관리', href: '/admin/commissions', icon: Scissors },
+    ],
   },
   {
     groupTitle: 'SYSTEM',
