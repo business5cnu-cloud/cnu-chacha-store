@@ -15,6 +15,7 @@ import {
 import { useStore } from '@/hooks/useStore';
 import { formatKRW, formatKSTDate, getKSTDateString } from '@/lib/utils';
 import { ProductArtwork } from '@/components/common/ProductArtwork';
+import { DashboardSalesCharts } from '@/components/admin/DashboardSalesCharts';
 import { Order } from '@/types';
 
 export function isValidSalesOrder(order: Order): boolean {
@@ -245,6 +246,9 @@ export default function AdminDashboardPage() {
           </p>
         </div>
       </div>
+
+      {/* 7-2. 매출 분석 (Recharts) */}
+      <DashboardSalesCharts orders={filteredOrders} products={products} />
 
       {/* 7-3. 인기 상품 TOP 5 & 7-4. 최근 주문 내역 */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
