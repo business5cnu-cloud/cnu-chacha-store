@@ -1,0 +1,22 @@
+{
+  "name": "CNU CHA CHA STORE | 충남대학교 차차 공식 굿즈 스토어",
+  "short_name": "차차 스토어",
+  "description": "충남대학교 마스코트 차차(CHA CHA) 공식 굿즈 쇼핑몰 및 VR 가상 피팅룸",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#00205b",
+  "icons": [
+    {
+      "src": "/images/chacha/fitting_varsity.jpg",
+      "sizes": "1024x1024",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/chacha/chacha_icon.ico",
+      "sizes": "256x256",
+      "type": "image/x-icon"
+    }
+  ]
+}

@@ -14,6 +14,12 @@
 - **관리자 백오피스 (대시보드)**: https://cnu-chacha-store.web.app/admin/dashboard
 - **관리자 주문제작·과잠 리폼 의뢰 관리**: https://cnu-chacha-store.web.app/admin/commissions
 
+### 💻 Windows 바탕화면 차차 아이콘 바로가기 다운로드 (모든 PC 공용)
+로컬 경로에 의존하지 않고 **어떤 PC에서든 차차 과잠 아이콘이 그대로 표시되는 배포용 바탕화면 바로가기**를 제공합니다:
+1. **[🦄 차차 아이콘 내장 단일 런처 다운로드 (`CNU-ChaCha-Store.exe`)](https://github.com/business5cnu-cloud/cnu-chacha-store/raw/New-chacha-firebase-addedicon-ver/public/downloads/CNU-ChaCha-Store.exe)**: 파일 자체에 차차 아이콘(`chacha_icon.ico`)이 내장된 초경량(57KB) 실행형 바로가기로, 바탕화면 어디에 두어도 차차 아이콘이 유지되며 더블클릭 시 즉시 스토어가 열립니다.
+2. **[⚡ 바탕화면 바로가기 자동 생성기 다운로드 (`install-chacha-shortcut.bat`)](https://github.com/business5cnu-cloud/cnu-chacha-store/raw/New-chacha-firebase-addedicon-ver/public/downloads/install-chacha-shortcut.bat)**: 실행 시 Firebase 서버에서 차차 공식 아이콘(`https://cnu-chacha-store.web.app/images/chacha/chacha_icon.ico`)을 `%APPDATA%`에 자동 다운로드하고 바탕화면에 `CNU 차차 스토어.url` 바로가기를 생성합니다.
+3. **웹앱(PWA) 설치**: Chrome/Edge 주소창 우측의 **[앱 설치]** 버튼을 누르면 바탕화면에 차차 아이콘 웹앱이 즉시 추가됩니다.
+
 ---
 
 ## 1. 주요 구현 기능 요약

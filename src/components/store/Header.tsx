@@ -53,6 +53,14 @@ export function Header() {
             🎓 학내 학생회관 픽업 무료 / 30,000원 이상 구매 시 전국 무료배송!
           </span>
           <div className="hidden md:flex items-center gap-3 text-slate-200">
+            <a
+              href="https://github.com/business5cnu-cloud/cnu-chacha-store/raw/New-chacha-firebase-addedicon-ver/public/downloads/CNU-ChaCha-Store.exe"
+              download="CNU-차차-스토어.exe"
+              className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-0.5 text-[11px] font-extrabold text-sky-200 hover:bg-white/25 transition-colors"
+            >
+              🦄 바탕화면 아이콘 받기
+            </a>
+            <span>·</span>
             <Link href="/fitting" className="text-sky-300 hover:underline font-semibold">
               VR 옷입히기
             </Link>
