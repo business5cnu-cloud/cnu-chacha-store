@@ -12,6 +12,7 @@ export interface ProductSalesSummary {
   orderCount: number;
   canceledCount: number;
   refundedCount: number;
+  excludedAmount: number;
 }
 
 export function isValidOrderForAnalytics(order: Order): boolean {
@@ -43,6 +44,7 @@ export function calculateProductSalesSummaries(
     let orderCount = 0;
     let canceledCount = 0;
     let refundedCount = 0;
+    let excludedAmount = 0;
 
     for (const order of orders) {
       const orderDateStr = getKSTDateString(new Date(order.created_at));
@@ -55,12 +57,14 @@ export function calculateProductSalesSummaries(
       const itemQty = matchingItems.reduce((sum, i) => sum + i.quantity, 0);
       const itemRev = matchingItems.reduce((sum, i) => sum + i.subtotal, 0);
 
-      if (order.order_status === '주문 취소') {
+      if (order.order_status === '주문 취소' || order.payment_status === '취소') {
         canceledCount += 1;
+        excludedAmount += itemRev;
         continue;
       }
       if (order.order_status === '환불 완료' || order.payment_status === '환불') {
         refundedCount += 1;
+        excludedAmount += itemRev;
         continue;
       }
       if (!isValidOrderForAnalytics(order)) {
@@ -99,6 +103,7 @@ export function calculateProductSalesSummaries(
       orderCount,
       canceledCount,
       refundedCount,
+      excludedAmount,
     };
   });
 }

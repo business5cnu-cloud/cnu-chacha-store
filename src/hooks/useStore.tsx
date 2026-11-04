@@ -547,6 +547,39 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           })
         );
         setInventoryMovements((prev) => [...restoreMovements, ...prev]);
+      } else if (wasCanceledOrRefunded && !isNowCanceledOrRefunded) {
+        // 취소/환불 상태에서 다시 정상 주문 상태로 복원하는 경우 재고 재차감
+        const deductMovements: InventoryMovement[] = [];
+        setProducts((prevProducts) =>
+          prevProducts.map((p) => {
+            const orderItemForProduct = targetOrder.items.filter((i) => i.product_id === p.id);
+            if (orderItemForProduct.length === 0) return p;
+
+            const deductQty = orderItemForProduct.reduce((sum, i) => sum + i.quantity, 0);
+            const prevStock = p.stock;
+            const nextStock = Math.max(0, prevStock - deductQty);
+
+            deductMovements.push({
+              id: `inv-mov-${Date.now()}-${p.id}`,
+              product_id: p.id,
+              product_name: p.name,
+              product_sku: p.sku,
+              movement_type: 'ORDER',
+              quantity: -deductQty,
+              previous_stock: prevStock,
+              current_stock: nextStock,
+              reason: `주문 상태 정상 복원(${newStatus})에 따른 재고 차감 (${targetOrder.order_number})`,
+              created_at: nowIso,
+            });
+
+            return synchronizeProductState({
+              ...p,
+              stock: nextStock,
+              total_sold: p.total_sold + deductQty,
+            });
+          })
+        );
+        setInventoryMovements((prev) => [...deductMovements, ...prev]);
       }
 
       let nextPaymentStatus: PaymentStatus = targetOrder.payment_status;
