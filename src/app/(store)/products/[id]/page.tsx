@@ -155,7 +155,7 @@ export default function ProductDetailPage() {
       badge: 'AI 그래픽 보정',
       largeSrc: aiEnhancedUrl,
       thumbSrc: aiEnhancedUrl,
-      resolutionText: '1600 × 1600 px · 정책 5~7 적용 (외형/로고 왜곡 검수 완료)',
+      resolutionText: '1600 × 1600 px · AI 그래픽 보정 (외형/로고 왜곡 검수 완료)',
       objectFit: 'contain',
       isAiEnhanced: true,
     },
@@ -305,9 +305,6 @@ export default function ProductDetailPage() {
           <span>상품 목록으로 돌아가기</span>
         </Link>
         <div className="flex flex-wrap items-center gap-2 text-xs">
-          <span className="rounded-lg bg-emerald-50 px-2.5 py-1 font-bold text-emerald-700 border border-emerald-200">
-            [정책 1·2] 픽셀 보간 업스케일링 금지 및 원본 화질 보존
-          </span>
           {activeSlide.isAiEnhanced && (
             <span className="inline-flex items-center gap-1 rounded-lg bg-violet-100 px-2.5 py-1 font-extrabold text-violet-800 border border-violet-300">
               <Wand2 className="h-3.5 w-3.5 text-violet-600" />
@@ -393,7 +390,7 @@ export default function ProductDetailPage() {
               <button
                 type="button"
                 onClick={() => setComparisonModalOpen(true)}
-                title="[정책 6] 원본 vs 보정본 대조 검수 모달 열기"
+                title="원본 vs 보정본 대조 확인"
                 className="inline-flex items-center gap-1 rounded-xl bg-white/95 px-3 py-1.5 text-xs font-extrabold text-violet-700 shadow-sm hover:bg-white"
               >
                 <Split className="h-3.5 w-3.5" />
@@ -646,7 +643,7 @@ export default function ProductDetailPage() {
           <div>
             <h2 className="text-xl font-black text-slate-900">상품 상세 정보 및 고해상도 룩북</h2>
             <p className="mt-1 text-xs text-slate-500">
-              [정책 준수] 픽셀 보간 억지 확대를 배제하고, 1600px 스튜디오 원본과 1600×2000 연출 화보를 분리 제공합니다.
+              1600px 스튜디오 정면 컷과 1600×2000 캠퍼스 연출 화보를 고화질로 제공합니다.
             </p>
           </div>
           <button
@@ -655,7 +652,7 @@ export default function ProductDetailPage() {
             className="inline-flex items-center gap-1.5 rounded-xl bg-cnu-navy px-3.5 py-2 text-xs font-bold text-white hover:bg-cnu-blue"
           >
             <Split className="h-4 w-4" />
-            <span>[정책 6] 원본 vs AI 보정본 대조 검수</span>
+            <span>원본 vs AI 보정본 대조</span>
           </button>
         </div>
 
@@ -697,11 +694,11 @@ export default function ProductDetailPage() {
             <div className="space-y-1.5">
               <p className="font-black text-sm flex items-center gap-1.5 text-amber-900">
                 <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
-                <span>[정책 1 & 8] 기존 원본 보존 및 단순 픽셀 보간 업스케일링 금지 안내</span>
+                <span>기존 원본 보존 및 고화질 리소스 제공 안내</span>
               </p>
               <p className="leading-relaxed text-amber-800">
                 기존 파일({product.legacy_lowres_url})은 원본 해상도가 <strong>125×125px</strong>로 매우 낮아,
-                단순 픽셀 보간으로 강제 확대 시 심각한 블러가 발생합니다. 본 정책에 따라 기존 파일은{' '}
+                인위적 확대 시 발생할 수 있는 왜곡 및 블러를 방지하기 위해 기존 파일은{' '}
                 <code>legacy_original/</code>에 무손실 보존하고, 공식 1024px 원화 기반 1600px HD 리소스를 제공합니다.
               </p>
             </div>
@@ -779,7 +776,7 @@ export default function ProductDetailPage() {
               <div>
                 <h3 className="text-base font-black text-slate-900 flex items-center gap-1.5">
                   <Split className="h-4 w-4 text-violet-600" />
-                  <span>[정책 6] 원본 vs AI 보정본 대조 검수 모달</span>
+                  <span>원본 vs AI 보정본 디테일 대조</span>
                 </h3>
                 <p className="text-xs text-slate-500">
                   캐릭터 외형(실루엣), 색상, 로고, 제품 형태 왜곡 여부를 나란히 대조합니다.
