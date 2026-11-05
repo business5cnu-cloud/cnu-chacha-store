@@ -5,7 +5,11 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**",
-      "**/*.exe"
+      "downloads/**",
+      "**/*.exe",
+      "**/*.bat",
+      "**/*.cmd",
+      "**/*.sh"
     ],
     "cleanUrls": true,
     "trailingSlash": false
