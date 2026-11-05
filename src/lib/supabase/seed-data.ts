@@ -1259,7 +1259,7 @@ export const INITIAL_REVIEWS: Review[] = [
     author: '최현우 (공과대학)',
     rating: 5,
     comment: '폐과잠 리폼 에코백이랑 같이 샀는데 원단이 두꺼워서 전공서적 3권에 노트북 넣어도 끄떡없네요. 강추합니다!',
-    photo_url: '/images/chacha/photo_review_1.png',
+    photo_url: '/images/products/medium/prod-ecobag.png',
     created_at: '2026-10-25T11:45:00+09:00',
   },
   {
@@ -1269,7 +1269,7 @@ export const INITIAL_REVIEWS: Review[] = [
     author: '윤아름 (인문대학)',
     rating: 5,
     comment: 'VR 가상 피팅룸에서 차차한테 과잠이랑 학사모 입혀보고 주문했는데 인형 퀄리티가 싱크로율 100%입니다!',
-    photo_url: '/images/chacha/photo_review_2.png',
+    photo_url: '/images/products/medium/prod-season-doll.png',
     created_at: '2026-10-21T18:05:00+09:00',
   },
 ];
@@ -1277,28 +1277,28 @@ export const INITIAL_REVIEWS: Review[] = [
 export const INITIAL_PHOTO_REVIEWS = [
   {
     id: 'pr-1',
-    imageUrl: '/images/chacha/photo_review_1.png',
+    imageUrl: '/images/products/medium/prod-custom-doll.png',
     title: '커스텀 차차 인형 언박싱',
     author: '김지은',
     productId: 'prod-custom-doll',
   },
   {
     id: 'pr-2',
-    imageUrl: '/images/chacha/photo_review_2.png',
+    imageUrl: '/images/products/medium/prod-keyring.png',
     title: '백팩에 단 말랑 차차 키링',
     author: '박서연',
     productId: 'prod-keyring',
   },
   {
     id: 'pr-3',
-    imageUrl: '/images/chacha/photo_review_3.png',
+    imageUrl: '/images/products/medium/prod-tumbler.png',
     title: '도서관 짝꿍 차차 텀블러',
     author: '이준호',
     productId: 'prod-tumbler',
   },
   {
     id: 'pr-4',
-    imageUrl: '/images/chacha/photo_review_4.png',
+    imageUrl: '/images/products/medium/prod-memo.png',
     title: '전공 필기 필수템 차차 노트',
     author: '최현우',
     productId: 'prod-memo',

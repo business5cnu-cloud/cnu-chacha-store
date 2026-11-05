@@ -96,7 +96,7 @@ const STORAGE_KEYS = {
   MOVEMENTS: 'cnu_chacha_movements_v4',
   CART: 'cnu_chacha_cart_v4',
   CURRENT_USER: 'cnu_chacha_user_v4',
-  REVIEWS: 'cnu_chacha_reviews_v4',
+  REVIEWS: 'cnu_chacha_reviews_v5',
   COMMISSIONS: 'cnu_chacha_commissions_v4',
   WISHLIST: 'cnu_chacha_wishlist_v4',
   LIKE_COUNTS: 'cnu_chacha_like_counts_v4',
