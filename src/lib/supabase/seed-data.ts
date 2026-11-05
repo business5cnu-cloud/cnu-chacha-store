@@ -1,3 +1,23 @@
+/**
+ * ============================================================================
+ * [CNU ChaCha Store] 초기 시드 데이터 (Seed Data)
+ * ============================================================================
+ * 
+ * 📌 데이터 구조 안내:
+ * 1. INITIAL_CATEGORIES: 의류(apparel), 문구(stationery), 잡화(accessories), 한정판(limited) 4개 카테고리.
+ * 2. INITIAL_PRODUCTS: 총 16개 차차 굿즈 상품 목록.
+ *    - 모든 상품은 다중 해상도 이미지 파이프라인을 지원합니다:
+ *      * thumbnail_url: 120x120px 목록/장바구니 썸네일
+ *      * medium_url: 400x400px 상품 카드 및 모바일 뷰
+ *      * large_url: 1600x1600px 고해상도 상세 뷰어 및 돋보기
+ *      * lifestyle_url: 1600x2000px 세로형 룩북 연출 컷
+ *      * ai_enhanced_url: AI 디테일 보정/목업 컷 (선택 뷰)
+ * 3. INITIAL_ORDERS: 시연용 주문 데이터.
+ * 4. INITIAL_PROFILES: 일반 회원 및 관리자 계정 (admin@cnu-chacha-store.kr / admin1234!).
+ * 5. INITIAL_REVIEWS & INITIAL_PHOTO_REVIEWS: 커뮤니티 구매 후기 및 메인 홈 포토 후기.
+ * 6. INITIAL_COMMISSIONS: 과잠 업사이클링 리폼 및 단체 굿즈 제작 의뢰 데이터.
+ * ============================================================================
+ */
 import { Category, Product, Order, Profile, InventoryMovement, Review, CommissionRequest } from '@/types';
 
 export const INITIAL_CATEGORIES: Category[] = [

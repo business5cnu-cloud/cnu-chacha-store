@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "serve": "node scripts/serve_out.js"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
