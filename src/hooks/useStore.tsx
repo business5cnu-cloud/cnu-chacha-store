@@ -90,16 +90,16 @@ interface StoreContextType {
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
 const STORAGE_KEYS = {
-  PRODUCTS: 'cnu_chacha_',
-  ORDERS: 'cnu_chacha_',
-  PROFILES: 'cnu_chacha_',
-  MOVEMENTS: 'cnu_chacha_',
-  CART: 'cnu_chacha_',
-  CURRENT_USER: 'cnu_chacha_',
-  REVIEWS: 'cnu_chacha_',
-  COMMISSIONS: 'cnu_chacha_',
-  WISHLIST: 'cnu_chacha_',
-  LIKE_COUNTS: 'cnu_chacha_',
+  PRODUCTS: 'cnu_chacha_products_v4',
+  ORDERS: 'cnu_chacha_orders_v4',
+  PROFILES: 'cnu_chacha_profiles_v4',
+  MOVEMENTS: 'cnu_chacha_movements_v4',
+  CART: 'cnu_chacha_cart_v4',
+  CURRENT_USER: 'cnu_chacha_user_v4',
+  REVIEWS: 'cnu_chacha_reviews_v4',
+  COMMISSIONS: 'cnu_chacha_commissions_v4',
+  WISHLIST: 'cnu_chacha_wishlist_v4',
+  LIKE_COUNTS: 'cnu_chacha_like_counts_v4',
 };
 
 export function synchronizeProductState(product: Product): Product {
@@ -150,7 +150,21 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       const savedProducts = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
       if (savedProducts) {
         const parsed: Product[] = JSON.parse(savedProducts);
-        setProducts(parsed.map(synchronizeProductState));
+        const merged = parsed.map((p) => {
+          const init = INITIAL_PRODUCTS.find((ip) => ip.id === p.id);
+          if (!init) return p;
+          return {
+            ...p,
+            image_url: init.image_url,
+            thumbnail_url: init.thumbnail_url,
+            medium_url: init.medium_url,
+            large_url: init.large_url,
+            original_url: init.original_url,
+            lifestyle_url: init.lifestyle_url,
+            ai_enhanced_url: init.ai_enhanced_url,
+          };
+        });
+        setProducts(merged.map(synchronizeProductState));
       }
 
       const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDERS);
