@@ -53,6 +53,15 @@ export interface Product {
   sale_price: number | null;
   stock: number;
   image_url: string;
+  thumbnail_url?: string;
+  medium_url?: string;
+  large_url?: string;
+  original_url?: string;
+  lifestyle_url?: string;
+  ai_enhanced_url?: string;
+  is_ai_enhanced?: boolean;
+  legacy_lowres_url?: string;
+  gallery_images?: string[];
   detail_images: string[];
   is_limited: boolean;
   status: ProductStatus;

@@ -90,16 +90,16 @@ interface StoreContextType {
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
 const STORAGE_KEYS = {
-  PRODUCTS: 'cnu_chacha_products_v2',
-  ORDERS: 'cnu_chacha_orders_v2',
-  PROFILES: 'cnu_chacha_profiles_v2',
-  MOVEMENTS: 'cnu_chacha_movements_v2',
-  CART: 'cnu_chacha_cart_v2',
-  CURRENT_USER: 'cnu_chacha_current_user_v2',
-  REVIEWS: 'cnu_chacha_reviews_v2',
-  COMMISSIONS: 'cnu_chacha_commissions_v2',
-  WISHLIST: 'cnu_chacha_wishlist_v2',
-  LIKE_COUNTS: 'cnu_chacha_likes_v2',
+  PRODUCTS: 'cnu_chacha_',
+  ORDERS: 'cnu_chacha_',
+  PROFILES: 'cnu_chacha_',
+  MOVEMENTS: 'cnu_chacha_',
+  CART: 'cnu_chacha_',
+  CURRENT_USER: 'cnu_chacha_',
+  REVIEWS: 'cnu_chacha_',
+  COMMISSIONS: 'cnu_chacha_',
+  WISHLIST: 'cnu_chacha_',
+  LIKE_COUNTS: 'cnu_chacha_',
 };
 
 export function synchronizeProductState(product: Product): Product {

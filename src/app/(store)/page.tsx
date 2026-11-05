@@ -105,7 +105,7 @@ export default function StoreHomePage() {
               <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-[#1A2648] shadow-2xl">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/images/chacha/hero_exhibition.png"
+                  src="/images/chacha/hero_exhibition_1920x800.png"
                   alt="CNU ChaCha Virtual Exhibition"
                   className="w-full h-auto block object-cover"
                 />

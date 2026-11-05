@@ -63,9 +63,18 @@ export function ProductCard({ product, rank }: ProductCardProps) {
         <ProductArtwork
           sku={product.sku}
           name={product.name}
-          imageUrl={product.image_url}
+          imageUrl={product.medium_url || product.image_url}
+          thumbnailUrl={product.thumbnail_url}
+          mediumUrl={product.medium_url}
+          largeUrl={product.large_url}
+          originalUrl={product.original_url}
+          lifestyleUrl={product.lifestyle_url}
+          aiEnhancedUrl={product.ai_enhanced_url}
+          isAiEnhanced={product.is_ai_enhanced}
           categoryName={product.category_name}
           isLimited={product.is_limited}
+          variant="list"
+          priority={rank !== undefined && rank <= 4}
           className="h-full w-full"
         />
 
