@@ -173,17 +173,10 @@ export default function LoginPage() {
             >
               <span className="flex items-center gap-1.5">
                 <User className="h-3.5 w-3.5 text-cnu-navy" />
-                일반 학생회원 (김충남)
+                테스트 학생회원 자동 로그인 (김충남)
               </span>
               <span className="text-[11px] text-slate-400">chacha.fan@o.cnu.ac.kr</span>
             </button>
-            <Link
-              href="/admin/login"
-              className="flex items-center justify-between rounded-xl border border-amber-200 bg-amber-50/70 px-3 py-2 text-xs font-bold text-amber-900 hover:bg-amber-100"
-            >
-              <span>관리자 전용 로그인 페이지 이동</span>
-              <span>/admin/login →</span>
-            </Link>
           </div>
         </div>
       </div>

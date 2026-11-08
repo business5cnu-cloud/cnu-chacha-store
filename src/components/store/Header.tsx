@@ -72,10 +72,7 @@ export function Header() {
             >
               제작·리폼 의뢰
             </button>
-            <span>·</span>
-            <Link href="/admin/dashboard" className="text-amber-300 hover:underline font-semibold">
-              관리자 센터
-            </Link>
+
           </div>
         </div>
       </div>

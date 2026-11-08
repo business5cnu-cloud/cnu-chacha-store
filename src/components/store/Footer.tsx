@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ShieldCheck, MapPin, Phone, Clock } from 'lucide-react';
+import { MapPin, Phone, Clock } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -74,7 +74,7 @@ export function Footer() {
           {/* Customer & Admin */}
           <div>
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-              MY ACCOUNT & ADMIN
+              MY ACCOUNT
             </h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
@@ -92,15 +92,7 @@ export function Footer() {
                   회원 로그인 / 회원가입
                 </Link>
               </li>
-              <li className="pt-2">
-                <Link
-                  href="/admin/login"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-slate-800 px-3.5 py-2 text-xs font-bold text-amber-300 border border-slate-700 hover:bg-slate-700"
-                >
-                  <ShieldCheck className="h-4 w-4" />
-                  관리자 전용 백오피스 (/admin)
-                </Link>
-              </li>
+
             </ul>
           </div>
         </div>
