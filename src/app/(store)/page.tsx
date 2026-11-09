@@ -180,14 +180,14 @@ export default function StoreHomePage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <Link
                 href="/products?sort=popular"
-                className="flex items-center justify-between rounded-2xl border border-[#DCE5F5] bg-[#EDF2FA] p-5 transition hover:shadow-sm"
+                className="flex items-center justify-between gap-4 rounded-2xl border border-[#DCE5F5] bg-[#EDF2FA] p-5 transition hover:shadow-sm"
               >
-                <div>
+                <div className="flex-1 pr-2">
                   <div className="flex items-center gap-1.5 text-sm font-black text-slate-900">
                     <span>🔥 이달의 인기 굿즈</span>
                     <span className="text-slate-400">&gt;</span>
                   </div>
-                  <p className="mt-1 text-xs text-slate-600">
+                  <p className="mt-1 text-xs text-slate-600 leading-relaxed">
                     지금 캠퍼스에서 가장 사랑받는 차차 굿즈를 만나보세요!
                   </p>
                 </div>
@@ -195,7 +195,7 @@ export default function StoreHomePage() {
                 <img
                   src="/images/chacha/mascot_popular.png"
                   alt="인기 굿즈 차차"
-                  className="h-14 w-auto object-contain shrink-0"
+                  className="h-16 w-auto object-contain shrink-0 ml-1"
                 />
               </Link>
 
