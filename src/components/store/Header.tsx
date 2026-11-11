@@ -81,7 +81,7 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo with ChaCha Head Mascot */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-50 border border-slate-200 p-1 shadow-xs transition-transform group-hover:scale-105">
+          <div className="flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-[#FEF7ED] border border-amber-200/70 p-1 shadow-xs transition-transform group-hover:scale-105">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/chacha/logo_head.png"
