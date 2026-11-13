@@ -476,234 +476,51 @@ export default function VirtualFittingRoomPage() {
                 </g>
               )}
 
-              {/* 3. Custom Hat SVG Layer */}
-              {/* Graduation Cap when worn on non-graduation outfits */}
-              {selectedHat === 'grad_cap' && selectedOutfit !== 'graduation' && (
-                <g>
-                  {/* Skullcap Base */}
-                  <path
-                    d="M456,148 L448,205 Q535,215 620,232 L632,182 Z"
-                    fill="#1F242B"
-                    stroke="#001A66"
-                    strokeWidth="18"
-                    strokeLinejoin="round"
-                  />
-                  {/* Mortarboard Diamond Top */}
-                  <polygon
-                    points="555,65 730,152 575,212 400,112"
-                    fill="#1F242B"
-                    stroke="#001A66"
-                    strokeWidth="18"
-                    strokeLinejoin="round"
-                  />
-                  {/* Gold Center Button */}
-                  <circle
-                    cx="562"
-                    cy="142"
-                    r="16"
-                    fill="#FFE055"
-                    stroke="#001A66"
-                    strokeWidth="12"
-                  />
-                  {/* Gold Tassel */}
-                  <path
-                    d="M574,148 Q638,175 662,218"
-                    fill="none"
-                    stroke="#FFE055"
-                    strokeWidth="18"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M574,148 Q638,175 662,218"
-                    fill="none"
-                    stroke="#001A66"
-                    strokeWidth="6"
-                    strokeLinecap="round"
-                  />
-                  <circle
-                    cx="664"
-                    cy="222"
-                    r="16"
-                    fill="#FFE055"
-                    stroke="#001A66"
-                    strokeWidth="12"
-                  />
-                  <polygon
-                    points="652,235 682,232 698,288 648,292"
-                    fill="#FFE055"
-                    stroke="#001A66"
-                    strokeWidth="14"
-                    strokeLinejoin="round"
-                  />
-                </g>
-              )}
-
-              {/* CNU Signature Ballcap */}
-              {selectedHat === 'ballcap' && (
-                <g>
-                  {/* Curved Visor (pointing left) */}
-                  <path
-                    d="M395,168 Q285,172 268,212 Q345,228 455,198 Z"
-                    fill="#00BCEB"
-                    stroke="#001A66"
-                    strokeWidth="18"
-                    strokeLinejoin="round"
-                  />
-                  {/* Navy Cap Crown */}
-                  <path
-                    d="M385,175 Q415,72 545,82 Q655,92 658,195 Q525,212 385,175 Z"
-                    fill="#0A2972"
-                    stroke="#001A66"
-                    strokeWidth="18"
-                    strokeLinejoin="round"
-                  />
-                  {/* Top Button */}
-                  <circle
-                    cx="532"
-                    cy="78"
-                    r="12"
-                    fill="#00BCEB"
-                    stroke="#001A66"
-                    strokeWidth="10"
-                  />
-                  {/* 'C' Emblem on Cap */}
-                  <text
-                    x="505"
-                    y="165"
-                    textAnchor="middle"
-                    fontFamily="Arial, sans-serif"
-                    fontWeight="900"
-                    fontSize="56"
-                    fill="#00BCEB"
-                    stroke="#FFFFFF"
-                    strokeWidth="8"
-                    paintOrder="stroke"
-                  >
-                    C
-                  </text>
-                </g>
-              )}
-
-              {/* Cherry Blossom Flower Crown */}
-              {selectedHat === 'cherry' && (
-                <g>
-                  {/* Vine */}
-                  <path
-                    d="M355,215 Q495,145 648,205"
-                    fill="none"
-                    stroke="#2E7D32"
-                    strokeWidth="16"
-                    strokeLinecap="round"
-                  />
-                  {[
-                    { cx: 380, cy: 198, r: 32, fill: '#FFB7CE' },
-                    { cx: 455, cy: 175, r: 36, fill: '#FF8FB1' },
-                    { cx: 535, cy: 168, r: 40, fill: '#FFB7CE' },
-                    { cx: 615, cy: 188, r: 34, fill: '#FF8FB1' },
-                  ].map((f, idx) => (
-                    <g key={idx}>
-                      <circle
-                        cx={f.cx}
-                        cy={f.cy}
-                        r={f.r}
-                        fill={f.fill}
-                        stroke="#001A66"
-                        strokeWidth="14"
-                      />
-                      <circle
-                        cx={f.cx}
-                        cy={f.cy}
-                        r={11}
-                        fill="#FFE055"
-                        stroke="#001A66"
-                        strokeWidth="8"
-                      />
-                    </g>
-                  ))}
-                </g>
-              )}
-
-              {/* 4. Custom Accessory SVG Layer */}
-              {/* Mini Crossbag */}
-              {selectedAcc === 'crossbag' && (
-                <g>
-                  {/* Crossbody Strap */}
-                  <path
-                    d="M372,585 Q445,675 538,742"
-                    fill="none"
-                    stroke="#001A66"
-                    strokeWidth="26"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M372,585 Q445,675 538,742"
-                    fill="none"
-                    stroke="#FFE055"
-                    strokeWidth="10"
-                    strokeLinecap="round"
-                  />
-                  {/* Messenger Bag Pouch */}
-                  <rect
-                    x="478"
-                    y="705"
-                    width="110"
-                    height="82"
-                    rx="24"
-                    fill="#00BCEB"
-                    stroke="#001A66"
-                    strokeWidth="16"
-                  />
-                  <path
-                    d="M478,730 Q533,758 588,730"
-                    fill="none"
-                    stroke="#001A66"
-                    strokeWidth="14"
-                  />
-                  <circle
-                    cx="533"
-                    cy="744"
-                    r="11"
-                    fill="#FFE055"
-                    stroke="#001A66"
-                    strokeWidth="8"
-                  />
-                </g>
-              )}
-
-              {/* CNU Diploma Scroll */}
-              {selectedAcc === 'diploma' && (
-                <g transform="rotate(-24 565 712)">
-                  <rect
-                    x="495"
-                    y="690"
-                    width="145"
-                    height="44"
-                    rx="18"
-                    fill="#FFFDF2"
-                    stroke="#001A66"
-                    strokeWidth="16"
-                  />
-                  <rect
-                    x="555"
-                    y="686"
-                    width="24"
-                    height="52"
-                    rx="6"
-                    fill="#E53935"
-                    stroke="#001A66"
-                    strokeWidth="12"
-                  />
-                  <circle
-                    cx="567"
-                    cy="712"
-                    r="10"
-                    fill="#FFE055"
-                    stroke="#001A66"
-                    strokeWidth="8"
-                  />
-                </g>
-              )}
               </svg>
+
+              {/* 3. Photorealistic Hat Overlay Layer */}
+              {selectedHat === 'grad_cap' && selectedOutfit !== 'graduation' && (
+                <img
+                  src="/images/chacha/layer_hat_grad_cap.png"
+                  alt="학사모 레이어"
+                  className="pointer-events-none absolute inset-0 h-full w-full object-contain select-none"
+                  draggable={false}
+                />
+              )}
+              {selectedHat === 'ballcap' && (
+                <img
+                  src="/images/chacha/layer_hat_ballcap.png"
+                  alt="CNU 볼캡 레이어"
+                  className="pointer-events-none absolute inset-0 h-full w-full object-contain select-none"
+                  draggable={false}
+                />
+              )}
+              {selectedHat === 'cherry' && (
+                <img
+                  src="/images/chacha/layer_hat_cherry.png"
+                  alt="벚꽃 화관 레이어"
+                  className="pointer-events-none absolute inset-0 h-full w-full object-contain select-none"
+                  draggable={false}
+                />
+              )}
+
+              {/* 4. Photorealistic Accessory Overlay Layer */}
+              {selectedAcc === 'crossbag' && (
+                <img
+                  src="/images/chacha/layer_acc_crossbag.png"
+                  alt="미니 크로스백 레이어"
+                  className="pointer-events-none absolute inset-0 h-full w-full object-contain select-none"
+                  draggable={false}
+                />
+              )}
+              {selectedAcc === 'diploma' && (
+                <img
+                  src="/images/chacha/layer_acc_diploma.png"
+                  alt="학위증서 레이어"
+                  className="pointer-events-none absolute inset-0 h-full w-full object-contain select-none"
+                  draggable={false}
+                />
+              )}
             </div>
           )}
 
