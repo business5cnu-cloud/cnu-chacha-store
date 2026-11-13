@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable @next/next/no-img-element */
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -12,14 +13,19 @@ import {
   Leaf,
   CheckCircle2,
   Wand2,
+  Box,
+  Layers,
 } from 'lucide-react';
 import { useStore } from '@/hooks/useStore';
 import { formatKRW, getEffectivePrice } from '@/lib/utils';
+import ChaCha3DFittingStage, {
+  type OutfitKey,
+  type HatKey,
+  type AccKey,
+} from '@/components/store/ChaCha3DFittingStage';
 
-type OutfitKey = 'none' | 'varsity' | 'graduation' | 'hoodie' | 'vest' | 'dungarees';
-type HatKey = 'none' | 'grad_cap' | 'ballcap' | 'cherry';
-type AccKey = 'none' | 'crossbag' | 'diploma';
 type WardrobeTab = 'outfit' | 'hat' | 'acc';
+type StageViewMode = '3d' | '2d';
 
 const BASE_DOLL_PRICE = 18000;
 
@@ -190,6 +196,7 @@ export default function VirtualFittingRoomPage() {
   const { products, addToCart } = useStore();
 
   const [activeTab, setActiveTab] = useState<WardrobeTab>('outfit');
+  const [viewMode, setViewMode] = useState<StageViewMode>('3d');
   const [selectedOutfit, setSelectedOutfit] = useState<OutfitKey>('varsity');
   const [selectedHat, setSelectedHat] = useState<HatKey>('none');
   const [selectedAcc, setSelectedAcc] = useState<AccKey>('none');
@@ -285,14 +292,14 @@ export default function VirtualFittingRoomPage() {
           <div className="flex flex-wrap items-center gap-2.5">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1 text-xs font-extrabold text-sky-700 border border-sky-200">
               <span className="h-2 w-2 rounded-full bg-sky-500 animate-ping" />
-              NEW CHACHA VR FITTING ROOM
+              NEW CHACHA 3D VR FITTING ROOM
             </span>
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
-              NEW 차차 가상 피팅룸 & 커스텀 옷장
+              NEW 차차 3D 가상 피팅룸 & 커스텀 옷장
             </h1>
           </div>
           <p className="mt-1 text-xs sm:text-sm text-slate-500">
-            새로워진 공식 차차(ChaCha) 캐릭터에게 화이트 데일리 셋업, 충남대 과잠, 학사복·학사모와 다양한 커스텀 아이템을 입혀보세요.
+            구매 및 매장 방문 전, 360° 회전 가능한 3D 봉제인형 그래픽으로 커스텀 의상·모자·소품 착용 완성본을 미리 확인해보세요.
           </p>
         </div>
       </div>
@@ -313,30 +320,63 @@ export default function VirtualFittingRoomPage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-start">
         {/* Left: Interactive New ChaCha Mascot Stage */}
         <div className="lg:col-span-6 rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm flex flex-col items-center relative overflow-hidden">
-          <div className="w-full flex items-center justify-between mb-4">
+          <div className="w-full flex flex-wrap items-center justify-between gap-2 mb-4">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-cnu-navy/10 px-3 py-1 text-xs font-extrabold text-cnu-navy">
-              🦄 NEW CHACHA STAGE
+              🦄 NEW CHACHA 3D STAGE
             </span>
-            <span className="text-xs font-semibold text-slate-400">
-              실시간 캐릭터 피팅 프리뷰
-            </span>
+
+            {/* 3D Plush Model vs 2D Design Blueprint Switch */}
+            <div className="inline-flex items-center rounded-xl bg-slate-100 p-1 text-xs font-extrabold">
+              <button
+                type="button"
+                onClick={() => setViewMode('3d')}
+                className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-all ${
+                  viewMode === '3d'
+                    ? 'bg-cnu-navy text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <Box className="h-3.5 w-3.5" />
+                <span>3D 입체 인형</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('2d')}
+                className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-all ${
+                  viewMode === '2d'
+                    ? 'bg-cnu-navy text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <Layers className="h-3.5 w-3.5" />
+                <span>2D 도안 비교</span>
+              </button>
+            </div>
           </div>
 
-          {/* Stage Canvas (1:1 aspect ratio matching 1024x1024 official artwork) */}
-          <div className="relative flex aspect-square w-full max-w-[440px] items-center justify-center rounded-3xl border border-sky-100 bg-white shadow-inner overflow-hidden">
-            {/* 1. Official New ChaCha Artwork Base */}
-            <img
-              src={baseImageSrc}
-              alt={coordinateSummaryName}
-              className="h-full w-full object-contain select-none transition-all duration-300"
-              draggable={false}
+          {viewMode === '3d' ? (
+            <ChaCha3DFittingStage
+              outfit={selectedOutfit}
+              hat={selectedHat}
+              acc={selectedAcc}
+              coordinateSummaryName={coordinateSummaryName}
             />
+          ) : (
+            /* Stage Canvas (1:1 aspect ratio matching 1024x1024 official artwork) */
+            <div className="relative flex aspect-square w-full max-w-[440px] items-center justify-center rounded-3xl border border-sky-100 bg-white shadow-inner overflow-hidden">
+              {/* 1. Official New ChaCha Artwork Base */}
+              <img
+                src={baseImageSrc}
+                alt={coordinateSummaryName}
+                className="h-full w-full object-contain select-none transition-all duration-300"
+                draggable={false}
+              />
 
-            {/* 2. Custom Outfit SVG Layer (Aligned to 1024x1024 New ChaCha proportions & #001A66 18px line-art) */}
-            <svg
-              viewBox="0 0 1024 1024"
-              className="pointer-events-none absolute inset-0 h-full w-full"
-            >
+              {/* 2. Custom Outfit SVG Layer (Aligned to 1024x1024 New ChaCha proportions & #001A66 18px line-art) */}
+              <svg
+                viewBox="0 0 1024 1024"
+                className="pointer-events-none absolute inset-0 h-full w-full"
+              >
               {/* Graduation gown when worn WITHOUT the graduation cap */}
               {selectedOutfit === 'graduation' && selectedHat !== 'grad_cap' && (
                 <g>
@@ -866,8 +906,9 @@ export default function VirtualFittingRoomPage() {
                   />
                 </g>
               )}
-            </svg>
-          </div>
+              </svg>
+            </div>
+          )}
 
           {/* Official 3-Look Quick Presets */}
           <div className="mt-5 w-full">
