@@ -526,6 +526,10 @@ export default function ChaCha3DFittingStage({
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const dw = Math.floor(canvas.clientWidth * dpr);
       const dh = Math.floor(canvas.clientHeight * dpr);
+      if (dw === 0 || dh === 0) {
+        rafId = requestAnimationFrame(renderFrame);
+        return;
+      }
       if (canvas.width !== dw || canvas.height !== dh) {
         canvas.width = dw;
         canvas.height = dh;
@@ -750,7 +754,7 @@ export default function ChaCha3DFittingStage({
         </div>
       )}
 
-      {showSpecSheet ? (
+      {showSpecSheet && (
         <div className="flex h-[460px] w-full flex-col justify-between rounded-3xl border border-slate-200 bg-slate-50/70 p-6 text-left">
           <div>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-100 px-3 py-1 text-xs font-extrabold text-sky-900">
@@ -798,20 +802,23 @@ export default function ChaCha3DFittingStage({
             360° 3D 피팅 화면으로 돌아가기
           </button>
         </div>
-      ) : (
-        <div
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onPointerCancel={handlePointerUp}
-          style={{
-            background: backdropGrad,
-            touchAction: 'none',
-          }}
-          className={`relative w-full overflow-hidden rounded-3xl border border-slate-200/80 shadow-inner ${
-            compact ? 'h-[360px]' : 'h-[460px] sm:h-[500px]'
-          } ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
-        >
+      )}
+
+      <div
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+        style={{
+          background: backdropGrad,
+          touchAction: 'none',
+        }}
+        className={`relative w-full overflow-hidden rounded-3xl border border-slate-200/80 shadow-inner ${
+          showSpecSheet ? 'hidden' : ''
+        } ${
+          compact ? 'h-[360px]' : 'h-[460px] sm:h-[500px]'
+        } ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+      >
           {/* Top-left Drag Guide Pill */}
           {!compact && (
             <div className="pointer-events-none absolute left-4 top-4 z-20 flex items-center gap-2">
@@ -924,8 +931,7 @@ export default function ChaCha3DFittingStage({
               </button>
             </div>
           )}
-        </div>
-      )}
+      </div>
     </div>
   );
 }
