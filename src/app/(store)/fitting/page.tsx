@@ -224,19 +224,19 @@ export default function VirtualFittingRoomPage() {
   if (selectedAcc !== 'none') coordinateParts.push(accObj.name);
   const coordinateSummaryName = coordinateParts.join(' + ');
 
-  // Select which official New ChaCha plush doll base image to render
+  // Select unified 1024x1024 AI studio plush doll base image so hats & accessories align 1:1
   const baseImageSrc =
     selectedOutfit === 'varsity'
-      ? '/images/chacha/fitting_plush_varsity.png'
-      : selectedOutfit === 'graduation' && selectedHat === 'grad_cap'
-        ? '/images/chacha/fitting_plush_graduation.png'
+      ? '/images/chacha/ai_outfit_varsity.jpg'
+      : selectedOutfit === 'graduation'
+        ? '/images/chacha/ai_outfit_graduation.jpg'
         : selectedOutfit === 'hoodie'
           ? '/images/chacha/ai_outfit_hoodie.jpg'
           : selectedOutfit === 'vest'
             ? '/images/chacha/ai_outfit_vest.jpg'
             : selectedOutfit === 'dungarees'
               ? '/images/chacha/ai_outfit_dungarees.jpg'
-              : '/images/chacha/fitting_plush_basic.png';
+              : '/images/chacha/ai_outfit_basic.jpg';
 
   const handleSelectOutfit = (key: OutfitKey) => {
     setSelectedOutfit(key);
@@ -382,104 +382,8 @@ export default function VirtualFittingRoomPage() {
                 draggable={false}
               />
 
-              {/* 2. Custom Outfit SVG Layer (Aligned to 1024x1024 New ChaCha proportions & #001A66 18px line-art) */}
-              <svg
-                viewBox="0 0 1024 1024"
-                className="pointer-events-none absolute inset-0 h-full w-full"
-              >
-              {/* Graduation gown when worn WITHOUT the graduation cap */}
-              {selectedOutfit === 'graduation' && selectedHat !== 'grad_cap' && (
-                <g>
-                  {/* Gown Flared Body */}
-                  <path
-                    d="M355,578 L296,832 Q468,864 654,832 L582,576 Z"
-                    fill="#1F242B"
-                    stroke="#001A66"
-                    strokeWidth="18"
-                    strokeLinejoin="round"
-                  />
-                  {/* Gown Sleeve Left */}
-                  <path
-                    d="M358,584 Q305,625 298,690 L355,705 L368,610 Z"
-                    fill="#1F242B"
-                    stroke="#001A66"
-                    strokeWidth="18"
-                    strokeLinejoin="round"
-                  />
-                  {/* Gown Sleeve Right */}
-                  <path
-                    d="M555,580 Q618,615 632,688 L525,688 L525,605 Z"
-                    fill="#1F242B"
-                    stroke="#001A66"
-                    strokeWidth="18"
-                    strokeLinejoin="round"
-                  />
-                  {/* Center Pleat Line */}
-                  <line
-                    x1="505"
-                    y1="665"
-                    x2="518"
-                    y2="842"
-                    stroke="#11151C"
-                    strokeWidth="12"
-                    strokeLinecap="round"
-                  />
-                  {/* Blue V-Stole with Gold Trim */}
-                  <polygon
-                    points="356,576 404,705 516,580"
-                    fill="#0056B3"
-                    stroke="#F7D046"
-                    strokeWidth="14"
-                    strokeLinejoin="round"
-                  />
-                  <polygon
-                    points="350,572 404,715 524,576"
-                    fill="none"
-                    stroke="#001A66"
-                    strokeWidth="16"
-                    strokeLinejoin="round"
-                  />
-                  {/* 'C' Emblem on Stole */}
-                  <text
-                    x="408"
-                    y="646"
-                    textAnchor="middle"
-                    fontFamily="Arial, sans-serif"
-                    fontWeight="900"
-                    fontSize="58"
-                    fill="#00BCEB"
-                    stroke="#FFFFFF"
-                    strokeWidth="8"
-                    paintOrder="stroke"
-                  >
-                    C
-                  </text>
-                  {/* White Paws */}
-                  <ellipse
-                    cx="315"
-                    cy="708"
-                    rx="24"
-                    ry="34"
-                    fill="#FFFFFF"
-                    stroke="#001A66"
-                    strokeWidth="18"
-                  />
-                  <ellipse
-                    cx="562"
-                    cy="724"
-                    rx="56"
-                    ry="46"
-                    fill="#FFFFFF"
-                    stroke="#001A66"
-                    strokeWidth="18"
-                  />
-                </g>
-              )}
-
-              </svg>
-
-              {/* 3. Photorealistic Hat Overlay Layer */}
-              {selectedHat === 'grad_cap' && selectedOutfit !== 'graduation' && (
+              {/* 2. Photorealistic Hat Overlay Layer */}
+              {selectedHat === 'grad_cap' && (
                 <img
                   src="/images/chacha/layer_hat_grad_cap.png"
                   alt="학사모 레이어"
