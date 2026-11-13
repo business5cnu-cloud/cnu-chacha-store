@@ -41,7 +41,7 @@ const OUTFIT_ITEMS: {
   {
     key: 'none',
     emoji: '🤍',
-    thumb: '/images/chacha/fitting_basic.jpg',
+    thumb: '/images/chacha/ai_outfit_basic.jpg',
     name: '기본 화이트 셋업',
     desc: '화이트 티셔츠 & 팬츠 기본룩',
     price: 0,
@@ -50,7 +50,7 @@ const OUTFIT_ITEMS: {
   {
     key: 'varsity',
     emoji: '⚾',
-    thumb: '/images/chacha/fitting_varsity.jpg',
+    thumb: '/images/chacha/ai_outfit_varsity.jpg',
     name: '충남대 과잠',
     desc: '네이비 & C 엠블럼 스타디움 재킷',
     price: 14000,
@@ -59,7 +59,7 @@ const OUTFIT_ITEMS: {
   {
     key: 'graduation',
     emoji: '🎓',
-    thumb: '/images/chacha/fitting_graduation.jpg',
+    thumb: '/images/chacha/ai_thumb_graduation.jpg',
     name: '학사복 & 스톨',
     desc: 'CNU 블루 스톨 졸업 가운',
     price: 16000,
@@ -68,6 +68,7 @@ const OUTFIT_ITEMS: {
   {
     key: 'hoodie',
     emoji: '👕',
+    thumb: '/images/chacha/ai_outfit_hoodie.jpg',
     name: 'CNU 스카이 후드티',
     desc: '시그니처 민트블루 데일리 후드',
     price: 12000,
@@ -75,6 +76,7 @@ const OUTFIT_ITEMS: {
   {
     key: 'vest',
     emoji: '🦺',
+    thumb: '/images/chacha/ai_outfit_vest.jpg',
     name: '프레피 니트 조끼',
     desc: '아이보리 V넥 조끼 & 타이',
     price: 13000,
@@ -82,6 +84,7 @@ const OUTFIT_ITEMS: {
   {
     key: 'dungarees',
     emoji: '👖',
+    thumb: '/images/chacha/ai_outfit_dungarees.jpg',
     name: '레트로 데님 멜빵',
     desc: '워싱 데님 오버롤 팬츠',
     price: 12500,
@@ -107,7 +110,7 @@ const HAT_ITEMS: {
   {
     key: 'grad_cap',
     emoji: '🎓',
-    thumb: '/images/chacha/fitting_graduation.jpg',
+    thumb: '/images/chacha/ai_thumb_graduation.jpg',
     name: '골드 태슬 학사모',
     desc: '졸업 기념 골드 수술 사각모',
     price: 7000,
@@ -116,6 +119,7 @@ const HAT_ITEMS: {
   {
     key: 'ballcap',
     emoji: '🧢',
+    thumb: '/images/chacha/ai_hat_ballcap.jpg',
     name: 'CNU 시그니처 볼캡',
     desc: '네이비 & 민트 C 로고 캡',
     price: 6000,
@@ -123,6 +127,7 @@ const HAT_ITEMS: {
   {
     key: 'cherry',
     emoji: '🌸',
+    thumb: '/images/chacha/ai_hat_cherry.jpg',
     name: '캠퍼스 벚꽃 화관',
     desc: '봄 축제 벚꽃 크라운',
     price: 5000,
@@ -132,6 +137,7 @@ const HAT_ITEMS: {
 const ACC_ITEMS: {
   key: AccKey;
   emoji: string;
+  thumb?: string;
   name: string;
   desc: string;
   price: number;
@@ -140,6 +146,7 @@ const ACC_ITEMS: {
   {
     key: 'crossbag',
     emoji: '👜',
+    thumb: '/images/chacha/ai_acc_crossbag.jpg',
     name: '차차 미니 크로스백',
     desc: '네이비 & 민트 C 로고 메신저백',
     price: 5500,
@@ -147,6 +154,7 @@ const ACC_ITEMS: {
   {
     key: 'diploma',
     emoji: '📜',
+    thumb: '/images/chacha/ai_acc_diploma.jpg',
     name: '충남대학교 학위기',
     desc: '레드 리본 졸업장 롤 소품',
     price: 4000,
@@ -166,7 +174,7 @@ const OFFICIAL_PRESETS: {
     id: 'preset-basic',
     label: '화이트 데일리 셋업',
     sub: '기본 티셔츠 & 팬츠',
-    thumb: '/images/chacha/fitting_basic.jpg',
+    thumb: '/images/chacha/fitting_plush_basic.png',
     outfit: 'none',
     hat: 'none',
     acc: 'none',
@@ -175,7 +183,7 @@ const OFFICIAL_PRESETS: {
     id: 'preset-varsity',
     label: '충남대 새내기 과잠룩',
     sub: '네이비 C 로고 과잠',
-    thumb: '/images/chacha/fitting_varsity.jpg',
+    thumb: '/images/chacha/fitting_plush_varsity.png',
     outfit: 'varsity',
     hat: 'none',
     acc: 'none',
@@ -184,7 +192,7 @@ const OFFICIAL_PRESETS: {
     id: 'preset-graduation',
     label: '학위수여식 졸업 에디션',
     sub: '학사복 가운 + 골드 태슬 학사모',
-    thumb: '/images/chacha/fitting_graduation.jpg',
+    thumb: '/images/chacha/fitting_plush_graduation.png',
     outfit: 'graduation',
     hat: 'grad_cap',
     acc: 'none',
@@ -216,13 +224,13 @@ export default function VirtualFittingRoomPage() {
   if (selectedAcc !== 'none') coordinateParts.push(accObj.name);
   const coordinateSummaryName = coordinateParts.join(' + ');
 
-  // Select which official New ChaCha base illustration to render
+  // Select which official New ChaCha plush doll base image to render
   const baseImageSrc =
     selectedOutfit === 'varsity'
-      ? '/images/chacha/fitting_varsity.jpg'
+      ? '/images/chacha/fitting_plush_varsity.png'
       : selectedOutfit === 'graduation' && selectedHat === 'grad_cap'
-        ? '/images/chacha/fitting_graduation.jpg'
-        : '/images/chacha/fitting_basic.jpg';
+        ? '/images/chacha/fitting_plush_graduation.png'
+        : '/images/chacha/fitting_plush_basic.png';
 
   const handleSelectOutfit = (key: OutfitKey) => {
     setSelectedOutfit(key);
@@ -349,7 +357,7 @@ export default function VirtualFittingRoomPage() {
                 }`}
               >
                 <Layers className="h-3.5 w-3.5" />
-                <span>2D 도안 비교</span>
+                <span>실물 인형 포토</span>
               </button>
             </div>
           </div>
@@ -1146,7 +1154,15 @@ export default function VirtualFittingRoomPage() {
                         : 'border-slate-200 hover:border-cnu-blue/60 hover:bg-slate-50'
                     }`}
                   >
-                    <span className="block text-2xl mb-1.5">{item.emoji}</span>
+                    {item.thumb ? (
+                      <img
+                        src={item.thumb}
+                        alt={item.name}
+                        className="mb-2 h-14 w-14 rounded-xl border border-slate-200 bg-white object-contain"
+                      />
+                    ) : (
+                      <span className="block text-2xl mb-1.5">{item.emoji}</span>
+                    )}
                     <h4 className="text-xs font-black text-slate-900">{item.name}</h4>
                     <p className="mt-0.5 text-[11px] text-slate-400">{item.desc}</p>
                     <span className="mt-2 block text-xs font-extrabold text-cnu-blue">
