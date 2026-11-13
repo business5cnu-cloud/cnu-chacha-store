@@ -41,7 +41,7 @@ const OUTFIT_ITEMS: {
   {
     key: 'none',
     emoji: '🤍',
-    thumb: '/images/chacha/fitting_basic.jpg',
+    thumb: '/images/chacha/fitting_plush_basic.png',
     name: '기본 화이트 셋업',
     desc: '화이트 티셔츠 & 팬츠 기본룩',
     price: 0,
@@ -50,7 +50,7 @@ const OUTFIT_ITEMS: {
   {
     key: 'varsity',
     emoji: '⚾',
-    thumb: '/images/chacha/fitting_varsity.jpg',
+    thumb: '/images/chacha/fitting_plush_varsity.png',
     name: '충남대 과잠',
     desc: '네이비 & C 엠블럼 스타디움 재킷',
     price: 14000,
@@ -59,7 +59,7 @@ const OUTFIT_ITEMS: {
   {
     key: 'graduation',
     emoji: '🎓',
-    thumb: '/images/chacha/fitting_graduation.jpg',
+    thumb: '/images/chacha/fitting_plush_graduation.png',
     name: '학사복 & 스톨',
     desc: 'CNU 블루 스톨 졸업 가운',
     price: 16000,
@@ -107,7 +107,7 @@ const HAT_ITEMS: {
   {
     key: 'grad_cap',
     emoji: '🎓',
-    thumb: '/images/chacha/fitting_graduation.jpg',
+    thumb: '/images/chacha/fitting_plush_graduation.png',
     name: '골드 태슬 학사모',
     desc: '졸업 기념 골드 수술 사각모',
     price: 7000,
@@ -166,7 +166,7 @@ const OFFICIAL_PRESETS: {
     id: 'preset-basic',
     label: '화이트 데일리 셋업',
     sub: '기본 티셔츠 & 팬츠',
-    thumb: '/images/chacha/fitting_basic.jpg',
+    thumb: '/images/chacha/fitting_plush_basic.png',
     outfit: 'none',
     hat: 'none',
     acc: 'none',
@@ -175,7 +175,7 @@ const OFFICIAL_PRESETS: {
     id: 'preset-varsity',
     label: '충남대 새내기 과잠룩',
     sub: '네이비 C 로고 과잠',
-    thumb: '/images/chacha/fitting_varsity.jpg',
+    thumb: '/images/chacha/fitting_plush_varsity.png',
     outfit: 'varsity',
     hat: 'none',
     acc: 'none',
@@ -184,7 +184,7 @@ const OFFICIAL_PRESETS: {
     id: 'preset-graduation',
     label: '학위수여식 졸업 에디션',
     sub: '학사복 가운 + 골드 태슬 학사모',
-    thumb: '/images/chacha/fitting_graduation.jpg',
+    thumb: '/images/chacha/fitting_plush_graduation.png',
     outfit: 'graduation',
     hat: 'grad_cap',
     acc: 'none',
@@ -216,13 +216,13 @@ export default function VirtualFittingRoomPage() {
   if (selectedAcc !== 'none') coordinateParts.push(accObj.name);
   const coordinateSummaryName = coordinateParts.join(' + ');
 
-  // Select which official New ChaCha base illustration to render
+  // Select which official New ChaCha plush doll base image to render
   const baseImageSrc =
     selectedOutfit === 'varsity'
-      ? '/images/chacha/fitting_varsity.jpg'
+      ? '/images/chacha/fitting_plush_varsity.png'
       : selectedOutfit === 'graduation' && selectedHat === 'grad_cap'
-        ? '/images/chacha/fitting_graduation.jpg'
-        : '/images/chacha/fitting_basic.jpg';
+        ? '/images/chacha/fitting_plush_graduation.png'
+        : '/images/chacha/fitting_plush_basic.png';
 
   const handleSelectOutfit = (key: OutfitKey) => {
     setSelectedOutfit(key);
@@ -349,7 +349,7 @@ export default function VirtualFittingRoomPage() {
                 }`}
               >
                 <Layers className="h-3.5 w-3.5" />
-                <span>2D 도안 비교</span>
+                <span>실물 인형 포토</span>
               </button>
             </div>
           </div>
