@@ -334,11 +334,7 @@ export default function VirtualFittingRoomPage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-start">
         {/* Left: Interactive New ChaCha Mascot Stage */}
         <div className="lg:col-span-6 rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm flex flex-col items-center relative overflow-hidden">
-          <div className="w-full flex flex-wrap items-center justify-between gap-2 mb-4">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-cnu-navy/10 px-3 py-1 text-xs font-extrabold text-cnu-navy">
-              🦄 NEW CHACHA 3D STAGE
-            </span>
-
+          <div className="w-full flex flex-wrap items-center justify-end gap-2 mb-4">
             {/* 3D Plush Model vs 2D Design Blueprint Switch */}
             <div className="inline-flex items-center rounded-xl bg-slate-100 p-1 text-xs font-extrabold">
               <button

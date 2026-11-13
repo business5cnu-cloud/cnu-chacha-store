@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   RotateCcw,
-  Sparkles,
   Compass,
   Sun,
   ZoomIn,
@@ -712,32 +711,18 @@ export default function ChaCha3DFittingStage({
       {/* Top Toolbar: Mode Switch + Lighting Controls */}
       {!compact && (
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5">
-            <button
-              type="button"
-              onClick={() => setShowSpecSheet(false)}
-              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-extrabold transition ${
-                !showSpecSheet
-                  ? 'bg-cnu-navy text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
-            >
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>360° 실사 텍스처 3D 인형</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowSpecSheet(true)}
-              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-extrabold transition ${
-                showSpecSheet
-                  ? 'bg-cnu-navy text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
-            >
-              <Ruler className="h-3.5 w-3.5" />
-              <span>실물 규격·원단 정보</span>
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setShowSpecSheet((v) => !v)}
+            className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-extrabold transition ${
+              showSpecSheet
+                ? 'bg-cnu-navy text-white shadow-xs'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            <Ruler className="h-3.5 w-3.5" />
+            <span>실물 규격·원단 정보</span>
+          </button>
 
           <div className="flex items-center gap-1 rounded-full bg-slate-100 p-1 text-[11px] font-bold">
             <Sun className="ml-1.5 h-3.5 w-3.5 text-amber-500" />
