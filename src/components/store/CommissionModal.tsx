@@ -12,6 +12,7 @@ interface UpcyclingTemplate {
   spec: string;
   price: number;
   leadTime: string;
+  sampleImage: string;
 }
 
 const UPCYCLING_TEMPLATES: UpcyclingTemplate[] = [
@@ -21,6 +22,7 @@ const UPCYCLING_TEMPLATES: UpcyclingTemplate[] = [
     spec: '36×40cm · 안감 보강 + 차차 자수 와펜 기본 포함',
     price: 18000,
     leadTime: '약 7일',
+    sampleImage: '/images/chacha/upcycling_sample_ecobag.jpg',
   },
   {
     id: 'pouch-set',
@@ -28,6 +30,7 @@ const UPCYCLING_TEMPLATES: UpcyclingTemplate[] = [
     spec: '지퍼 파우치 + 카드홀더 표준 패턴 재단',
     price: 15000,
     leadTime: '약 5일',
+    sampleImage: '/images/chacha/upcycling_sample_pouch.jpg',
   },
   {
     id: 'doll-varsity',
@@ -35,6 +38,7 @@ const UPCYCLING_TEMPLATES: UpcyclingTemplate[] = [
     spec: '차차 봉제인형 전용 표준 치수 · 자수 이식',
     price: 16000,
     leadTime: '약 7일',
+    sampleImage: '/images/chacha/upcycling_sample_doll_varsity.jpg',
   },
 ];
 
@@ -242,6 +246,25 @@ export function CommissionModal() {
                   <label className="block font-bold text-slate-700 mb-1.5">
                     표준 결과물 선택 (고정 규격 · 정찰제) *
                   </label>
+                  <div className="mb-3 flex items-center gap-3 rounded-2xl border border-emerald-200 bg-emerald-50/40 p-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={selectedTemplate.sampleImage}
+                      alt={`${selectedTemplate.name} 완성 견본`}
+                      className="h-24 w-24 shrink-0 rounded-xl border border-emerald-100 bg-white object-cover shadow-xs"
+                    />
+                    <div className="min-w-0">
+                      <span className="inline-block rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-extrabold text-emerald-800">
+                        완성 견본 예시
+                      </span>
+                      <p className="mt-1 font-black text-slate-900 truncate">
+                        {selectedTemplate.name}
+                      </p>
+                      <p className="mt-0.5 text-[11px] leading-snug text-slate-500">
+                        견본과 동일한 규격·패턴으로 제작되며, 원단 색상과 패치 위치는 보내주신 의류에 따라 달라집니다.
+                      </p>
+                    </div>
+                  </div>
                   <div className="space-y-2">
                     {UPCYCLING_TEMPLATES.map((tpl) => {
                       const isSelected = tpl.id === selectedTemplateId;
@@ -250,19 +273,27 @@ export function CommissionModal() {
                           key={tpl.id}
                           type="button"
                           onClick={() => setSelectedTemplateId(tpl.id)}
-                          className={`w-full rounded-2xl border p-3 text-left transition-all ${
+                          className={`flex w-full items-center gap-3 rounded-2xl border p-2.5 text-left transition-all ${
                             isSelected
                               ? 'border-emerald-600 bg-emerald-50/70 ring-1 ring-emerald-600'
                               : 'border-slate-200 bg-white hover:border-slate-300'
                           }`}
                         >
-                          <div className="flex items-center justify-between gap-2">
-                            <span className="font-extrabold text-slate-900">{tpl.name}</span>
-                            <span className="shrink-0 font-black text-emerald-700">
-                              {formatKRW(tpl.price)} · {tpl.leadTime}
-                            </span>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={tpl.sampleImage}
+                            alt={tpl.name}
+                            className="h-12 w-12 shrink-0 rounded-xl border border-slate-100 bg-slate-50 object-cover"
+                          />
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="font-extrabold text-slate-900 truncate">{tpl.name}</span>
+                              <span className="shrink-0 font-black text-emerald-700">
+                                {formatKRW(tpl.price)} · {tpl.leadTime}
+                              </span>
+                            </div>
+                            <p className="mt-0.5 text-[11px] text-slate-500 truncate">{tpl.spec}</p>
                           </div>
-                          <p className="mt-1 text-[11px] text-slate-500">{tpl.spec}</p>
                         </button>
                       );
                     })}
