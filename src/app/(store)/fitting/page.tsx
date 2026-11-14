@@ -313,7 +313,7 @@ export default function VirtualFittingRoomPage() {
             </h1>
           </div>
           <p className="mt-1 text-xs sm:text-sm text-slate-500">
-            구매 및 매장 방문 전, 360° 회전 가능한 3D 봉제인형 그래픽으로 커스텀 의상·모자·소품 착용 완성본을 미리 확인해보세요.
+            360° 회전 가능한 3D 봉제인형 그래픽으로 커스텀 의상·모자·소품 착용 완성본을 미리 확인해보세요.
           </p>
         </div>
       </div>
