@@ -802,12 +802,21 @@ function buildBody(acc: MeshAccumulator, hat: HatKey, accProp: AccKey): void {
 // Builds the 3-Lobe Shaggy Cyan Forehead Mane, Back Mane & Fluffy Tail
 // Called for both solid base (shellOffset = 0) and 3 concentric fur shells!
 function buildCyanFur(acc: MeshAccumulator, hat: HatKey, shellOffset: number, furVal: number): void {
-  const compress = hat === 'ballcap' ? 0.065 : 0;
+  const isBallcap = hat === 'ballcap';
+  const isGradCap = hat === 'grad_cap';
+  const isCherry = hat === 'cherry';
+  const compress = isBallcap ? 0.095 : isGradCap ? 0.055 : isCherry ? 0.028 : 0;
+  const frontBangDrop = isBallcap ? 0.032 : isGradCap ? 0.015 : 0;
+  const midScale = isBallcap ? 0.72 : isGradCap ? 0.86 : isCherry ? 0.92 : 1.0;
 
-  // Front-lower bang lobe (peeks out neatly under the ballcap visor!)
+  // Front-lower bang lobe (peeks out neatly under the ballcap visor / flower crown!)
   addSplineTube(
     acc,
-    [[0.20, 0.36, 0.13], [0.08, 0.40, 0.21], [-0.04, 0.39, 0.23]],
+    [
+      [0.20, 0.36 - frontBangDrop, 0.13],
+      [0.08, 0.40 - frontBangDrop, 0.21],
+      [-0.04, 0.39 - frontBangDrop, 0.23],
+    ],
     [0.086 + shellOffset, 0.102 + shellOffset, 0.094 + shellOffset],
     1,
     [1, 1, 1],
@@ -821,15 +830,19 @@ function buildCyanFur(acc: MeshAccumulator, hat: HatKey, shellOffset: number, fu
     0.88
   );
 
-  // Middle bang lobe
+  // Middle bang lobe (tucked cleanly under hats)
   addSplineTube(
     acc,
     [
-      [0.19, 0.46 - compress * 0.4, 0.06],
-      [0.04, 0.51 - compress * 0.45, 0.15],
-      [-0.10, 0.50 - compress * 0.5, 0.16],
+      [0.19 * midScale, 0.46 - compress * 0.55, 0.06 * midScale],
+      [0.04 * midScale, 0.51 - compress * 0.6, 0.15 * midScale],
+      [-0.10 * midScale, 0.50 - compress * 0.65, 0.16 * midScale],
     ],
-    [0.092 + shellOffset, 0.108 + shellOffset, 0.096 + shellOffset],
+    [
+      0.092 * midScale + shellOffset,
+      0.108 * midScale + shellOffset,
+      0.096 * midScale + shellOffset,
+    ],
     1,
     [1, 1, 1],
     furVal,
@@ -842,26 +855,33 @@ function buildCyanFur(acc: MeshAccumulator, hat: HatKey, shellOffset: number, fu
     0.88
   );
 
-  // Top crown lobe
-  addSplineTube(
-    acc,
-    [
-      [0.15, 0.55 - compress * 0.85, -0.02],
-      [0.02, 0.61 - compress * 0.95, 0.05],
-      [-0.08, 0.60 - compress * 1.0, 0.08],
-    ],
-    [0.088 + shellOffset, 0.102 + shellOffset, 0.090 + shellOffset],
-    1,
-    [1, 1, 1],
-    furVal,
-    2.0,
-    2.5,
-    20,
-    true,
-    true,
-    1.0,
-    0.88
-  );
+  // Top crown lobe (omitted under full-coverage ballcap so zero fur pokes through)
+  if (!isBallcap) {
+    const crownScale = isGradCap ? 0.80 : isCherry ? 0.92 : 1.0;
+    addSplineTube(
+      acc,
+      [
+        [0.15 * crownScale, 0.55 - compress * 0.9, -0.02],
+        [0.02 * crownScale, 0.61 - compress * 1.0, 0.05 * crownScale],
+        [-0.08 * crownScale, 0.60 - compress * 1.05, 0.08 * crownScale],
+      ],
+      [
+        0.088 * crownScale + shellOffset,
+        0.102 * crownScale + shellOffset,
+        0.090 * crownScale + shellOffset,
+      ],
+      1,
+      [1, 1, 1],
+      furVal,
+      2.0,
+      2.5,
+      20,
+      true,
+      true,
+      1.0,
+      0.88
+    );
+  }
 
   // Full 360-degree Back Mane cascading down the back of the head & neck
   addSplineTube(
@@ -1182,25 +1202,25 @@ function buildHat(acc: MeshAccumulator, hat: HatKey): void {
   if (hat === 'none') return;
 
   if (hat === 'grad_cap') {
-    // Academic Mortarboard Cap + Hanging Gold Tassel
+    // Academic Mortarboard Cap + Hanging Gold Tassel (elevated cleanly above tucked crown)
     addLatheBody(
       acc,
-      [0.06, 0.62, -0.02],
-      [0.0, -0.07, -0.12],
-      [0.16, 0.175, 0.185],
-      [0.16, 0.175, 0.185],
+      [0.05, 0.665, -0.01],
+      [0.0, -0.075, -0.13],
+      [0.165, 0.185, 0.195],
+      [0.165, 0.185, 0.195],
       2,
       [0.95, 1.0, 1.1],
       0.15,
       28
     );
     // Tilted square mortarboard
-    addRoundedBox(acc, [0.06, 0.635, -0.02], [0.225, 0.016, 0.225], 2, [0.95, 1.0, 1.1], 0.15, -0.12, 0.10, 0.35);
+    addRoundedBox(acc, [0.05, 0.682, -0.01], [0.225, 0.016, 0.225], 2, [0.95, 1.0, 1.1], 0.15, -0.12, 0.10, 0.35);
     // Top button + hanging golden cord & tassel
-    addEllipsoid(acc, [0.06, 0.655, -0.02], [0.022, 0.014, 0.022], 6, [0.96, 0.78, 0.24], 0.05, 1, 1, 8, 12);
+    addEllipsoid(acc, [0.05, 0.702, -0.01], [0.022, 0.014, 0.022], 6, [0.96, 0.78, 0.24], 0.05, 1, 1, 8, 12);
     addSplineTube(
       acc,
-      [[0.06, 0.655, -0.02], [0.24, 0.615, 0.05], [0.26, 0.52, 0.08], [0.26, 0.40, 0.09]],
+      [[0.05, 0.702, -0.01], [0.23, 0.662, 0.05], [0.25, 0.565, 0.08], [0.25, 0.445, 0.09]],
       [0.008, 0.009, 0.016, 0.028],
       6,
       [0.96, 0.78, 0.24],
@@ -1213,25 +1233,25 @@ function buildHat(acc: MeshAccumulator, hat: HatKey): void {
   }
 
   if (hat === 'ballcap') {
-    // CNU Signature Navy & Sky-Blue Baseball Cap
-    addEllipsoid(acc, [0.02, 0.50, 0.0], [0.265, 0.205, 0.255], 2, [1.0, 1.05, 1.15], 0.15, 2, 2, 18, 28, 0, -0.08);
+    // CNU Signature Navy & Sky-Blue Baseball Cap (fits cleanly over tucked bangs)
+    addEllipsoid(acc, [0.02, 0.515, 0.005], [0.280, 0.212, 0.270], 2, [1.0, 1.05, 1.15], 0.15, 2, 2, 18, 28, 0, -0.08);
     // Top sky-blue button
-    addEllipsoid(acc, [0.02, 0.705, -0.015], [0.026, 0.016, 0.026], 6, [0.16, 0.74, 0.92], 0.1, 1, 1, 8, 12);
+    addEllipsoid(acc, [0.02, 0.725, -0.01], [0.026, 0.016, 0.026], 6, [0.16, 0.74, 0.92], 0.1, 1, 1, 8, 12);
     // Curved Sky-Blue Visor extending forward
-    addEllipsoid(acc, [0.01, 0.435, 0.21], [0.215, 0.028, 0.145], 6, [0.18, 0.75, 0.93], 0.15, 1, 1, 10, 22, 0, 0.18);
+    addEllipsoid(acc, [0.015, 0.445, 0.225], [0.222, 0.028, 0.148], 6, [0.18, 0.75, 0.93], 0.15, 1, 1, 10, 22, 0, 0.18);
     // Embroidered 'C' Emblem on Front Crown
-    addEmblemC(acc, [0.02, 0.56, 0.235], 0.056, 0);
+    addEmblemC(acc, [0.02, 0.572, 0.254], 0.056, 0);
     return;
   }
 
-  // hat === 'cherry' — 360-degree Campus Cherry Blossom Flower Crown
-  addTorus(acc, [0.02, 0.47, 0.01], 0.285, 0.016, 6, [0.22, 0.58, 0.28], 0.2, 36, 8, -0.18, -0.06, 1.08, 0.98);
+  // hat === 'cherry' — 360-degree Campus Cherry Blossom Flower Crown (clears forehead mane cleanly)
+  addTorus(acc, [0.02, 0.465, 0.015], 0.305, 0.016, 6, [0.22, 0.58, 0.28], 0.2, 36, 8, -0.20, -0.06, 1.09, 1.05);
   const blossomCount = 8;
   for (let i = 0; i < blossomCount; i++) {
     const ang = (i / blossomCount) * Math.PI * 2 + 0.32;
-    const bx = 0.02 + Math.cos(ang) * 0.305;
-    const bz = 0.01 + Math.sin(ang) * 0.280;
-    const by = 0.47 - bz * 0.18 - bx * 0.06;
+    const bx = 0.02 + Math.cos(ang) * 0.332;
+    const bz = 0.015 + Math.sin(ang) * 0.320;
+    const by = 0.465 - bz * 0.20 - bx * 0.06;
     const outDir = normalize3([Math.cos(ang), 0.22, Math.sin(ang)]);
 
     // 5 Pastel Pink Petals per flower
@@ -1261,7 +1281,7 @@ function buildHat(acc: MeshAccumulator, hat: HatKey): void {
     const lAng = ang + 0.22;
     addEllipsoid(
       acc,
-      [0.02 + Math.cos(lAng) * 0.29, 0.46 - Math.sin(lAng) * 0.05, 0.01 + Math.sin(lAng) * 0.27],
+      [0.02 + Math.cos(lAng) * 0.320, 0.465 - Math.sin(lAng) * 0.06, 0.015 + Math.sin(lAng) * 0.308],
       [0.028, 0.018, 0.016],
       6,
       [0.32, 0.68, 0.34],
