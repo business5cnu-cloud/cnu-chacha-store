@@ -10,8 +10,6 @@ import {
   ArrowLeft,
   CheckCircle2,
   AlertTriangle,
-  Calendar,
-  Package,
   Truck,
   Heart,
   Ruler,
@@ -27,7 +25,6 @@ import {
   Maximize2,
   Layers,
   Split,
-  Eye,
 } from 'lucide-react';
 import { useStore } from '@/hooks/useStore';
 import {

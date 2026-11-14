@@ -11,9 +11,6 @@ import {
   CheckCircle2,
   X,
   AlertTriangle,
-  FileCheck2,
-  Image as ImageIcon,
-  Layers,
   Wand2,
   Split,
   ShieldCheck,
@@ -28,7 +25,6 @@ import {
   inspectImageUrlDimensions,
   UploadedImageAnalysis,
   IMAGE_UPSCALING_POLICIES,
-  formatBytes,
 } from '@/lib/utils/image-optimizer';
 
 export default function AdminProductsPage() {

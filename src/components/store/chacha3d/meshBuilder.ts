@@ -283,7 +283,6 @@ function addSplineTube(
     }
   }
 
-  const stride = radialSegs + 1;
   for (let i = 0; i < nPts - 1; i++) {
     const r0 = ringStartVerts[i];
     const r1 = ringStartVerts[i + 1];
