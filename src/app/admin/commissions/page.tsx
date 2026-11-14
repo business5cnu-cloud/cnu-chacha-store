@@ -9,10 +9,11 @@ import {
   MessageSquare,
   Phone,
   Mail,
+  Recycle,
 } from 'lucide-react';
 import { useStore } from '@/hooks/useStore';
-import { CommissionRequest, CommissionStatus } from '@/types';
-import { formatKSTDate } from '@/lib/utils';
+import { CommissionRequest, CommissionStatus, CommissionTrack } from '@/types';
+import { formatKSTDate, formatKRW } from '@/lib/utils';
 
 const STATUS_OPTIONS: CommissionStatus[] = [
   '접수 대기',
@@ -34,6 +35,7 @@ export default function AdminCommissionsPage() {
   const { commissions, updateCommissionStatus } = useStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('ALL');
+  const [trackFilter, setTrackFilter] = useState<'ALL' | CommissionTrack>('ALL');
   const [selectedCommission, setSelectedCommission] =
     useState<CommissionRequest | null>(null);
   const [noteDraft, setNoteDraft] = useState('');
@@ -42,6 +44,8 @@ export default function AdminCommissionsPage() {
 
   const filteredCommissions = useMemo(() => {
     return commissions.filter((item) => {
+      const itemTrack: CommissionTrack = item.track ?? 'reform';
+      if (trackFilter !== 'ALL' && itemTrack !== trackFilter) return false;
       if (statusFilter !== 'ALL' && item.status !== statusFilter) return false;
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
@@ -55,7 +59,7 @@ export default function AdminCommissionsPage() {
       }
       return true;
     });
-  }, [commissions, searchQuery, statusFilter]);
+  }, [commissions, searchQuery, statusFilter, trackFilter]);
 
   const summaryCounts = useMemo(() => {
     return {
@@ -135,7 +139,31 @@ export default function AdminCommissionsPage() {
 
       {/* Filter Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
-        <div className="flex flex-wrap items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-1 rounded-xl bg-slate-100 p-1">
+            {(
+              [
+                { key: 'ALL', label: '전체 구분' },
+                { key: 'upcycling', label: '표준 업사이클링' },
+                { key: 'reform', label: '맞춤 리폼' },
+              ] as const
+            ).map((t) => (
+              <button
+                key={t.key}
+                type="button"
+                onClick={() => setTrackFilter(t.key)}
+                className={`rounded-lg px-2.5 py-1 text-[11px] font-extrabold transition-colors ${
+                  trackFilter === t.key
+                    ? 'bg-white text-slate-900 shadow-xs'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-1.5">
           {(['ALL', ...STATUS_OPTIONS] as const).map((status) => (
             <button
               key={status}
@@ -150,6 +178,7 @@ export default function AdminCommissionsPage() {
               {status === 'ALL' ? '전체 보기' : status}
             </button>
           ))}
+          </div>
         </div>
 
         <div className="relative w-full sm:w-72">
@@ -198,8 +227,27 @@ export default function AdminCommissionsPage() {
                         </p>
                       </td>
                       <td className="py-3.5 px-4">
-                        <p className="font-bold text-slate-800">{item.item_type}</p>
-                        <p className="line-clamp-1 text-[11px] text-slate-500">
+                        <div className="flex items-center gap-1.5">
+                          <span
+                            className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-extrabold ${
+                              item.track === 'upcycling'
+                                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                : 'bg-sky-50 text-sky-700 border border-sky-200'
+                            }`}
+                          >
+                            {item.track === 'upcycling' ? (
+                              <>
+                                <Recycle className="h-2.5 w-2.5" /> 표준 업사이클링
+                              </>
+                            ) : (
+                              <>
+                                <Scissors className="h-2.5 w-2.5" /> 맞춤 리폼
+                              </>
+                            )}
+                          </span>
+                          <p className="font-bold text-slate-800">{item.item_type}</p>
+                        </div>
+                        <p className="mt-0.5 line-clamp-1 text-[11px] text-slate-500">
                           {item.details}
                         </p>
                       </td>
@@ -288,9 +336,28 @@ export default function AdminCommissionsPage() {
                 </div>
               </div>
 
+              {selectedCommission.track === 'upcycling' && (
+                <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-3.5 text-xs space-y-1">
+                  <p className="font-extrabold text-emerald-900">
+                    표준 업사이클링 공정 정보
+                  </p>
+                  <p className="text-emerald-800">
+                    표준 결과물: <strong>{selectedCommission.standard_template || selectedCommission.item_type}</strong>
+                    {selectedCommission.estimated_price
+                      ? ` (${formatKRW(selectedCommission.estimated_price)})`
+                      : ''}
+                  </p>
+                  {selectedCommission.source_material && (
+                    <p className="text-emerald-800">
+                      수거 원재료: <strong>{selectedCommission.source_material}</strong>
+                    </p>
+                  )}
+                </div>
+              )}
+
               <div>
                 <p className="mb-1.5 text-xs font-extrabold text-slate-700">
-                  상세 요청 내용
+                  {selectedCommission.track === 'upcycling' ? '원재료 참고 메모' : '상세 요청 내용'}
                 </p>
                 <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-3.5 text-xs leading-relaxed text-slate-700">
                   {selectedCommission.details}

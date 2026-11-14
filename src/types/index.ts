@@ -186,6 +186,8 @@ export interface Review {
   created_at: string;
 }
 
+export type CommissionTrack = 'upcycling' | 'reform';
+
 export type CommissionStatus =
   | '접수 대기'
   | '상담 진행 중'
@@ -195,10 +197,14 @@ export type CommissionStatus =
 
 export interface CommissionRequest {
   id: string;
+  track?: CommissionTrack;
   customer_name: string;
   phone: string;
   email: string;
   item_type: string;
+  standard_template?: string;
+  source_material?: string;
+  estimated_price?: number;
   details: string;
   status: CommissionStatus;
   admin_note?: string;

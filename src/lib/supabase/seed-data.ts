@@ -1330,17 +1330,22 @@ export const INITIAL_PHOTO_REVIEWS = [
 export const INITIAL_COMMISSIONS: CommissionRequest[] = [
   {
     id: 'comm-20261104-01',
+    track: 'upcycling',
     customer_name: '김충남 (컴퓨터융합학부 21)',
     phone: '010-2345-6789',
     email: 'chacha.fan@o.cnu.ac.kr',
-    item_type: '폐과잠 리폼 에코백 제작',
-    details: '졸업 기념으로 학과 과잠 2벌을 기부하여 차차 자수 와펜이 들어간 업사이클링 에코백과 파우치로 리폼 제작하고 싶습니다.',
+    item_type: '차차 데일리 에코백 (표준형)',
+    standard_template: '차차 데일리 에코백 (표준형)',
+    source_material: '폐과잠 / 학잠 (야구점퍼)',
+    estimated_price: 18000,
+    details: '졸업 기념으로 학과 과잠 2벌을 기부하여 표준 에코백 패턴으로 업사이클링 신청합니다. 등판 학과 자수 부분을 앞면에 살려주시면 감사하겠습니다.',
     status: '상담 진행 중',
-    admin_note: '학생회관 1층 굿즈센터에서 과잠 실물 수령 완료, 자수 시안 전달됨',
+    admin_note: '학생회관 1층 굿즈센터에서 과잠 실물 수령 완료, 표준 에코백 재단 공정 대기 중',
     created_at: '2026-11-04T11:20:00+09:00',
   },
   {
     id: 'comm-20261103-02',
+    track: 'reform',
     customer_name: '박백마 (공과대학 학생회)',
     phone: '010-5555-8282',
     email: 'baekma.park@cnu.ac.kr',
@@ -1352,6 +1357,7 @@ export const INITIAL_COMMISSIONS: CommissionRequest[] = [
   },
   {
     id: 'comm-20261029-03',
+    track: 'reform',
     customer_name: '이유성 (자연과학대학 23)',
     phone: '010-9876-5432',
     email: 'yuseong.lee@o.cnu.ac.kr',

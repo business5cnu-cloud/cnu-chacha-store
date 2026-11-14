@@ -121,7 +121,7 @@ const STORAGE_KEYS = {
   CART: 'cnu_chacha_cart_v4',
   CURRENT_USER: 'cnu_chacha_user_v4',
   REVIEWS: 'cnu_chacha_reviews_v5',
-  COMMISSIONS: 'cnu_chacha_commissions_v4',
+  COMMISSIONS: 'cnu_chacha_commissions_v5',
   WISHLIST: 'cnu_chacha_wishlist_v4',
   LIKE_COUNTS: 'cnu_chacha_like_counts_v4',
 };
@@ -885,6 +885,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       }
       const newReview: Review = {
         ...payload,
+
         id: `rev-${Date.now()}`,
         created_at: new Date().toISOString(),
       };
@@ -896,12 +897,19 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
   const createCommission = useCallback(
     (payload: Omit<CommissionRequest, 'id' | 'status' | 'created_at'>) => {
-      if (!payload.customer_name.trim() || !payload.phone.trim() || !payload.details.trim()) {
+      const isUpcycling = payload.track === 'upcycling';
+      if (!payload.customer_name.trim() || !payload.phone.trim() || (!isUpcycling && !payload.details.trim())) {
         return { success: false, message: '필수 항목을 모두 입력해주세요.' };
       }
       const newComm: CommissionRequest = {
         ...payload,
+
         id: `comm-${Date.now()}`,
+        details:
+          payload.details.trim() ||
+          (isUpcycling
+            ? `${payload.source_material || '보유 의류'} 원재료를 활용한 ${payload.standard_template || payload.item_type} 표준 업사이클링 신청`
+            : ''),
         status: '접수 대기',
         admin_note: '',
         created_at: new Date().toISOString(),
@@ -909,7 +917,9 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       setCommissions((prev) => [newComm, ...prev]);
       return {
         success: true,
-        message: '차차 굿즈 맞춤 제작 의뢰가 접수되었습니다! 담당 학생 디자이너가 검토 후 연락드립니다.',
+        message: isUpcycling
+          ? '표준 업사이클링 신청이 접수되었습니다! 원재료 수거 및 제작 일정을 연락드리겠습니다.'
+          : '맞춤 리폼 · 제작 의뢰가 접수되었습니다! 담당 학생 디자이너가 상담 및 견적 안내를 연락드립니다.',
       };
     },
     []
