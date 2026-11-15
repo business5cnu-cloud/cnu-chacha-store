@@ -49,37 +49,28 @@ interface GallerySlide {
 }
 
 const CUSTOM_DOLL_HAT_OPTIONS = [
-  { id: 'hat-none', label: '모자 미착용', price: 0, slideId: '' },
-  { id: 'hat-grad-cap', label: '골드 태슬 학사모', price: 7000, slideId: 'doll-grad-cap' },
-  { id: 'hat-ballcap', label: 'CNU 시그니처 볼캡', price: 6000, slideId: 'doll-ballcap' },
-  { id: 'hat-cherry', label: '캠퍼스 벚꽃 화관', price: 5000, slideId: 'doll-cherry' },
+  { id: 'hat-none', label: '모자 미착용', price: 0, layerSrc: '' },
+  { id: 'hat-grad-cap', label: '골드 태슬 학사모', price: 7000, layerSrc: '/images/chacha/layer_hat_grad_cap.png' },
+  { id: 'hat-ballcap', label: 'CNU 시그니처 볼캡', price: 6000, layerSrc: '/images/chacha/layer_hat_ballcap.png' },
+  { id: 'hat-cherry', label: '캠퍼스 벚꽃 화관', price: 5000, layerSrc: '/images/chacha/layer_hat_cherry.png' },
 ];
 
 const CUSTOM_DOLL_ACC_OPTIONS = [
-  { id: 'acc-none', label: '소품 없음', price: 0, slideId: '' },
-  { id: 'acc-crossbag', label: '차차 미니 크로스백', price: 5500, slideId: 'doll-crossbag' },
-  { id: 'acc-diploma', label: '충남대학교 학위기', price: 4000, slideId: 'doll-diploma' },
+  { id: 'acc-none', label: '소품 없음', price: 0, layerSrc: '' },
+  { id: 'acc-crossbag', label: '차차 미니 크로스백', price: 5500, layerSrc: '/images/chacha/layer_acc_crossbag.png' },
+  { id: 'acc-diploma', label: '충남대학교 학위기', price: 4000, layerSrc: '/images/chacha/layer_acc_diploma.png' },
 ];
 
 const CUSTOM_DOLL_OUTFIT_SLIDE_MAP: Record<string, string> = {
-  'opt-cd-varsity': 'doll-varsity',
   'opt-cd-basic': 'doll-basic',
+  'opt-cd-varsity': 'doll-varsity',
   'opt-cd-grad': 'doll-grad',
   'opt-cd-hoodie': 'doll-hoodie',
   'opt-cd-vest': 'doll-vest',
   'opt-cd-dungarees': 'doll-dungarees',
 };
 
-const CUSTOM_DOLL_GALLERY_SLIDES: GallerySlide[] = [
-  {
-    id: 'doll-varsity',
-    label: '충남대 과잠 세트 (스튜디오 착용샷)',
-    badge: '의상 · 과잠',
-    largeSrc: '/images/chacha/ai_outfit_varsity.jpg',
-    thumbSrc: '/images/chacha/ai_outfit_varsity.jpg',
-    resolutionText: '25cm 차차 인형 · 충남대 과잠 착용 스튜디오 촬영본',
-    objectFit: 'contain',
-  },
+const CUSTOM_DOLL_OUTFIT_SLIDES: GallerySlide[] = [
   {
     id: 'doll-basic',
     label: '기본 화이트 셋업 (스튜디오 착용샷)',
@@ -87,6 +78,15 @@ const CUSTOM_DOLL_GALLERY_SLIDES: GallerySlide[] = [
     largeSrc: '/images/chacha/ai_outfit_basic.jpg',
     thumbSrc: '/images/chacha/ai_outfit_basic.jpg',
     resolutionText: '25cm 차차 인형 · 기본 화이트 셋업 스튜디오 촬영본',
+    objectFit: 'contain',
+  },
+  {
+    id: 'doll-varsity',
+    label: '충남대 과잠 세트 (스튜디오 착용샷)',
+    badge: '의상 · 과잠',
+    largeSrc: '/images/chacha/ai_outfit_varsity.jpg',
+    thumbSrc: '/images/chacha/ai_outfit_varsity.jpg',
+    resolutionText: '25cm 차차 인형 · 충남대 과잠 착용 스튜디오 촬영본',
     objectFit: 'contain',
   },
   {
@@ -123,51 +123,6 @@ const CUSTOM_DOLL_GALLERY_SLIDES: GallerySlide[] = [
     largeSrc: '/images/chacha/ai_outfit_dungarees.jpg',
     thumbSrc: '/images/chacha/ai_outfit_dungarees.jpg',
     resolutionText: '25cm 차차 인형 · 데님 오버롤 팬츠 스튜디오 촬영본',
-    objectFit: 'contain',
-  },
-  {
-    id: 'doll-grad-cap',
-    label: '골드 태슬 학사모 (스튜디오 착용샷)',
-    badge: '모자 · 학사모',
-    largeSrc: '/images/chacha/ai_thumb_graduation.jpg',
-    thumbSrc: '/images/chacha/ai_thumb_graduation.jpg',
-    resolutionText: '25cm 차차 인형 · 골드 태슬 학사모 스튜디오 촬영본',
-    objectFit: 'contain',
-  },
-  {
-    id: 'doll-ballcap',
-    label: 'CNU 시그니처 볼캡 (스튜디오 소품)',
-    badge: '모자 · 볼캡',
-    largeSrc: '/images/chacha/ai_hat_ballcap.jpg',
-    thumbSrc: '/images/chacha/ai_hat_ballcap.jpg',
-    resolutionText: '25cm 차차 인형 전용 · 네이비 & 민트 C 로고 볼캡',
-    objectFit: 'contain',
-  },
-  {
-    id: 'doll-cherry',
-    label: '캠퍼스 벚꽃 화관 (스튜디오 소품)',
-    badge: '모자 · 화관',
-    largeSrc: '/images/chacha/ai_hat_cherry.jpg',
-    thumbSrc: '/images/chacha/ai_hat_cherry.jpg',
-    resolutionText: '25cm 차차 인형 전용 · 봄 축제 벚꽃 크라운',
-    objectFit: 'contain',
-  },
-  {
-    id: 'doll-crossbag',
-    label: '차차 미니 크로스백 (스튜디오 소품)',
-    badge: '소품 · 크로스백',
-    largeSrc: '/images/chacha/ai_acc_crossbag.jpg',
-    thumbSrc: '/images/chacha/ai_acc_crossbag.jpg',
-    resolutionText: '25cm 차차 인형 전용 · 네이비 & 민트 메신저백',
-    objectFit: 'contain',
-  },
-  {
-    id: 'doll-diploma',
-    label: '충남대학교 학위기 (스튜디오 소품)',
-    badge: '소품 · 학위기',
-    largeSrc: '/images/chacha/ai_acc_diploma.jpg',
-    thumbSrc: '/images/chacha/ai_acc_diploma.jpg',
-    resolutionText: '25cm 차차 인형 전용 · 레드 리본 졸업장 롤 소품',
     objectFit: 'contain',
   },
 ];
@@ -254,8 +209,15 @@ export default function ProductDetailPage() {
   const aiEnhancedUrl = product.ai_enhanced_url || `/images/products/ai_enhanced/${product.id}.png`;
   const extraCharUrl = product.gallery_images?.[2] || '/images/chacha/fitting_varsity.jpg';
 
+  const selectedHat =
+    CUSTOM_DOLL_HAT_OPTIONS.find((h) => h.id === selectedHatId) ||
+    CUSTOM_DOLL_HAT_OPTIONS[0];
+  const selectedAcc =
+    CUSTOM_DOLL_ACC_OPTIONS.find((a) => a.id === selectedAccId) ||
+    CUSTOM_DOLL_ACC_OPTIONS[0];
+
   const gallerySlides: GallerySlide[] = isCustomDoll
-    ? CUSTOM_DOLL_GALLERY_SLIDES
+    ? CUSTOM_DOLL_OUTFIT_SLIDES
     : [
         {
           id: 'studio-main',
@@ -299,7 +261,8 @@ export default function ProductDetailPage() {
         },
       ];
 
-  const activeSlide = gallerySlides[activeSlideIndex] || gallerySlides[0];
+  const safeSlideIndex = Math.min(activeSlideIndex, gallerySlides.length - 1);
+  const activeSlide = gallerySlides[safeSlideIndex] || gallerySlides[0];
 
   const handlePrevSlide = () => {
     setActiveSlideIndex((prev) => (prev - 1 + gallerySlides.length) % gallerySlides.length);
@@ -321,12 +284,6 @@ export default function ProductDetailPage() {
 
   const selectedOption =
     product.options.find((o) => o.id === selectedOptionId) || product.options[0];
-  const selectedHat =
-    CUSTOM_DOLL_HAT_OPTIONS.find((h) => h.id === selectedHatId) ||
-    CUSTOM_DOLL_HAT_OPTIONS[0];
-  const selectedAcc =
-    CUSTOM_DOLL_ACC_OPTIONS.find((a) => a.id === selectedAccId) ||
-    CUSTOM_DOLL_ACC_OPTIONS[0];
   const baseEffectivePrice = getEffectivePrice(product.price, product.sale_price);
   const additionalPrice =
     (selectedOption?.additional_price || 0) +
@@ -497,8 +454,9 @@ export default function ProductDetailPage() {
               name={product.name}
               imageUrl={activeSlide.largeSrc}
               thumbnailUrl={activeSlide.thumbSrc}
+              mediumUrl={activeSlide.largeSrc}
               largeUrl={activeSlide.largeSrc}
-              originalUrl={product.original_url}
+              originalUrl={isCustomDoll ? activeSlide.largeSrc : product.original_url}
               categoryName={product.category_name}
               isLimited={product.is_limited}
               variant={activeSlide.objectFit === 'cover' ? 'lifestyle' : 'detail'}
@@ -509,6 +467,26 @@ export default function ProductDetailPage() {
               showResolutionBadge
               className="h-full w-full"
             />
+
+            {/* Custom Doll Hat & Accessory Overlay Layers */}
+            {isCustomDoll && selectedHat.layerSrc && (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={selectedHat.layerSrc}
+                alt={selectedHat.label}
+                className="pointer-events-none absolute inset-0 z-10 h-full w-full object-contain select-none"
+                draggable={false}
+              />
+            )}
+            {isCustomDoll && selectedAcc.layerSrc && (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={selectedAcc.layerSrc}
+                alt={selectedAcc.label}
+                className="pointer-events-none absolute inset-0 z-10 h-full w-full object-contain select-none"
+                draggable={false}
+              />
+            )}
 
             {/* Hover Lens Zoom (2.2x) */}
             {hoverZoomEnabled && hoverLensPos.active && (
@@ -599,14 +577,22 @@ export default function ProductDetailPage() {
               </span>
               <span className="text-[11px] text-slate-400">{activeSlide.resolutionText}</span>
             </div>
-            <div className="grid grid-cols-4 gap-3">
+            <div className={`grid gap-2.5 ${isCustomDoll ? 'grid-cols-3 sm:grid-cols-6' : 'grid-cols-4'}`}>
               {gallerySlides.map((slide, idx) => {
                 const isSelected = idx === activeSlideIndex;
                 return (
                   <button
                     key={slide.id}
                     type="button"
-                    onClick={() => setActiveSlideIndex(idx)}
+                    onClick={() => {
+                      setActiveSlideIndex(idx);
+                      if (isCustomDoll) {
+                        const matchedOptId = Object.entries(CUSTOM_DOLL_OUTFIT_SLIDE_MAP).find(
+                          ([, sId]) => sId === slide.id
+                        )?.[0];
+                        if (matchedOptId) setSelectedOptionId(matchedOptId);
+                      }
+                    }}
                     className={`group relative aspect-square overflow-hidden rounded-2xl border-2 bg-[#F8FAFC] transition-all ${
                       isSelected
                         ? 'border-cnu-navy ring-2 ring-cnu-navy/25 shadow-sm'
@@ -746,12 +732,7 @@ export default function ProductDetailPage() {
                   <select
                     id="custom-doll-hat-select"
                     value={selectedHatId}
-                    onChange={(e) => {
-                      const nextId = e.target.value;
-                      setSelectedHatId(nextId);
-                      const found = CUSTOM_DOLL_HAT_OPTIONS.find((h) => h.id === nextId);
-                      jumpToSlideById(found?.slideId);
-                    }}
+                    onChange={(e) => setSelectedHatId(e.target.value)}
                     disabled={!canPurchase}
                     className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-xs font-semibold text-slate-900 focus:border-cnu-navy focus:outline-none disabled:opacity-50"
                   >
@@ -774,12 +755,7 @@ export default function ProductDetailPage() {
                   <select
                     id="custom-doll-acc-select"
                     value={selectedAccId}
-                    onChange={(e) => {
-                      const nextId = e.target.value;
-                      setSelectedAccId(nextId);
-                      const found = CUSTOM_DOLL_ACC_OPTIONS.find((a) => a.id === nextId);
-                      jumpToSlideById(found?.slideId);
-                    }}
+                    onChange={(e) => setSelectedAccId(e.target.value)}
                     disabled={!canPurchase}
                     className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-xs font-semibold text-slate-900 focus:border-cnu-navy focus:outline-none disabled:opacity-50"
                   >
