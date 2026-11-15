@@ -121,7 +121,7 @@ const STORAGE_KEYS = {
   CART: 'cnu_chacha_cart_v4',
   CURRENT_USER: 'cnu_chacha_user_v4',
   REVIEWS: 'cnu_chacha_reviews_v5',
-  COMMISSIONS: 'cnu_chacha_commissions_v5',
+  COMMISSIONS: 'cnu_chacha_commissions_v6',
   WISHLIST: 'cnu_chacha_wishlist_v4',
   LIKE_COUNTS: 'cnu_chacha_like_counts_v4',
 };
@@ -900,6 +900,9 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       const isUpcycling = payload.track === 'upcycling';
       if (!payload.customer_name.trim() || !payload.phone.trim() || (!isUpcycling && !payload.details.trim())) {
         return { success: false, message: '필수 항목을 모두 입력해주세요.' };
+      }
+      if (payload.delivery_method === 'delivery' && !payload.shipping_address?.trim()) {
+        return { success: false, message: '택배 배송을 선택하신 경우 배송받을 주소를 입력해주세요.' };
       }
       const newComm: CommissionRequest = {
         ...payload,

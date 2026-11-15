@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, CheckCircle2, Sparkles, Recycle, Scissors } from 'lucide-react';
+import { X, CheckCircle2, Sparkles, Recycle, Scissors, MapPin, Truck } from 'lucide-react';
 import { useStore } from '@/hooks/useStore';
-import { CommissionTrack } from '@/types';
+import { CommissionDeliveryMethod, CommissionTrack } from '@/types';
 import { formatKRW } from '@/lib/utils';
 
 interface UpcyclingTemplate {
@@ -70,6 +70,8 @@ export function CommissionModal() {
   const [selectedTemplateId, setSelectedTemplateId] = useState(UPCYCLING_TEMPLATES[0].id);
   const [sourceMaterial, setSourceMaterial] = useState(UPCYCLING_MATERIALS[0]);
   const [reformType, setReformType] = useState(REFORM_TYPES[0]);
+  const [deliveryMethod, setDeliveryMethod] = useState<CommissionDeliveryMethod>('campus_pickup');
+  const [shippingAddress, setShippingAddress] = useState('');
   const [details, setDetails] = useState('');
   const [submittedMsg, setSubmittedMsg] = useState<string | null>(null);
 
@@ -91,6 +93,8 @@ export function CommissionModal() {
             standard_template: selectedTemplate.name,
             source_material: sourceMaterial,
             estimated_price: selectedTemplate.price,
+            delivery_method: deliveryMethod,
+            shipping_address: deliveryMethod === 'delivery' ? shippingAddress.trim() : undefined,
             details,
           })
         : createCommission({
@@ -99,12 +103,15 @@ export function CommissionModal() {
             phone,
             email,
             item_type: reformType,
+            delivery_method: deliveryMethod,
+            shipping_address: deliveryMethod === 'delivery' ? shippingAddress.trim() : undefined,
             details,
           });
 
     if (res.success) {
       setSubmittedMsg(res.message);
       setDetails('');
+      setShippingAddress('');
       setTimeout(() => {
         setSubmittedMsg(null);
         setCommissionModalOpen(false);
@@ -364,6 +371,58 @@ export function CommissionModal() {
                 </div>
               </>
             )}
+
+            <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-3.5 space-y-2.5">
+              <label className="block font-bold text-slate-700">
+                완성품 수령 방법 *
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setDeliveryMethod('campus_pickup')}
+                  className={`flex items-center justify-center gap-1.5 rounded-xl border py-2.5 px-2 text-[11px] font-extrabold transition-all ${
+                    deliveryMethod === 'campus_pickup'
+                      ? 'border-cnu-navy bg-white text-cnu-navy shadow-xs'
+                      : 'border-slate-200 bg-white/60 text-slate-500 hover:text-slate-800'
+                  }`}
+                >
+                  <MapPin className="h-3.5 w-3.5 shrink-0" />
+                  <span>교내 방문 수령</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDeliveryMethod('delivery')}
+                  className={`flex items-center justify-center gap-1.5 rounded-xl border py-2.5 px-2 text-[11px] font-extrabold transition-all ${
+                    deliveryMethod === 'delivery'
+                      ? 'border-cnu-navy bg-white text-cnu-navy shadow-xs'
+                      : 'border-slate-200 bg-white/60 text-slate-500 hover:text-slate-800'
+                  }`}
+                >
+                  <Truck className="h-3.5 w-3.5 shrink-0" />
+                  <span>택배 배송</span>
+                </button>
+              </div>
+
+              {deliveryMethod === 'campus_pickup' ? (
+                <p className="text-[11px] text-slate-500 leading-relaxed">
+                  충남대학교 학생회관 1층 차차 굿즈센터에서 직접 수령합니다. (배송비 무료)
+                </p>
+              ) : (
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">
+                    배송받을 주소 *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={shippingAddress}
+                    onChange={(e) => setShippingAddress(e.target.value)}
+                    placeholder="예: 대전광역시 유성구 대학로 99, 101동 202호"
+                    className="input-base text-xs bg-white"
+                  />
+                </div>
+              )}
+            </div>
 
             <button
               type="submit"

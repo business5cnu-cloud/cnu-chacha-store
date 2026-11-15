@@ -188,6 +188,8 @@ export interface Review {
 
 export type CommissionTrack = 'upcycling' | 'reform';
 
+export type CommissionDeliveryMethod = 'campus_pickup' | 'delivery';
+
 export type CommissionStatus =
   | '접수 대기'
   | '상담 진행 중'
@@ -205,6 +207,8 @@ export interface CommissionRequest {
   standard_template?: string;
   source_material?: string;
   estimated_price?: number;
+  delivery_method?: CommissionDeliveryMethod;
+  shipping_address?: string;
   details: string;
   status: CommissionStatus;
   admin_note?: string;

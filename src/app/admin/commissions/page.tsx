@@ -10,6 +10,8 @@ import {
   Phone,
   Mail,
   Recycle,
+  MapPin,
+  Truck,
 } from 'lucide-react';
 import { useStore } from '@/hooks/useStore';
 import { CommissionRequest, CommissionStatus, CommissionTrack } from '@/types';
@@ -54,7 +56,8 @@ export default function AdminCommissionsPage() {
           item.item_type.toLowerCase().includes(q) ||
           item.details.toLowerCase().includes(q) ||
           item.phone.toLowerCase().includes(q) ||
-          item.email.toLowerCase().includes(q);
+          item.email.toLowerCase().includes(q) ||
+          (item.shipping_address?.toLowerCase().includes(q) ?? false);
         if (!matches) return false;
       }
       return true;
@@ -333,6 +336,25 @@ export default function AdminCommissionsPage() {
                 <div className="flex items-center gap-1.5 text-slate-700">
                   <Mail className="h-3.5 w-3.5 text-slate-400" />
                   <span className="truncate">{selectedCommission.email}</span>
+                </div>
+                <div className="col-span-2 border-t border-slate-200/70 pt-2.5 mt-0.5">
+                  <p className="text-[11px] font-bold text-slate-400">완성품 수령 방법</p>
+                  {selectedCommission.delivery_method === 'delivery' ? (
+                    <div className="mt-1 flex items-start gap-1.5 text-slate-800">
+                      <Truck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-600" />
+                      <div>
+                        <span className="font-extrabold">택배 배송</span>
+                        <p className="text-[11px] text-slate-600">
+                          {selectedCommission.shipping_address || '배송지 미입력'}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mt-1 flex items-center gap-1.5 text-slate-800">
+                      <MapPin className="h-3.5 w-3.5 shrink-0 text-emerald-600" />
+                      <span className="font-extrabold">교내 굿즈센터 방문 수령 (학생회관 1층)</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
