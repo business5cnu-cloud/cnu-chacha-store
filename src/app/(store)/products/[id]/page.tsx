@@ -48,6 +48,130 @@ interface GallerySlide {
   isAiEnhanced?: boolean;
 }
 
+const CUSTOM_DOLL_HAT_OPTIONS = [
+  { id: 'hat-none', label: '모자 미착용', price: 0, slideId: '' },
+  { id: 'hat-grad-cap', label: '골드 태슬 학사모', price: 7000, slideId: 'doll-grad-cap' },
+  { id: 'hat-ballcap', label: 'CNU 시그니처 볼캡', price: 6000, slideId: 'doll-ballcap' },
+  { id: 'hat-cherry', label: '캠퍼스 벚꽃 화관', price: 5000, slideId: 'doll-cherry' },
+];
+
+const CUSTOM_DOLL_ACC_OPTIONS = [
+  { id: 'acc-none', label: '소품 없음', price: 0, slideId: '' },
+  { id: 'acc-crossbag', label: '차차 미니 크로스백', price: 5500, slideId: 'doll-crossbag' },
+  { id: 'acc-diploma', label: '충남대학교 학위기', price: 4000, slideId: 'doll-diploma' },
+];
+
+const CUSTOM_DOLL_OUTFIT_SLIDE_MAP: Record<string, string> = {
+  'opt-cd-varsity': 'doll-varsity',
+  'opt-cd-basic': 'doll-basic',
+  'opt-cd-grad': 'doll-grad',
+  'opt-cd-hoodie': 'doll-hoodie',
+  'opt-cd-vest': 'doll-vest',
+  'opt-cd-dungarees': 'doll-dungarees',
+};
+
+const CUSTOM_DOLL_GALLERY_SLIDES: GallerySlide[] = [
+  {
+    id: 'doll-varsity',
+    label: '충남대 과잠 세트 (스튜디오 착용샷)',
+    badge: '의상 · 과잠',
+    largeSrc: '/images/chacha/ai_outfit_varsity.jpg',
+    thumbSrc: '/images/chacha/ai_outfit_varsity.jpg',
+    resolutionText: '25cm 차차 인형 · 충남대 과잠 착용 스튜디오 촬영본',
+    objectFit: 'contain',
+  },
+  {
+    id: 'doll-basic',
+    label: '기본 화이트 셋업 (스튜디오 착용샷)',
+    badge: '의상 · 기본',
+    largeSrc: '/images/chacha/ai_outfit_basic.jpg',
+    thumbSrc: '/images/chacha/ai_outfit_basic.jpg',
+    resolutionText: '25cm 차차 인형 · 기본 화이트 셋업 스튜디오 촬영본',
+    objectFit: 'contain',
+  },
+  {
+    id: 'doll-grad',
+    label: '학사복 & 스톨 세트 (스튜디오 착용샷)',
+    badge: '의상 · 학사복',
+    largeSrc: '/images/chacha/ai_outfit_graduation.jpg',
+    thumbSrc: '/images/chacha/ai_outfit_graduation.jpg',
+    resolutionText: '25cm 차차 인형 · CNU 블루 스톨 학사복 스튜디오 촬영본',
+    objectFit: 'contain',
+  },
+  {
+    id: 'doll-hoodie',
+    label: 'CNU 스카이 후드티 세트 (스튜디오 착용샷)',
+    badge: '의상 · 후드티',
+    largeSrc: '/images/chacha/ai_outfit_hoodie.jpg',
+    thumbSrc: '/images/chacha/ai_outfit_hoodie.jpg',
+    resolutionText: '25cm 차차 인형 · 민트블루 후드티 스튜디오 촬영본',
+    objectFit: 'contain',
+  },
+  {
+    id: 'doll-vest',
+    label: '프레피 니트 조끼 세트 (스튜디오 착용샷)',
+    badge: '의상 · 조끼',
+    largeSrc: '/images/chacha/ai_outfit_vest.jpg',
+    thumbSrc: '/images/chacha/ai_outfit_vest.jpg',
+    resolutionText: '25cm 차차 인형 · 아이보리 V넥 니트 조끼 스튜디오 촬영본',
+    objectFit: 'contain',
+  },
+  {
+    id: 'doll-dungarees',
+    label: '레트로 데님 멜빵 세트 (스튜디오 착용샷)',
+    badge: '의상 · 멜빵',
+    largeSrc: '/images/chacha/ai_outfit_dungarees.jpg',
+    thumbSrc: '/images/chacha/ai_outfit_dungarees.jpg',
+    resolutionText: '25cm 차차 인형 · 데님 오버롤 팬츠 스튜디오 촬영본',
+    objectFit: 'contain',
+  },
+  {
+    id: 'doll-grad-cap',
+    label: '골드 태슬 학사모 (스튜디오 착용샷)',
+    badge: '모자 · 학사모',
+    largeSrc: '/images/chacha/ai_thumb_graduation.jpg',
+    thumbSrc: '/images/chacha/ai_thumb_graduation.jpg',
+    resolutionText: '25cm 차차 인형 · 골드 태슬 학사모 스튜디오 촬영본',
+    objectFit: 'contain',
+  },
+  {
+    id: 'doll-ballcap',
+    label: 'CNU 시그니처 볼캡 (스튜디오 소품)',
+    badge: '모자 · 볼캡',
+    largeSrc: '/images/chacha/ai_hat_ballcap.jpg',
+    thumbSrc: '/images/chacha/ai_hat_ballcap.jpg',
+    resolutionText: '25cm 차차 인형 전용 · 네이비 & 민트 C 로고 볼캡',
+    objectFit: 'contain',
+  },
+  {
+    id: 'doll-cherry',
+    label: '캠퍼스 벚꽃 화관 (스튜디오 소품)',
+    badge: '모자 · 화관',
+    largeSrc: '/images/chacha/ai_hat_cherry.jpg',
+    thumbSrc: '/images/chacha/ai_hat_cherry.jpg',
+    resolutionText: '25cm 차차 인형 전용 · 봄 축제 벚꽃 크라운',
+    objectFit: 'contain',
+  },
+  {
+    id: 'doll-crossbag',
+    label: '차차 미니 크로스백 (스튜디오 소품)',
+    badge: '소품 · 크로스백',
+    largeSrc: '/images/chacha/ai_acc_crossbag.jpg',
+    thumbSrc: '/images/chacha/ai_acc_crossbag.jpg',
+    resolutionText: '25cm 차차 인형 전용 · 네이비 & 민트 메신저백',
+    objectFit: 'contain',
+  },
+  {
+    id: 'doll-diploma',
+    label: '충남대학교 학위기 (스튜디오 소품)',
+    badge: '소품 · 학위기',
+    largeSrc: '/images/chacha/ai_acc_diploma.jpg',
+    thumbSrc: '/images/chacha/ai_acc_diploma.jpg',
+    resolutionText: '25cm 차차 인형 전용 · 레드 리본 졸업장 롤 소품',
+    objectFit: 'contain',
+  },
+];
+
 export default function ProductDetailPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
@@ -66,6 +190,8 @@ export default function ProductDetailPage() {
   const product = products.find((p) => p.id === params?.id);
 
   const [selectedOptionId, setSelectedOptionId] = useState<string>('');
+  const [selectedHatId, setSelectedHatId] = useState<string>('hat-none');
+  const [selectedAccId, setSelectedAccId] = useState<string>('acc-none');
   const [quantity, setQuantity] = useState<number>(1);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
@@ -103,6 +229,8 @@ export default function ProductDetailPage() {
     setActiveSlideIndex(0);
     setModalZoomScale(1);
     setModalPan({ x: 0, y: 0 });
+    setSelectedHatId('hat-none');
+    setSelectedAccId('acc-none');
   }, [product?.id]);
 
   if (!product) {
@@ -119,54 +247,57 @@ export default function ProductDetailPage() {
     );
   }
 
+  const isCustomDoll = product.id === 'prod-custom-doll';
   const mainLargeUrl = product.large_url || product.original_url || `/images/products/large/${product.id}.png`;
   const mainThumbUrl = product.thumbnail_url || `/images/products/thumbnail/${product.id}.png`;
   const lifestyleUrl = product.lifestyle_url || `/images/products/lifestyle/${product.id}.png`;
   const aiEnhancedUrl = product.ai_enhanced_url || `/images/products/ai_enhanced/${product.id}.png`;
   const extraCharUrl = product.gallery_images?.[2] || '/images/chacha/fitting_varsity.jpg';
 
-  const gallerySlides: GallerySlide[] = [
-    {
-      id: 'studio-main',
-      label: '스튜디오 정면 (1600×1600px)',
-      badge: '1600×1600 HD 원본',
-      largeSrc: mainLargeUrl,
-      thumbSrc: mainThumbUrl,
-      resolutionText: '1600 × 1600 px · object-fit: contain (원본 비율 보존)',
-      objectFit: 'contain',
-      isAiEnhanced: false,
-    },
-    {
-      id: 'campus-lifestyle',
-      label: '캠퍼스 연출 화보 (1600×2000px)',
-      badge: '1600×2000 연출컷',
-      largeSrc: lifestyleUrl,
-      thumbSrc: lifestyleUrl,
-      resolutionText: '1600 × 2000 px · object-fit: cover (라이프스타일 룩북)',
-      objectFit: 'cover',
-      isAiEnhanced: false,
-    },
-    {
-      id: 'ai-enhanced-tier',
-      label: 'AI 디테일 보정 그래픽 (1600×1600px)',
-      badge: 'AI 그래픽 보정',
-      largeSrc: aiEnhancedUrl,
-      thumbSrc: aiEnhancedUrl,
-      resolutionText: '1600 × 1600 px · AI 그래픽 보정 (외형/로고 왜곡 검수 완료)',
-      objectFit: 'contain',
-      isAiEnhanced: true,
-    },
-    {
-      id: 'chacha-art',
-      label: '뉴 차차 캐릭터 원화 (1024×1024px)',
-      badge: '1024×1024 원화',
-      largeSrc: extraCharUrl,
-      thumbSrc: extraCharUrl,
-      resolutionText: '1024 × 1024 px · object-fit: contain (무손실 공식 원화)',
-      objectFit: 'contain',
-      isAiEnhanced: false,
-    },
-  ];
+  const gallerySlides: GallerySlide[] = isCustomDoll
+    ? CUSTOM_DOLL_GALLERY_SLIDES
+    : [
+        {
+          id: 'studio-main',
+          label: '스튜디오 정면 (1600×1600px)',
+          badge: '1600×1600 HD 원본',
+          largeSrc: mainLargeUrl,
+          thumbSrc: mainThumbUrl,
+          resolutionText: '1600 × 1600 px · object-fit: contain (원본 비율 보존)',
+          objectFit: 'contain',
+          isAiEnhanced: false,
+        },
+        {
+          id: 'campus-lifestyle',
+          label: '캠퍼스 연출 화보 (1600×2000px)',
+          badge: '1600×2000 연출컷',
+          largeSrc: lifestyleUrl,
+          thumbSrc: lifestyleUrl,
+          resolutionText: '1600 × 2000 px · object-fit: cover (라이프스타일 룩북)',
+          objectFit: 'cover',
+          isAiEnhanced: false,
+        },
+        {
+          id: 'ai-enhanced-tier',
+          label: 'AI 디테일 보정 그래픽 (1600×1600px)',
+          badge: 'AI 그래픽 보정',
+          largeSrc: aiEnhancedUrl,
+          thumbSrc: aiEnhancedUrl,
+          resolutionText: '1600 × 1600 px · AI 그래픽 보정 (외형/로고 왜곡 검수 완료)',
+          objectFit: 'contain',
+          isAiEnhanced: true,
+        },
+        {
+          id: 'chacha-art',
+          label: '뉴 차차 캐릭터 원화 (1024×1024px)',
+          badge: '1024×1024 원화',
+          largeSrc: extraCharUrl,
+          thumbSrc: extraCharUrl,
+          resolutionText: '1024 × 1024 px · object-fit: contain (무손실 공식 원화)',
+          objectFit: 'contain',
+          isAiEnhanced: false,
+        },
+      ];
 
   const activeSlide = gallerySlides[activeSlideIndex] || gallerySlides[0];
 
@@ -190,11 +321,45 @@ export default function ProductDetailPage() {
 
   const selectedOption =
     product.options.find((o) => o.id === selectedOptionId) || product.options[0];
+  const selectedHat =
+    CUSTOM_DOLL_HAT_OPTIONS.find((h) => h.id === selectedHatId) ||
+    CUSTOM_DOLL_HAT_OPTIONS[0];
+  const selectedAcc =
+    CUSTOM_DOLL_ACC_OPTIONS.find((a) => a.id === selectedAccId) ||
+    CUSTOM_DOLL_ACC_OPTIONS[0];
   const baseEffectivePrice = getEffectivePrice(product.price, product.sale_price);
-  const additionalPrice = selectedOption?.additional_price || 0;
+  const additionalPrice =
+    (selectedOption?.additional_price || 0) +
+    (isCustomDoll ? selectedHat.price + selectedAcc.price : 0);
   const unitPrice = baseEffectivePrice + additionalPrice;
   const totalPrice = unitPrice * quantity;
   const discountRate = calculateDiscountRate(product.price, product.sale_price);
+
+  const jumpToSlideById = (slideId?: string) => {
+    if (!slideId) return;
+    const idx = gallerySlides.findIndex((s) => s.id === slideId);
+    if (idx >= 0) {
+      setActiveSlideIndex(idx);
+    }
+  };
+
+  const buildOptionPayload = () => {
+    if (!isCustomDoll) {
+      return {
+        option_id: selectedOption?.id,
+        option_label: selectedOption
+          ? `${selectedOption.option_name}: ${selectedOption.option_value}`
+          : '기본 옵션',
+      };
+    }
+    const parts = [selectedOption ? `의상: ${selectedOption.option_value}` : '기본 화이트 셋업'];
+    if (selectedHat.id !== 'hat-none') parts.push(`모자: ${selectedHat.label}`);
+    if (selectedAcc.id !== 'acc-none') parts.push(`소품: ${selectedAcc.label}`);
+    return {
+      option_id: `${selectedOption?.id || 'opt-cd-basic'}__${selectedHat.id}__${selectedAcc.id}`,
+      option_label: parts.join(' / '),
+    };
+  };
 
   const isSoldOut = product.stock <= 0 || product.status === 'sold_out';
   const isEnded = product.status === 'ended';
@@ -226,12 +391,11 @@ export default function ProductDetailPage() {
 
   const handleAddToCart = () => {
     if (!canPurchase) return;
+    const { option_id, option_label } = buildOptionPayload();
     const res = addToCart({
       product_id: product.id,
-      option_id: selectedOption?.id,
-      option_label: selectedOption
-        ? `${selectedOption.option_name}: ${selectedOption.option_value}`
-        : '기본 옵션',
+      option_id,
+      option_label,
       additional_price: additionalPrice,
       quantity,
     });
@@ -247,12 +411,11 @@ export default function ProductDetailPage() {
 
   const handleBuyNow = () => {
     if (!canPurchase) return;
+    const { option_id, option_label } = buildOptionPayload();
     const res = addToCart({
       product_id: product.id,
-      option_id: selectedOption?.id,
-      option_label: selectedOption
-        ? `${selectedOption.option_name}: ${selectedOption.option_value}`
-        : '기본 옵션',
+      option_id,
+      option_label,
       additional_price: additionalPrice,
       quantity,
     });
@@ -559,12 +722,77 @@ export default function ProductDetailPage() {
             <ProductOptionQuantitySelector
               options={product.options}
               selectedOptionId={selectedOption?.id || ''}
-              onSelectOption={(id) => setSelectedOptionId(id)}
+              onSelectOption={(id) => {
+                setSelectedOptionId(id);
+                if (isCustomDoll) {
+                  jumpToSlideById(CUSTOM_DOLL_OUTFIT_SLIDE_MAP[id]);
+                }
+              }}
               quantity={quantity}
               maxStock={product.stock}
               disabled={!canPurchase}
               onChangeQuantity={handleQuantityChange}
             />
+
+            {isCustomDoll && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="custom-doll-hat-select"
+                    className="block text-xs font-extrabold uppercase tracking-wider text-slate-700"
+                  >
+                    모자 추가 선택
+                  </label>
+                  <select
+                    id="custom-doll-hat-select"
+                    value={selectedHatId}
+                    onChange={(e) => {
+                      const nextId = e.target.value;
+                      setSelectedHatId(nextId);
+                      const found = CUSTOM_DOLL_HAT_OPTIONS.find((h) => h.id === nextId);
+                      jumpToSlideById(found?.slideId);
+                    }}
+                    disabled={!canPurchase}
+                    className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-xs font-semibold text-slate-900 focus:border-cnu-navy focus:outline-none disabled:opacity-50"
+                  >
+                    {CUSTOM_DOLL_HAT_OPTIONS.map((hat) => (
+                      <option key={hat.id} value={hat.id}>
+                        {hat.label}
+                        {hat.price > 0 ? ` (+${formatKRW(hat.price)})` : ''}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="custom-doll-acc-select"
+                    className="block text-xs font-extrabold uppercase tracking-wider text-slate-700"
+                  >
+                    액세서리 추가 선택
+                  </label>
+                  <select
+                    id="custom-doll-acc-select"
+                    value={selectedAccId}
+                    onChange={(e) => {
+                      const nextId = e.target.value;
+                      setSelectedAccId(nextId);
+                      const found = CUSTOM_DOLL_ACC_OPTIONS.find((a) => a.id === nextId);
+                      jumpToSlideById(found?.slideId);
+                    }}
+                    disabled={!canPurchase}
+                    className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-xs font-semibold text-slate-900 focus:border-cnu-navy focus:outline-none disabled:opacity-50"
+                  >
+                    {CUSTOM_DOLL_ACC_OPTIONS.map((acc) => (
+                      <option key={acc.id} value={acc.id}>
+                        {acc.label}
+                        {acc.price > 0 ? ` (+${formatKRW(acc.price)})` : ''}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            )}
 
             {/* Total */}
             <div className="flex items-baseline justify-between border-t border-slate-200 pt-4">
