@@ -449,42 +449,52 @@ export default function ProductDetailPage() {
             onClick={() => openFullscreenZoom()}
           >
             {/* Stage Image */}
-            <ProductArtwork
-              sku={product.sku}
-              name={product.name}
-              imageUrl={activeSlide.largeSrc}
-              thumbnailUrl={activeSlide.thumbSrc}
-              mediumUrl={activeSlide.largeSrc}
-              largeUrl={activeSlide.largeSrc}
-              originalUrl={isCustomDoll ? activeSlide.largeSrc : product.original_url}
-              categoryName={product.category_name}
-              isLimited={product.is_limited}
-              variant={activeSlide.objectFit === 'cover' ? 'lifestyle' : 'detail'}
-              priority
-              objectFit={activeSlide.objectFit}
-              isAiEnhanced={activeSlide.isAiEnhanced}
-              showAiBadge={activeSlide.isAiEnhanced}
-              showResolutionBadge
-              className="h-full w-full"
-            />
-
-            {/* Custom Doll Hat & Accessory Overlay Layers */}
-            {isCustomDoll && selectedHat.layerSrc && (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={selectedHat.layerSrc}
-                alt={selectedHat.label}
-                className="pointer-events-none absolute inset-0 z-10 h-full w-full object-contain select-none"
-                draggable={false}
-              />
-            )}
-            {isCustomDoll && selectedAcc.layerSrc && (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={selectedAcc.layerSrc}
-                alt={selectedAcc.label}
-                className="pointer-events-none absolute inset-0 z-10 h-full w-full object-contain select-none"
-                draggable={false}
+            {isCustomDoll ? (
+              <div className="relative h-full w-full bg-[#F8FAFC] transition-transform duration-300 group-hover:scale-[1.03]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={activeSlide.largeSrc}
+                  alt={activeSlide.label}
+                  className="h-full w-full object-contain select-none"
+                  draggable={false}
+                />
+                {selectedHat.layerSrc && (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={selectedHat.layerSrc}
+                    alt={selectedHat.label}
+                    className="pointer-events-none absolute inset-0 z-10 h-full w-full object-contain select-none"
+                    draggable={false}
+                  />
+                )}
+                {selectedAcc.layerSrc && (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={selectedAcc.layerSrc}
+                    alt={selectedAcc.label}
+                    className="pointer-events-none absolute inset-0 z-20 h-full w-full object-contain select-none"
+                    draggable={false}
+                  />
+                )}
+              </div>
+            ) : (
+              <ProductArtwork
+                sku={product.sku}
+                name={product.name}
+                imageUrl={activeSlide.largeSrc}
+                thumbnailUrl={activeSlide.thumbSrc}
+                mediumUrl={activeSlide.largeSrc}
+                largeUrl={activeSlide.largeSrc}
+                originalUrl={product.original_url}
+                categoryName={product.category_name}
+                isLimited={product.is_limited}
+                variant={activeSlide.objectFit === 'cover' ? 'lifestyle' : 'detail'}
+                priority
+                objectFit={activeSlide.objectFit}
+                isAiEnhanced={activeSlide.isAiEnhanced}
+                showAiBadge={activeSlide.isAiEnhanced}
+                showResolutionBadge
+                className="h-full w-full"
               />
             )}
 
