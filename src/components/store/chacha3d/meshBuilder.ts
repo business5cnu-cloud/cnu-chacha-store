@@ -666,9 +666,6 @@ function buildBody(acc: MeshAccumulator, hat: HatKey, accProp: AccKey): void {
   addEllipsoid(acc, cheekPos, [0.054, 0.052, 0.014], 6, [0.98, 0.75, 0.69], 0.3, 1, 1, 10, 18, 0, 0.15);
 
   // 3. Ears
-  // Left small ear tip
-  addEllipsoid(acc, [-0.33, 0.41, -0.02], [0.062, 0.068, 0.052], 0, [1, 1, 1], 0.35, 1, 1, 12, 16, 0.35);
-
   // Top-right upright ear (tucks slightly when wearing Ballcap)
   const earTopHeight = hat === 'ballcap' ? 0.60 : 0.67;
   addSplineTube(
