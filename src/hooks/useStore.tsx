@@ -114,7 +114,7 @@ interface StoreContextType {
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
 const STORAGE_KEYS = {
-  PRODUCTS: 'cnu_chacha_products_v5',
+  PRODUCTS: 'cnu_chacha_products_v6',
   ORDERS: 'cnu_chacha_orders_v4',
   PROFILES: 'cnu_chacha_profiles_v4',
   MOVEMENTS: 'cnu_chacha_movements_v4',
@@ -186,6 +186,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
             original_url: init.original_url,
             lifestyle_url: init.lifestyle_url,
             ai_enhanced_url: init.ai_enhanced_url,
+            gallery_images: init.gallery_images,
           };
         });
         setProducts(merged.map(synchronizeProductState));

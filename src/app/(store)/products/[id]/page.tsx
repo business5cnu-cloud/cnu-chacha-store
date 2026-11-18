@@ -485,6 +485,7 @@ export default function ProductDetailPage() {
                 thumbnailUrl={activeSlide.thumbSrc}
                 mediumUrl={activeSlide.largeSrc}
                 largeUrl={activeSlide.largeSrc}
+                lifestyleUrl={activeSlide.largeSrc}
                 originalUrl={product.original_url}
                 categoryName={product.category_name}
                 isLimited={product.is_limited}
