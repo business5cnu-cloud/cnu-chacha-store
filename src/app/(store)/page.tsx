@@ -55,36 +55,49 @@ export default function StoreHomePage() {
 
   return (
     <div className="space-y-14 pb-20">
-      {/* 1. 차차 캐릭터 메인 배너 & 가상 전시회 배너 */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#1A2648] via-cnu-navy to-slate-900 text-white">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 space-y-8">
-          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
-            <div className="lg:col-span-6 space-y-5">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-bold text-sky-300 backdrop-blur-xs border border-white/15">
+      {/* 1. 차차 캐릭터 메인 캠퍼스 히어로 배너 */}
+      <section className="relative overflow-hidden bg-[#0F1B33] text-white">
+        {/* Background Campus + ChaCha Image */}
+        <div className="pointer-events-none absolute inset-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/chacha/hero_campus_bg.jpg"
+            alt="충남대학교 캠퍼스 광장과 마스코트 차차"
+            className="h-full w-full object-cover object-[72%_center] sm:object-center"
+          />
+          {/* Left-side gradient for crisp text readability while keeping the clock tower & ChaCha bright on the right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0B1528]/90 via-[#0F1E3A]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1528]/50 via-transparent to-[#0B1528]/20" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
+          <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-12">
+            <div className="lg:col-span-7 space-y-5">
+              <div className="inline-flex items-center gap-2 rounded-full bg-slate-900/55 px-4 py-1.5 text-xs font-bold text-sky-300 backdrop-blur-md border border-white/20 shadow-sm">
                 <Sparkles className="h-3.5 w-3.5 text-amber-300" />
-                <span>CNU CHA CHA OFFICIAL MERCHANDISE & VR EXHIBITION</span>
+                <span>CNU CHA CHA OFFICIAL MERCHANDISE &amp; VR EXHIBITION</span>
               </div>
-              <h1 className="text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl lg:leading-[1.15]">
+              <h1 className="text-3xl font-black tracking-tight drop-shadow-md sm:text-4xl lg:text-5xl lg:leading-[1.18]">
                 충남대학교 마스코트
                 <br />
                 <span className="text-sky-300">&lsquo;차차(CHA CHA)&rsquo;</span>와 함께하는
                 <br />
                 설레는 캠퍼스 라이프!
               </h1>
-              <p className="max-w-xl text-sm sm:text-base text-slate-200 leading-relaxed">
+              <p className="max-w-xl text-sm sm:text-base text-slate-100/95 leading-relaxed drop-shadow-xs">
                 귀엽고 세련된 캠퍼스 후드티부터 도서관 필수템 텀블러, VR 가상 옷입히기 피팅룸, 그리고 폐과잠 업사이클링 맞춤 제작까지! 충남대인을 위한 공식 굿즈 플랫폼을 만나보세요.
               </p>
-              <div className="flex flex-wrap items-center gap-3 pt-1">
+              <div className="flex flex-wrap items-center gap-3 pt-2">
                 <Link
                   href="/products"
-                  className="inline-flex items-center gap-2 rounded-2xl bg-sky-400 px-6 py-3.5 text-sm font-extrabold text-slate-950 shadow-lg shadow-sky-500/20 transition-transform hover:scale-[1.02] hover:bg-sky-300"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-sky-400 px-6 py-3.5 text-sm font-extrabold text-slate-950 shadow-lg shadow-sky-500/25 transition-transform hover:scale-[1.02] hover:bg-sky-300"
                 >
                   <span>쇼핑하기</span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/fitting"
-                  className="inline-flex items-center gap-2 rounded-2xl border border-sky-300/40 bg-white/15 px-5 py-3.5 text-sm font-bold text-white backdrop-blur-xs hover:bg-white/25"
+                  className="inline-flex items-center gap-2 rounded-2xl border border-sky-300/45 bg-slate-900/55 px-5 py-3.5 text-sm font-bold text-white backdrop-blur-md hover:bg-slate-900/75"
                 >
                   <Wand2 className="h-4 w-4 text-sky-300" />
                   <span>VR 가상 피팅룸 입장</span>
@@ -92,7 +105,7 @@ export default function StoreHomePage() {
                 <button
                   type="button"
                   onClick={() => setCommissionModalOpen(true)}
-                  className="inline-flex items-center gap-2 rounded-2xl border border-white/25 bg-white/10 px-5 py-3.5 text-sm font-bold text-white backdrop-blur-xs hover:bg-white/20"
+                  className="inline-flex items-center gap-2 rounded-2xl border border-white/30 bg-slate-900/45 px-5 py-3.5 text-sm font-bold text-white backdrop-blur-md hover:bg-slate-900/65"
                 >
                   <Edit3 className="h-4 w-4 text-amber-300" />
                   <span>맞춤 제작·과잠 리폼 의뢰</span>
@@ -100,27 +113,16 @@ export default function StoreHomePage() {
               </div>
             </div>
 
-            {/* Interactive ChaCha Virtual Exhibition Banner (from clothing-market) */}
-            <div className="lg:col-span-6">
-              <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-[#1A2648] shadow-2xl">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/chacha/hero_exhibition_1920x800.png"
-                  alt="CNU ChaCha Virtual Exhibition"
-                  className="w-full h-auto block object-cover"
-                />
-                {/* Clickable Overlays for "전시관 입장하기" and "VR로 둘러보기" */}
-                <Link
-                  href="/fitting"
-                  title="전시관 입장하기 (VR 가상 옷입히기)"
-                  className="absolute left-[5.5%] top-[72%] h-[16%] w-[16%] rounded-lg hover:bg-white/10 transition"
-                />
-                <Link
-                  href="/fitting"
-                  title="VR로 둘러보기 (VR 가상 피팅룸)"
-                  className="absolute right-[2.5%] top-[78%] h-[14%] w-[18%] rounded-lg hover:bg-white/10 transition"
-                />
-              </div>
+            {/* Right Column: Open view of CNU Clock Tower & ChaCha with a subtle floating caption badge */}
+            <div className="lg:col-span-5 flex lg:justify-end">
+              <Link
+                href="/fitting"
+                className="group inline-flex items-center gap-2.5 rounded-2xl border border-white/25 bg-slate-900/55 px-4 py-2.5 text-xs font-bold text-white backdrop-blur-md shadow-lg transition hover:bg-slate-900/75"
+              >
+                <span className="h-2 w-2 rounded-full bg-sky-400 animate-pulse" />
+                <span>CNU 중앙도서관 시계탑 광장 · 과잠 차차 코디 피팅해보기</span>
+                <ArrowRight className="h-3.5 w-3.5 text-sky-300 transition-transform group-hover:translate-x-0.5" />
+              </Link>
             </div>
           </div>
         </div>
