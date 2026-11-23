@@ -660,16 +660,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     medium_url: '/images/chacha/ai_outfit_graduation.jpg',
     large_url: '/images/chacha/ai_outfit_graduation.jpg',
     original_url: '/images/chacha/ai_outfit_graduation.jpg',
-    lifestyle_url: '/images/chacha/fitting_plush_graduation.png',
+    lifestyle_url: '/images/chacha/ai_outfit_basic.jpg',
     ai_enhanced_url: '/images/chacha/ai_outfit_graduation.jpg',
     is_ai_enhanced: false,
     legacy_lowres_url: '/images/products/legacy_original/prod_doll_s.png',
     gallery_images: [
       '/images/chacha/ai_outfit_graduation.jpg',
-      '/images/chacha/fitting_plush_graduation.png',
       '/images/chacha/ai_outfit_basic.jpg',
     ],
-    detail_images: ['/images/products/prod_doll_s.png'],
+    detail_images: ['/images/chacha/ai_outfit_graduation.jpg'],
     is_limited: true,
     status: 'on_sale',
     options: [
