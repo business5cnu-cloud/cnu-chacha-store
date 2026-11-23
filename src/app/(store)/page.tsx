@@ -465,7 +465,37 @@ export default function StoreHomePage() {
         </div>
       </section>
 
-      {/* 6. 브랜드 소개 (Brand Story & Benefits) */}
+      {/* 6. 추천 상품 (MD's PICK) */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="rounded-3xl bg-sky-50/80 border border-sky-100 p-6 sm:p-10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-2">
+            <div>
+              <div className="inline-flex items-center gap-1.5 text-xs font-extrabold text-cnu-navy uppercase">
+                <Heart className="h-4 w-4 text-rose-500 fill-rose-500" />
+                <span>MD&apos;S CAMPUS PICK</span>
+              </div>
+              <h2 className="mt-1 text-2xl font-black text-slate-900">
+                신입생 & 재학생 필수 추천 아이템
+              </h2>
+            </div>
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-1 text-sm font-bold text-cnu-navy hover:underline"
+            >
+              <span>전체 상품 구경하기</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {recommendedProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. 브랜드 소개 (Brand Story & Benefits - 하단 클로징 섹션 배치) */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10 shadow-sm">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-center">
@@ -505,36 +535,6 @@ export default function StoreHomePage() {
                 </p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. 추천 상품 (MD's PICK) */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-sky-50/80 border border-sky-100 p-6 sm:p-10">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-2">
-            <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-extrabold text-cnu-navy uppercase">
-                <Heart className="h-4 w-4 text-rose-500 fill-rose-500" />
-                <span>MD&apos;S CAMPUS PICK</span>
-              </div>
-              <h2 className="mt-1 text-2xl font-black text-slate-900">
-                신입생 & 재학생 필수 추천 아이템
-              </h2>
-            </div>
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-1 text-sm font-bold text-cnu-navy hover:underline"
-            >
-              <span>전체 상품 구경하기</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {recommendedProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
           </div>
         </div>
       </section>
