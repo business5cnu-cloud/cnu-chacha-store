@@ -55,22 +55,22 @@ export default function StoreHomePage() {
 
   return (
     <div className="space-y-14 pb-20">
-      {/* 1. 차차 캐릭터 메인 캠퍼스 히어로 배너 */}
-      <section className="relative overflow-hidden bg-[#0F1B33] text-white">
-        {/* Background Campus + ChaCha Image */}
+      {/* 1. 차차 캐릭터 메인 버추얼 전시관 & 굿즈샵 히어로 배너 */}
+      <section className="relative overflow-hidden bg-[#0B162C] text-white">
+        {/* Background Showroom + ChaCha Image (framed on center-right so skylight, ChaCha pedestal & CNU GOODS SHOP are all visible without overlapping left text) */}
         <div className="pointer-events-none absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/chacha/hero_campus_bg.jpg"
-            alt="충남대학교 캠퍼스 광장과 마스코트 차차"
-            className="h-full w-full object-cover object-[72%_center] sm:object-center"
+            alt="충남대학교 차차 공식 전시관 및 굿즈샵"
+            className="h-full w-full lg:w-[74%] lg:ml-auto object-cover object-[center_44%]"
           />
-          {/* Left-side gradient for crisp text readability while keeping the clock tower & ChaCha bright on the right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0B1528]/90 via-[#0F1E3A]/60 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1528]/50 via-transparent to-[#0B1528]/20" />
+          {/* Smooth left-to-right gradient blending the left text column into the showroom scene */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0B162C] via-[#0B162C]/80 lg:via-[#0B162C]/45 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B162C]/55 via-transparent to-[#0B162C]/20" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-28">
           <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-12">
             <div className="lg:col-span-7 space-y-5">
               <div className="inline-flex items-center gap-2 rounded-full bg-slate-900/55 px-4 py-1.5 text-xs font-bold text-sky-300 backdrop-blur-md border border-white/20 shadow-sm">
@@ -113,14 +113,14 @@ export default function StoreHomePage() {
               </div>
             </div>
 
-            {/* Right Column: Open view of CNU Clock Tower & ChaCha with a subtle floating caption badge */}
+            {/* Right Column: Open view of CNU ChaCha Showroom & ChaCha with a subtle floating caption badge */}
             <div className="lg:col-span-5 flex lg:justify-end">
               <Link
                 href="/fitting"
                 className="group inline-flex items-center gap-2.5 rounded-2xl border border-white/25 bg-slate-900/55 px-4 py-2.5 text-xs font-bold text-white backdrop-blur-md shadow-lg transition hover:bg-slate-900/75"
               >
                 <span className="h-2 w-2 rounded-full bg-sky-400 animate-pulse" />
-                <span>CNU 중앙도서관 시계탑 광장 · 과잠 차차 코디 피팅해보기</span>
+                <span>CNU CHA CHA 공식 쇼룸 &amp; 굿즈샵 · 과잠 차차 코디 피팅해보기</span>
                 <ArrowRight className="h-3.5 w-3.5 text-sky-300 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>
