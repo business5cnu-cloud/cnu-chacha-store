@@ -24,7 +24,6 @@ import {
   ChevronRight,
   Maximize2,
   Layers,
-  Split,
 } from 'lucide-react';
 import { useStore } from '@/hooks/useStore';
 import {
@@ -161,7 +160,6 @@ export default function ProductDetailPage() {
   const [hoverLensPos, setHoverLensPos] = useState({ x: 50, y: 50, active: false });
 
   const [zoomModalOpen, setZoomModalOpen] = useState(false);
-  const [comparisonModalOpen, setComparisonModalOpen] = useState(false);
   const [modalZoomScale, setModalZoomScale] = useState<number>(1);
   const [modalPan, setModalPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [isDraggingModal, setIsDraggingModal] = useState(false);
@@ -206,8 +204,6 @@ export default function ProductDetailPage() {
   const mainLargeUrl = product.large_url || product.original_url || `/images/products/large/${product.id}.png`;
   const mainThumbUrl = product.thumbnail_url || `/images/products/thumbnail/${product.id}.png`;
   const lifestyleUrl = product.lifestyle_url || `/images/products/lifestyle/${product.id}.png`;
-  const aiEnhancedUrl = product.ai_enhanced_url || `/images/products/ai_enhanced/${product.id}.png`;
-  const extraCharUrl = product.gallery_images?.[2] || '/images/chacha/fitting_varsity.jpg';
 
   const selectedHat =
     CUSTOM_DOLL_HAT_OPTIONS.find((h) => h.id === selectedHatId) ||
@@ -237,26 +233,6 @@ export default function ProductDetailPage() {
           thumbSrc: lifestyleUrl,
           resolutionText: '1600 × 2000 px · object-fit: cover (라이프스타일 룩북)',
           objectFit: 'cover',
-          isAiEnhanced: false,
-        },
-        {
-          id: 'ai-enhanced-tier',
-          label: 'AI 디테일 보정 그래픽 (1600×1600px)',
-          badge: 'AI 그래픽 보정',
-          largeSrc: aiEnhancedUrl,
-          thumbSrc: aiEnhancedUrl,
-          resolutionText: '1600 × 1600 px · AI 그래픽 보정 (외형/로고 왜곡 검수 완료)',
-          objectFit: 'contain',
-          isAiEnhanced: true,
-        },
-        {
-          id: 'chacha-art',
-          label: '뉴 차차 캐릭터 원화 (1024×1024px)',
-          badge: '1024×1024 원화',
-          largeSrc: extraCharUrl,
-          thumbSrc: extraCharUrl,
-          resolutionText: '1024 × 1024 px · object-fit: contain (무손실 공식 원화)',
-          objectFit: 'contain',
           isAiEnhanced: false,
         },
       ];
@@ -535,15 +511,6 @@ export default function ProductDetailPage() {
               >
                 <ZoomIn className="h-3.5 w-3.5" />
                 <span>{hoverZoomEnabled ? '돋보기 ON' : '돋보기 켜기'}</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setComparisonModalOpen(true)}
-                title="원본 vs 보정본 대조 확인"
-                className="inline-flex items-center gap-1 rounded-xl bg-white/95 px-3 py-1.5 text-xs font-extrabold text-violet-700 shadow-sm hover:bg-white"
-              >
-                <Split className="h-3.5 w-3.5" />
-                <span>원본 대조</span>
               </button>
               <button
                 type="button"
@@ -849,23 +816,13 @@ export default function ProductDetailPage() {
         </div>
       </div>
 
-      {/* Description & Policy Verification Section */}
+      {/* Description & Lookbook Section */}
       <section className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10 space-y-8">
-        <div className="border-b border-slate-200 pb-4 flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h2 className="text-xl font-black text-slate-900">상품 상세 정보 및 고해상도 룩북</h2>
-            <p className="mt-1 text-xs text-slate-500">
-              1600px 스튜디오 정면 컷과 1600×2000 캠퍼스 연출 화보를 고화질로 제공합니다.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={() => setComparisonModalOpen(true)}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-cnu-navy px-3.5 py-2 text-xs font-bold text-white hover:bg-cnu-blue"
-          >
-            <Split className="h-4 w-4" />
-            <span>원본 vs AI 보정본 대조</span>
-          </button>
+        <div className="border-b border-slate-200 pb-4">
+          <h2 className="text-xl font-black text-slate-900">상품 상세 정보 및 고해상도 룩북</h2>
+          <p className="mt-1 text-xs text-slate-500">
+            1600px 스튜디오 정면 컷과 1600×2000 캠퍼스 연출 화보를 고화질로 제공합니다.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
@@ -899,33 +856,6 @@ export default function ProductDetailPage() {
             </div>
           </div>
         </div>
-
-        {/* Policy 8: Legacy Preservation Notice */}
-        {product.legacy_lowres_url && (
-          <div className="rounded-2xl border border-amber-200 bg-amber-50/70 p-5 flex flex-col sm:flex-row items-center justify-between gap-5 text-xs text-amber-950">
-            <div className="space-y-1.5">
-              <p className="font-black text-sm flex items-center gap-1.5 text-amber-900">
-                <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
-                <span>기존 원본 보존 및 고화질 리소스 제공 안내</span>
-              </p>
-              <p className="leading-relaxed text-amber-800">
-                기존 파일({product.legacy_lowres_url})은 원본 해상도가 <strong>125×125px</strong>로 매우 낮아,
-                인위적 확대 시 발생할 수 있는 왜곡 및 블러를 방지하기 위해 기존 파일은{' '}
-                <code>legacy_original/</code>에 무손실 보존하고, 공식 1024px 원화 기반 1600px HD 리소스를 제공합니다.
-              </p>
-            </div>
-            <div className="shrink-0 flex flex-col items-center gap-1.5 rounded-2xl border border-amber-200 bg-white p-3">
-              <span className="text-[10px] font-extrabold text-slate-500">기존 원본 1:1 실제 크기 (125×125px)</span>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={product.legacy_lowres_url}
-                alt="기존 원본"
-                style={{ width: '125px', height: '125px', objectFit: 'contain' }}
-                className="rounded-lg border border-slate-100 bg-slate-50"
-              />
-            </div>
-          </div>
-        )}
       </section>
 
       {/* Customer Reviews */}
@@ -978,95 +908,6 @@ export default function ProductDetailPage() {
             ))}
           </div>
         </section>
-      )}
-
-      {/* Policy 6: Side-by-Side Comparison Inspector Modal (원본 vs AI 보정본 4대 검수) */}
-      {comparisonModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm select-none">
-          <div className="max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-3xl bg-white p-6 sm:p-8 shadow-2xl space-y-5">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-              <div>
-                <h3 className="text-base font-black text-slate-900 flex items-center gap-1.5">
-                  <Split className="h-4 w-4 text-violet-600" />
-                  <span>원본 vs AI 보정본 디테일 대조</span>
-                </h3>
-                <p className="text-xs text-slate-500">
-                  캐릭터 외형(실루엣), 색상, 로고, 제품 형태 왜곡 여부를 나란히 대조합니다.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setComparisonModalOpen(false)}
-                className="rounded-xl p-1.5 text-slate-400 hover:bg-slate-100"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-
-            {/* Split View */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 space-y-2">
-                <span className="font-extrabold text-xs text-slate-700 block">
-                  A. 원본 이미지 (Original · 1600×1600px)
-                </span>
-                <div className="aspect-square overflow-hidden rounded-xl bg-white border border-slate-200 flex items-center justify-center p-2">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={mainLargeUrl} alt="원본" className="h-full w-full object-contain" />
-                </div>
-                <span className="text-[11px] text-slate-400 block text-center">
-                  무변형 원본 그래픽 (Policy 2 & 8 보존)
-                </span>
-              </div>
-
-              <div className="rounded-2xl border border-violet-200 bg-violet-50/50 p-4 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="font-extrabold text-xs text-violet-900">
-                    B. AI 디테일 보정본 (AI Enhanced)
-                  </span>
-                  <span className="rounded-md bg-violet-200 px-2 py-0.5 text-[10px] font-black text-violet-800">
-                    AI 그래픽 보정
-                  </span>
-                </div>
-                <div className="aspect-square overflow-hidden rounded-xl bg-white border border-violet-200 flex items-center justify-center p-2">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={aiEnhancedUrl} alt="AI 보정본" className="h-full w-full object-contain" />
-                </div>
-                <span className="text-[11px] text-violet-600 block text-center">
-                  [정책 7] 실물 사진 오인 방지 배지 부착됨
-                </span>
-              </div>
-            </div>
-
-            {/* 4 Inspection Checkpoints (정책 6) */}
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 space-y-2 text-xs">
-              <p className="font-black text-slate-900">4대 검수 점검 항목:</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-700">
-                <div className="flex items-center gap-1.5 text-emerald-700 font-bold">
-                  <CheckCircle2 className="h-4 w-4" /> 1. 캐릭터 외형(실루엣, 귀/볼선) 변형 없음
-                </div>
-                <div className="flex items-center gap-1.5 text-emerald-700 font-bold">
-                  <CheckCircle2 className="h-4 w-4" /> 2. CNU 시그니처 네이비 및 고유 색상 일치
-                </div>
-                <div className="flex items-center gap-1.5 text-emerald-700 font-bold">
-                  <CheckCircle2 className="h-4 w-4" /> 3. 충남대학교 로고 및 텍스트 찌그러짐 없음
-                </div>
-                <div className="flex items-center gap-1.5 text-emerald-700 font-bold">
-                  <CheckCircle2 className="h-4 w-4" /> 4. 제품 본체 형태 및 비율 왜곡 없음
-                </div>
-              </div>
-            </div>
-
-            <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={() => setComparisonModalOpen(false)}
-                className="btn-primary text-xs"
-              >
-                검수 완료 및 닫기
-              </button>
-            </div>
-          </div>
-        </div>
       )}
 
       {/* Fullscreen High-Res Zoom Modal */}
