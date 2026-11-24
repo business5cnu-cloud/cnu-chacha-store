@@ -30,6 +30,7 @@ export interface ProductOption {
   option_name: string;
   option_value: string;
   additional_price: number;
+  image_url?: string;
 }
 
 export interface LimitedProductConfig {

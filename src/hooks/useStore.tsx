@@ -114,7 +114,7 @@ interface StoreContextType {
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
 const STORAGE_KEYS = {
-  PRODUCTS: 'cnu_chacha_products_v7',
+  PRODUCTS: 'cnu_chacha_products_v8',
   ORDERS: 'cnu_chacha_orders_v4',
   PROFILES: 'cnu_chacha_profiles_v4',
   MOVEMENTS: 'cnu_chacha_movements_v4',

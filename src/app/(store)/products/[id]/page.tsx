@@ -69,6 +69,32 @@ const CUSTOM_DOLL_OUTFIT_SLIDE_MAP: Record<string, string> = {
   'opt-cd-dungarees': 'doll-dungarees',
 };
 
+const OPTION_STUDIO_IMAGE_MAP: Record<string, string> = {
+  'opt-hoodie-m': '/images/products/options/opt-hoodie-m.png',
+  'opt-hoodie-l': '/images/products/options/opt-hoodie-l.png',
+  'opt-hoodie-xl': '/images/products/options/opt-hoodie-xl.png',
+  'opt-socks-navy': '/images/products/options/opt-socks-navy.png',
+  'opt-socks-white': '/images/products/options/opt-socks-white.png',
+  'opt-memo-grid': '/images/products/options/opt-memo-grid.png',
+  'opt-memo-todo': '/images/products/options/opt-memo-todo.png',
+  'opt-grip-smile': '/images/products/options/opt-grip-smile.png',
+  'opt-grip-grad': '/images/products/options/opt-grip-grad.png',
+  'opt-key-basic': '/images/products/options/opt-key-basic.png',
+  'opt-key-varsity': '/images/products/options/opt-key-varsity.png',
+  'opt-tum-navy': '/images/products/options/opt-tum-navy.png',
+  'opt-tum-ivory': '/images/products/options/opt-tum-ivory.png',
+  'opt-fig-single': '/images/products/options/opt-fig-single.png',
+  'opt-fig-box': '/images/products/options/opt-fig-box.png',
+  'opt-pouch-13': '/images/products/options/opt-pouch-13.png',
+  'opt-pouch-16': '/images/products/options/opt-pouch-16.png',
+  'opt-tb-blue': '/images/products/options/opt-tb-blue.png',
+  'opt-tb-navy': '/images/products/options/opt-tb-navy.png',
+  'opt-cf-cotton': '/images/products/options/opt-cf-cotton.png',
+  'opt-cf-woody': '/images/products/options/opt-cf-woody.png',
+  'opt-eco-ivory': '/images/products/options/opt-eco-ivory.png',
+  'opt-eco-navy': '/images/products/options/opt-eco-navy.png',
+};
+
 const CUSTOM_DOLL_OUTFIT_SLIDES: GallerySlide[] = [
   {
     id: 'doll-basic',
@@ -201,8 +227,21 @@ export default function ProductDetailPage() {
   }
 
   const isCustomDoll = product.id === 'prod-custom-doll';
-  const mainLargeUrl = product.large_url || product.original_url || `/images/products/large/${product.id}.png`;
-  const mainThumbUrl = product.thumbnail_url || `/images/products/thumbnail/${product.id}.png`;
+  const selectedOption =
+    product.options.find((o) => o.id === selectedOptionId) || product.options[0];
+  const optionStudioUrl =
+    !isCustomDoll && selectedOption
+      ? selectedOption.image_url || OPTION_STUDIO_IMAGE_MAP[selectedOption.id]
+      : undefined;
+  const mainLargeUrl =
+    optionStudioUrl ||
+    product.large_url ||
+    product.original_url ||
+    `/images/products/large/${product.id}.png`;
+  const mainThumbUrl =
+    optionStudioUrl ||
+    product.thumbnail_url ||
+    `/images/products/thumbnail/${product.id}.png`;
   const lifestyleUrl = product.lifestyle_url || `/images/products/lifestyle/${product.id}.png`;
 
   const selectedHat =
@@ -212,16 +251,26 @@ export default function ProductDetailPage() {
     CUSTOM_DOLL_ACC_OPTIONS.find((a) => a.id === selectedAccId) ||
     CUSTOM_DOLL_ACC_OPTIONS[0];
 
+  const hasMultipleOptions = product.options.length > 1;
+  const studioOptionSuffix =
+    hasMultipleOptions && selectedOption ? ` · ${selectedOption.option_value}` : '';
+
   const gallerySlides: GallerySlide[] = isCustomDoll
     ? CUSTOM_DOLL_OUTFIT_SLIDES
     : [
         {
           id: 'studio-main',
-          label: '스튜디오 정면 (1600×1600px)',
-          badge: '1600×1600 HD 원본',
+          label: `스튜디오 정면${studioOptionSuffix}`,
+          badge:
+            hasMultipleOptions && selectedOption
+              ? `옵션 · ${selectedOption.option_value}`
+              : '1600×1600 HD 원본',
           largeSrc: mainLargeUrl,
           thumbSrc: mainThumbUrl,
-          resolutionText: '1600 × 1600 px · object-fit: contain (원본 비율 보존)',
+          resolutionText:
+            hasMultipleOptions && selectedOption
+              ? `${selectedOption.option_name}: ${selectedOption.option_value} · 스튜디오 옵션 미리보기`
+              : '1600 × 1600 px · object-fit: contain (원본 비율 보존)',
           objectFit: 'contain',
           isAiEnhanced: false,
         },
@@ -258,8 +307,6 @@ export default function ProductDetailPage() {
     setZoomModalOpen(true);
   };
 
-  const selectedOption =
-    product.options.find((o) => o.id === selectedOptionId) || product.options[0];
   const baseEffectivePrice = getEffectivePrice(product.price, product.sale_price);
   const additionalPrice =
     (selectedOption?.additional_price || 0) +
@@ -462,7 +509,7 @@ export default function ProductDetailPage() {
                 mediumUrl={activeSlide.largeSrc}
                 largeUrl={activeSlide.largeSrc}
                 lifestyleUrl={activeSlide.largeSrc}
-                originalUrl={product.original_url}
+                originalUrl={activeSlide.largeSrc}
                 categoryName={product.category_name}
                 isLimited={product.is_limited}
                 variant={activeSlide.objectFit === 'cover' ? 'lifestyle' : 'detail'}
@@ -690,6 +737,8 @@ export default function ProductDetailPage() {
                 setSelectedOptionId(id);
                 if (isCustomDoll) {
                   jumpToSlideById(CUSTOM_DOLL_OUTFIT_SLIDE_MAP[id]);
+                } else {
+                  setActiveSlideIndex(0);
                 }
               }}
               quantity={quantity}
